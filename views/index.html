@@ -62,7 +62,7 @@
     <script src="/javascripts/app/services/personlocationResource.js"></script>
     <script src="/javascripts/app/services/dataService.js"></script>
 
-    <script src="/javascripts/app/directives/wwaDashboardDirective.js"></script>
+    <!--<script src="/javascripts/app/directives/wwaDashboardDirective.js"></script>-->
     <script src="/javascripts/app/directives/wwaGuidesDirective.js"></script>
     <script src="/javascripts/app/directives/wwaLocationsDirective.js"></script>
 <script src="/javascripts/angularproject/directives/mvp-locationdirectives.js"></script>
@@ -109,7 +109,7 @@
             <div ng-switch-when="authorized">
             <ps-framework title="Admin"
                           subtitle="Administrative Application"
-                          icon-file="/javascripts/images/kayak-icon-flat.png">
+                          icon-file="/javascripts/images/user.png">
                 <ps-menu>
                     <div ng-repeat="menu in menuItems">
                         <ps-menu-item ng-show="!menu.isGroup" label="{{menu.label}}" icon="{{menu.icon}}" route="{{menu.href}}"></ps-menu-item>
@@ -117,15 +117,7 @@
                             <ps-menu-item ng-repeat="submenu in menu.submenuItems" label="{{submenu.label}}" icon="{{submenu.icon}}" route="{{submenu.href}}"></ps-menu-item>
                         </ps-menu-group>
                     </div>
-                    <!--<ps-menu-item label="Dashboard" icon="fa-dashboard" route="dashboard"></ps-menu-item>-->
-                    <!--<ps-menu-item label="Locations" icon="fa-location-arrow" route="location"></ps-menu-item>-->
-                    <!--<ps-menu-item label="Raft Guides" icon="fa-user" route="guides"></ps-menu-item>
-                    <ps-menu-group label="Equipment" icon="fa-gears">
-                        <ps-menu-item label="Rafts" icon="fa-unlink" route="rafts"></ps-menu-item>
-                        <ps-menu-item label="Paddles" icon="fa-magic" route="paddles"></ps-menu-item>
-                        <ps-menu-item label="Life Vests" icon="fa-life-ring" route="vests"></ps-menu-item>
-                    </ps-menu-group>
-                    <ps-menu-item label="App Management" icon="fa-user" route="appmanagement"></ps-menu-item>                    -->
+                    
                 </ps-menu>
             </ps-framework>
             </div>
