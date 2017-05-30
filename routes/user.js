@@ -69,7 +69,7 @@ router.post('/user/create', function (req, res) {
                     username = obj[i].username;
                 }
             }
-            if(username != nul || username != "")
+            if(username != null || username != "")
             {
                 res.json({"success": false , "message": "Username is already taken"});
             }
