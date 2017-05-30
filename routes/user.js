@@ -54,7 +54,7 @@ router.post('/user/create', function (req, res) {
             if(err)
             if(err.message == "Key not found in database")
             {
-               listobj.push(users);
+               listobj.push(user);
             }
             else
             {
@@ -64,12 +64,12 @@ router.post('/user/create', function (req, res) {
             if(obj.lenght != 0)
             {
                 listobj = obj;
-                listobj.push(users);
+                listobj.push(user);
 
             }
             else
             {
-                listobj.push(users);
+                listobj.push(user);
             }
 
             userdb.put('user', listobj, function (err) {
