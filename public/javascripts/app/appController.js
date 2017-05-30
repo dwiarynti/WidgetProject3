@@ -1,11 +1,17 @@
 ﻿"use strict";
 
 angular.module('app').controller('appController',
-    ['$scope', '$rootScope', 'appmanagementResource',
-        function ($scope, $rootScope, appmanagementResource) {
+    ['$scope', '$rootScope', 'appmanagementResource', 'userResource',
+        function ($scope, $rootScope, appmanagementResource, userResource) {
+            var userresource = new userResource();            
             $scope.state = 'unauthorized';
             $scope.signIn = function () {
-                $scope.state = 'authorized';
+                userresource.$login(function(data){
+                    if(data.success){
+                        $scope.state = 'authorized';
+                    }
+                });
+                
             };
 
             $rootScope.addedNewApp = false;
