@@ -43,10 +43,10 @@ router.post('/user/create', function (req, res) {
         {
         var user = {
             id : generateid,
-            username: "dwi",
-            password : "123",
-            role :"admin",
-            pages : []
+            username: req.body.username,
+            password : req.body.password,
+            role :req.body.role,
+            pages : req.body.pages
         }  
         var listobj = [];
         userdb.get('user',function(err,obj)
