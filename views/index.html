@@ -90,7 +90,7 @@
 <body class="container-fluid" ng-controller="appController">
 
     <div ng-switch="state">
-        <div ng-switch-when="x unauthorized" class="sign-in-form">
+        <div ng-switch-when="unauthorized" class="sign-in-form">
             <h2>Widget Project Admin App</h2>
             <h4>Sign In</h4>
             <form>
@@ -105,7 +105,8 @@
             </form>
             <button class="btn btn-default" ng-click="signIn()">Sign In</button>
         </div>
-        <div ng-switch-default>
+        
+            <div ng-switch-when="authorized">
             <ps-framework title="Admin"
                           subtitle="Administrative Application"
                           icon-file="/javascripts/images/kayak-icon-flat.png">
@@ -127,7 +128,8 @@
                     <ps-menu-item label="App Management" icon="fa-user" route="appmanagement"></ps-menu-item>                    -->
                 </ps-menu>
             </ps-framework>
-        </div>
+            </div>
+        
     </div>
 
 
