@@ -7,8 +7,8 @@ var userdb = db.sublevel('user');
 
 var users = [
     {
-        id: 1,
-        username:'dwi',
+        id: "",
+        username:'qwe',
         password:'123',
         pages: [],
         role:{}
@@ -17,26 +17,32 @@ var users = [
 ]
 router.post('/user/create', function (req, res) {
 
-    var id = "";
+    var generateid ="";
     sequencedb.get('sequencenumberuser',function(err,no)
     {
          if (err)
-            if (err.message == "Key not found in database") {
+         {
+          if (err.message == "Key not found in database") {
                 var no = 0;
-                sequencedb.put('sequencenumberpersondevice', no, function (err, no) {
+                sequencedb.put('sequencenumberuser', no, function (err, id) {
                     if (err) res.json(500, err)
-                    else id = no + 1;
+                    else 
+                    generateid = id + 1;
                 });
             }
             else {
                 res.json(500, err);
             }
+         }
         else
-        id = no+1;
-        if(id != "")
+        {
+            generateid = no +1;
+        }
+
+        if(generateid != "")
         {
         var user = {
-            id : id,
+            id : generateid,
             username: req.body.username,
             password : req.body.password,
             role : req.body.role,
@@ -48,7 +54,7 @@ router.post('/user/create', function (req, res) {
             if(err)
             if(err.message == "Key not found in database")
             {
-               listobj.push(user);
+               listobj.push(users);
             }
             else
             {
@@ -58,12 +64,12 @@ router.post('/user/create', function (req, res) {
             if(obj.lenght != 0)
             {
                 listobj = obj;
-                listobj.push(user);
+                listobj.push(users);
 
             }
             else
             {
-                listobj.push(user);
+                listobj.push(users);
             }
 
             userdb.put('user', listobj, function (err) {
@@ -72,7 +78,8 @@ router.post('/user/create', function (req, res) {
         });
      });
     }
- });
+});
+        
 });
 
 router.post('/user/login',function(req,res)
