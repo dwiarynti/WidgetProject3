@@ -38,7 +38,8 @@ angular.module('app').controller('appController',
                     //         { label: 'Paddles', href: '/paddles', icon: 'fa-magic' }
                     //     ]
                     // },
-                    { label: 'App Management', href: '/appmanagement', icon: 'fa-user', isGroup: false, submenuItems: [] }
+                    { label: 'App Management', href: '/appmanagement', icon: 'fa-user', isGroup: false, submenuItems: [] },
+                    { label: 'User Management', href: '/usermanagement', icon: 'fa-user', isGroup: false, submenuItems: [] }
                 ];
 
                 var appmanagementresource = new appmanagementResource();

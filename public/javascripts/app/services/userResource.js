@@ -8,7 +8,10 @@
                { _id: '@_id' },
                {
                  login: {method:'POST', params:{action:'login'}},
-                 session: {method:'GET', params:{action:'session'}}
+                 session: {method:'GET', params:{action:'session'}},
+                 create: {method:'POST', params:{action:'create'}},
+                 getall: {method:'GET', params:{action:'getall'}},
+                 
                });
     }
 }());

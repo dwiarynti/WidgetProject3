@@ -32,7 +32,13 @@ angular.module('app').config(['$routeProvider', function ($routeProvider) {
             config: {
                 templateUrl: '/javascripts/angularproject/partialviews/previewpage.html'
             }
-        }
+        },
+        {
+            url: '/usermanagement',
+            config: {
+                templateUrl: '/javascripts/angularproject/partialviews/usermanagement.html'
+            }
+        },
     ];
 
     routes.forEach(function (route) {
