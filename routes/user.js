@@ -61,6 +61,20 @@ router.post('/user/create', function (req, res) {
                 res.json(500,err);
             }
             else
+            var username = {};
+            for(var i  = 0; i < obj.lenght ; i++)
+            {
+                if(obj[i].username == user.username )
+                {
+                    username = obj[i].username;
+                }
+            }
+            if(username != nul || username != "")
+            {
+                res.json({"success": false , "message": "Username is already taken"});
+            }
+            else
+            {
             if(obj.lenght != 0)
             {
                 listobj = obj;
@@ -75,8 +89,10 @@ router.post('/user/create', function (req, res) {
             userdb.put('user', listobj, function (err) {
             if (err) res.json(500, err);
             else res.json({ success: true });
-        });
+            });
+            }
      });
+        
     }
 });
         
