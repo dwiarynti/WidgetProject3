@@ -6,7 +6,9 @@ var express = require('express'),
   morgan = require('morgan'),
   cookieParser = require('cookie-parser'),
   bodyParser = require('body-parser'),
-  path = require('path');
+  path = require('path'),
+  session = require('express-session');
+
 
 
 //rocksdb
@@ -34,6 +36,7 @@ var user = require('./routes/user');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({secret: 'ssshhhhh'}));
 //
 
 // Routes (using rocksdb)
