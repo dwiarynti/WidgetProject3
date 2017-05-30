@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var session = require('express-session');
 var db = require('./connection');
 
 var userdb = db.sublevel('user');
@@ -37,7 +37,9 @@ router.post('/user/login',function(req,res)
         }
         if(result!= null || result!= "")
         {
-            res.json({"success": true,"obj": result});
+          
+            req.session.authorized = "authorized";
+            res.json({"success": true,"obj": session});
         }
         else
         {
@@ -45,6 +47,19 @@ router.post('/user/login',function(req,res)
             res.json({"success": false, "obj": message})
         }
     })
+});
+
+router.get('/user/session',function(req,res)
+{
+    
+    if(req.session.authorized)
+    {
+        res.json({"result": req.session.authorized})
+    }
+    else
+    {
+        res.json({"result": "unauthorized"});
+    }
 })
 
 
