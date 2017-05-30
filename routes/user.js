@@ -43,10 +43,10 @@ router.post('/user/create', function (req, res) {
         {
         var user = {
             id : generateid,
-            username: req.body.username,
-            password : req.body.password,
-            role : req.body.role,
-            pages : req.body.pages
+            username: "dwi",
+            password : "123",
+            role :"admin",
+            pages : []
         }  
         var listobj = [];
         userdb.get('user',function(err,obj)
@@ -61,15 +61,15 @@ router.post('/user/create', function (req, res) {
                 res.json(500,err);
             }
             else
-            var username = {};
-            for(var i  = 0; i < obj.lenght ; i++)
+            var username = "";
+            for(var i  = 0; i < obj.length ; i++)
             {
                 if(obj[i].username == user.username )
                 {
                     username = obj[i].username;
                 }
             }
-            if(username != null || username != "")
+            if(username != "")
             {
                 res.json({"success": false , "message": "Username is already taken"});
             }
