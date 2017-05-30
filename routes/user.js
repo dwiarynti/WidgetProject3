@@ -7,7 +7,7 @@ var userdb = db.sublevel('user');
 
 var users = [
     {
-        id: "",
+        id: 1,
         username:'qwe',
         password:'123',
         pages: [],
@@ -15,6 +15,49 @@ var users = [
     },
     
 ]
+
+// sequencedb.get('sequencenumberuser', function (err, persons) {
+//     if (err) {
+//         //console.log('person', err);
+//         if (err.message == "Key not found in database") {
+//             sequencedb.put('sequencenumberuser', person, function (err) {
+//                 console.log('sequencenumberuser data init');
+//             });
+//         }
+//     }
+// });
+
+router.post('/user/createuser',function(req,res)
+{
+    var generateid ="";
+    sequencedb.get('sequencenumberuser',function(err,no)
+    {
+         if (err)
+         {
+          if (err.message == "Key not found in database") {
+                var no = 0;
+                sequencedb.put('sequencenumberuser', no, function (err, id) {
+                    if (err) res.json(500, err)
+                    else 
+                    generateid = id + 1;
+                });
+            }
+            else {
+                res.json(500, err);
+            }
+         }
+         else{
+             generateid = no +1;
+         }
+        users.id = generateid;
+        userdb.put('user', users, function (err) {
+            if (err) res.json(500, err);
+            else res.json({ success: true });
+        });
+    })
+        
+    
+})
 router.post('/user/create', function (req, res) {
 
     var generateid ="";
