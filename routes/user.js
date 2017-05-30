@@ -18,7 +18,7 @@ var users = [
 router.post('/user/create', function (req, res) {
 
     var id = "";
-    sequencedb.get('sequencenumberuser',function()
+    sequencedb.get('sequencenumberuser',function(err,no)
     {
          if (err)
             if (err.message == "Key not found in database") {
