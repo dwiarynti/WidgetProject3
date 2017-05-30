@@ -13,6 +13,10 @@ angular.module('app').controller('appController',
                 });
                 
             };
+            userresource.$session(function(data){
+                $scope.state = data.result;
+            });
+
 
             $rootScope.addedNewApp = false;
 
