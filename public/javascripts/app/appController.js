@@ -11,8 +11,11 @@ angular.module('app').controller('appController',
                         $scope.state = 'authorized';
                     }
                 });
-                
             };
+
+            userresource.$session(function(data){
+                $scope.state = data.result;
+            });
 
             $rootScope.addedNewApp = false;
 

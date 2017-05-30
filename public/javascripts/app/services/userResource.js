@@ -7,7 +7,9 @@
         return $resource("/api/user/:action/:_id",
                { _id: '@_id' },
                {
-                 login: {method:'POST', params:{action:'login'}}
+                 login: {method:'POST', params:{action:'login'}},
+                 session: {method:'GET', params:{action:'session'}}
+                 
                });
     }
 }());
