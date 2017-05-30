@@ -10,13 +10,6 @@ angular.module('app').config(['$routeProvider', function ($routeProvider) {
             }
         },
         {
-            url: '/locations',
-            config: {
-                template: '<mvplocation></mvplocation>'
-                // template: '<wwa-locations></wwa-locations>'
-            }
-        },
-        {
             url: '/guides',
             config: {
                 template: '<wwa-guides></wwa-guides>'
@@ -46,6 +39,6 @@ angular.module('app').config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when(route.url, route.config);
     });
 
-    $routeProvider.otherwise({ redirectTo: '/dashboard' });
+    $routeProvider.otherwise({ redirectTo: '/appmanagement' });
 
 }]);

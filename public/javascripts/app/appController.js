@@ -20,14 +20,14 @@ angular.module('app').controller('appController',
             $scope.initMenu = function () {
 
                 $scope.menuItems = [
-                    { label: 'Dashboard', href: '/dashboard', icon: 'fa-dashboard', isGroup: false, submenuItems: [] },
-                    { label: 'Raft Guides', href: '/guides', icon: 'fa-user', isGroup: false, submenuItems: [] },
-                    {
-                        label: 'Equipment', href: '', icon: 'fa-gears', isGroup: true, submenuItems: [
-                            { label: 'Rafts', href: '/rafts', icon: 'fa-unlink' },
-                            { label: 'Paddles', href: '/paddles', icon: 'fa-magic' }
-                        ]
-                    },
+                    // { label: 'Dashboard', href: '/dashboard', icon: 'fa-dashboard', isGroup: false, submenuItems: [] },
+                    // { label: 'Raft Guides', href: '/guides', icon: 'fa-user', isGroup: false, submenuItems: [] },
+                    // {
+                    //     label: 'Equipment', href: '', icon: 'fa-gears', isGroup: true, submenuItems: [
+                    //         { label: 'Rafts', href: '/rafts', icon: 'fa-unlink' },
+                    //         { label: 'Paddles', href: '/paddles', icon: 'fa-magic' }
+                    //     ]
+                    // },
                     { label: 'App Management', href: '/appmanagement', icon: 'fa-user', isGroup: false, submenuItems: [] }
                 ];
 
