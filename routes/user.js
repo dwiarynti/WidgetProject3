@@ -71,7 +71,7 @@ router.post('/user/createuser',function(req,res)
 router.post('/user/create', function (req, res) {
 
     var generateid ="";
-    sequencedb.get('sequencenumberuser',function(err,no)
+    sequencedb.get('sequencenumberuser',function(err,sequence)
     {
          if (err)
          {
@@ -89,7 +89,7 @@ router.post('/user/create', function (req, res) {
          }
         else
         {
-            generateid = no +1;
+            generateid = sequence +1;
         }
 
         if(generateid != "")
@@ -97,8 +97,8 @@ router.post('/user/create', function (req, res) {
         var user = {
             id : generateid,
             username: req.body.username,
-            password : req.body.password,
-            role :req.body.role,
+            password :req.body.password,
+            role : req.body.role,
             pages : req.body.pages
         }  
         var listobj = [];
@@ -141,7 +141,12 @@ router.post('/user/create', function (req, res) {
 
             userdb.put('user', listobj, function (err) {
             if (err) res.json(500, err);
-            else res.json({ success: true });
+            else 
+            sequencedb.put('sequencenumberuser', generateid, function (err, no) {
+                            if (err) res.json(500, err)
+                            else
+                                res.json({ "success": true})
+                        });
             });
             }
      });
@@ -156,7 +161,7 @@ router.post('/user/login',function(req,res)
     var user = {"username": req.body.username,"password":req.body.password};
     userdb.get('user',function(err,datauser)
     {
-        var result = {};
+        var result = "";
         for(var i = 0 ; i < datauser.length;i++)
         {
             var element = datauser[i];
@@ -165,7 +170,7 @@ router.post('/user/login',function(req,res)
                 result = element;
             }
         }
-        if(result!= null || result!= "")
+        if(result!= "")
         {
           
             req.session.authorized = "authorized";
