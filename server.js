@@ -33,6 +33,8 @@ var device = require('./routes/device');
 var persondevice = require('./routes/persondevice');
 var personlocation = require('./routes/personlocation');
 var user = require('./routes/user');
+var auth = require('./routes/authenticationmanagement');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -57,6 +59,7 @@ app.use('/api',device);
 app.use('/api',persondevice);
 app.use('/api',personlocation);
 app.use('/api',user);
+app.use('/api',auth);
 //
 
 
