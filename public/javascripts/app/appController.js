@@ -30,12 +30,15 @@ angular.module('app').controller('appController',
             $scope.getSession = function(){
                 userresource.$session(function(data){
                     console.log(data);
-                    // if(){
-
-                    // }
                     $scope.state = data.result.authorized;
                     $scope.userobj.role = data.result.role
                     $scope.userobj.username = data.result.username;
+                    $scope.userobj.id = data.result.userid;
+                    if($scope.state == 'authorized' && $scope.userobj.role == "Admin"){
+                        $scope.initMenu();
+                    }else{
+                        $scope.getUserPage($scope.userobj.id);
+                    }
                     console.log($scope.state);
                 });
             }
