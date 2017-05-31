@@ -8,7 +8,7 @@ var userdb = db.sublevel('user');
 var users = [
     {
         id: 1,
-        username:'user5',
+        username:'admin',
         password:'123',
         pages: [
         {
