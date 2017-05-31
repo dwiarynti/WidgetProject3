@@ -180,7 +180,7 @@ router.post('/user/login',function(req,res)
             req.session.authorized = "authorized";
             req.session.username = result.username;
             req.session.role = result.role;
-            res.json({"success": true});
+            res.json({"success": true,"obj": result});
         }
         else
         {
@@ -199,11 +199,11 @@ router.get('/user/session',function(req,res)
         result.authorized = req.session.authorized;
         result.username = req.session.username;
         result.role = req.session.role;
-        res.json({"result": result})
+        res.json({"result": req.session.authorized,"obj":result})
     }
     else
     {
-        res.json({"result": "unauthorized"});
+       res.json({"result": {authorized:"unauthorized"}});
     }
 })
 
