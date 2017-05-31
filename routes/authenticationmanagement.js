@@ -34,11 +34,11 @@ router.post('/auth/update',function(req,res)
 {
    
     var auth = req.body.auth;
-    authmanagementdb.put('authmanagement',auth,function(err,data)
+    authmanagementdb.put('authmanagement',auth,function(err)
     {
         if(err) res.json(500,err);
         else
-        res.json({"success":true,"obj":data})
+        res.json({"success":true})
     })
 })
 module.exports = router;
