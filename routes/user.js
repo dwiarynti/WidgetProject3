@@ -222,6 +222,57 @@ router.get('/user/getall',function(req,res)
     })
 })
 
+router.get('/user/:_id',function(req,res)
+{
+    var id = req.params._id;
+    userdb.get('user',function(err,userlist)
+    {
+        if(err)
+        {
+            res.json(500,err);
+        }
+        else
+        {
+           var user ="";
+           for(var i = 0; i < userlist.length;i++)
+           {
+               if(userlist[i].id == id)
+               {
+                   user = userlist[i];
+               }
+           }
+           res.json({"success":true,"obj":user})
+        }
+    })
+})
+
+router.post('/user/update',function(req,res)
+{
+    var listobj = [];
+    userdb.get('user',function(err,obj)
+    {
+        if(err) res.json(500,err);
+        else
+        for(var i =0; i <obj.length;i++ )
+        {
+            if(obj[i].id == req.body.id)
+            {
+                obj[i].username = req.body.username;
+                obj[i].password = req.body.password;
+                obj[i].role = req.body.role;
+                obj[i].pages = req.body.pages;
+            }
+            listobj.push(obj[i]);
+        }
+        userdb.put('user',listobj,function(err)
+        {
+            if(err)
+            res.json(500,err);
+            else
+            res.json({"success":true,"obj":listobj})
+        })
+    })
+})
 
 
 module.exports = router;
