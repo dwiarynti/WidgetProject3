@@ -274,6 +274,31 @@ router.post('/user/update',function(req,res)
     })
 })
 
+router.post('/user/delete',function(req,res)
+{
+    var listobj = [];
+    userdb.get('user',function(err,obj)
+    {
+        if(err) res.json(500,err);
+        else
+        for(var i =0; i <obj.length;i++ )
+        {
+            if(obj[i].id != req.body.id)
+            {
+                listobj.push(obj[i]);
+            }
+           
+        }
+        userdb.put('user',listobj,function(err)
+        {
+            if(err)
+            res.json(500,err);
+            else
+            res.json({"success":true,"obj":listobj})
+        })
+    })
+})
+
 
 module.exports = router;
 
