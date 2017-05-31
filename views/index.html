@@ -96,6 +96,8 @@
             <h2>Widget Project Admin App</h2>
             <h4>Sign In</h4>
             <form>
+                <p ng-if="errmessage != ''" class="text-danger">* {{errmessage}}</p>
+
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" ng-model="loginobj.username" class="form-control"/>
