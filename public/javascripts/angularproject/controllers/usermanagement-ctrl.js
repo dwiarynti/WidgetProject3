@@ -13,6 +13,7 @@ angular.module('app').controller('usermanagementcontroller',
                 "pages":[]
             }
             $scope.selecteduser = {};
+            $scope.deleteuserid =0;
             $scope.errormessage = "";
             $scope.userlist = [];
             $scope.init = function(){
@@ -100,6 +101,7 @@ angular.module('app').controller('usermanagementcontroller',
 
             $scope.btnDeleteClick = function(obj){
                 $("#modal-delete").modal('show');
+                $scope.deleteuserid = obj.id;
             }
 
             $scope.isSelectedRole =function(roleA, roleB){
@@ -107,11 +109,28 @@ angular.module('app').controller('usermanagementcontroller',
             }
             
             $scope.Update = function(){
-
+                userresource.id = $scope.selecteduser.id;
+                userresource.username = $scope.selecteduser.username;
+                userresource.password= $scope.selecteduser.password;
+                userresource.role= $scope.selecteduser.role;
+                userresource.pages= $scope.selecteduser.pages
+                userresource.$update(function(data){
+                    if(data.success){
+                        $("#modal-edit").modal('hide');
+                        $scope.init();
+                    }
+                });
             }
 
             $scope.Delete = function(){
-                
+                userresource.id = $scope.deleteuserid;                
+                userresource.$delete(function(data){
+                    if(data.success){
+                        $("#modal-delete").modal('hide');
+                        $scope.init();
+                        
+                    }
+                });
             }
 
         }

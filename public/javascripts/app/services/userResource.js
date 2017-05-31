@@ -11,7 +11,8 @@
                  session: {method:'GET', params:{action:'session'}},
                  create: {method:'POST', params:{action:'create'}},
                  getall: {method:'GET', params:{action:'getall'}},
-                 
+                 update: {method:'POST', params:{action:'update'}},                 
+                 delete: {method:'POST', params:{action:'delete'}},                 
                });
     }
 }());

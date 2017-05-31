@@ -9,6 +9,7 @@ angular.module('app').controller('appController',
             $scope.loginobj = {username:"", password:""};
             $scope.menuItems = [];
             $scope.userobj = {};
+            $scope.errmessage = "";
             $scope.signIn = function () {
                 userresource.username = $scope.loginobj.username;
                 userresource.password = $scope.loginobj.password;
@@ -22,6 +23,8 @@ angular.module('app').controller('appController',
                         }else{
                             $scope.getUserPage(data.obj.id);
                         }
+                    }else{
+                        $scope.errmessage = data.obj;
                     }
                 });
                 
