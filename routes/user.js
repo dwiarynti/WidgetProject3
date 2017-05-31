@@ -118,7 +118,7 @@ router.post('/user/create', function (req, res) {
             }
             else
             {
-            if(obj.lenght != 0)
+            if(obj.length != 0)
             {
                 listobj = obj;
                 listobj.push(user);
@@ -171,8 +171,7 @@ router.post('/user/login',function(req,res)
 
 router.get('/user/session',function(req,res)
 {
-    
-    res.json({"result": "authorized"})
+    res.json({"result": "authorized"});
     // if(req.session.authorized)
     // {
     //     res.json({"result": req.session.authorized})
