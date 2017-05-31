@@ -5,7 +5,10 @@ angular.module('app').controller('appController',
         function ($scope, $rootScope, appmanagementResource, userResource) {
             var userresource = new userResource();            
             $scope.state = 'unauthorized';
+            $scope.loginobj = {username:"", password:""};
             $scope.signIn = function () {
+                userresource.username = $scope.loginobj.username;
+                userresource.password = $scope.loginobj.password;
                 userresource.$login(function(data){
                     if(data.success){
                         $scope.state = 'authorized';
