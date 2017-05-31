@@ -180,6 +180,7 @@ router.post('/user/login',function(req,res)
             req.session.authorized = "authorized";
             req.session.username = result.username;
             req.session.role = result.role;
+            req.session.userid = result.id;
             res.json({"success": true,"obj": result});
         }
         else
@@ -199,6 +200,7 @@ router.get('/user/session',function(req,res)
         result.authorized = req.session.authorized;
         result.username = req.session.username;
         result.role = req.session.role;
+        result.userid = req.session.userid;
         res.json({"result": result})
     }
     else
