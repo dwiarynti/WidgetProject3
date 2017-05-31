@@ -9,7 +9,7 @@ angular.module('app').controller('appController',
             $scope.state = 'unauthorized';
             $scope.loginobj = {username:"", password:""};
             $scope.menuItems = [];
-            $scope.userobj = {};
+            $scope.userobj = {"id":0,"authorized":"", "username":"", "role":""};
             $scope.errmessage = "";
             $scope.authenticationStatus = true;
 
@@ -29,7 +29,14 @@ angular.module('app').controller('appController',
 
             $scope.getSession = function(){
                 userresource.$session(function(data){
-                    $scope.state = data.result;
+                    console.log(data);
+                    // if(){
+
+                    // }
+                    $scope.state = data.result.authorized;
+                    $scope.userobj.role = data.result.role
+                    $scope.userobj.username = data.result.username;
+                    console.log($scope.state);
                 });
             }
 

@@ -199,11 +199,11 @@ router.get('/user/session',function(req,res)
         result.authorized = req.session.authorized;
         result.username = req.session.username;
         result.role = req.session.role;
-        res.json({"result": req.session.authorized,"obj":result})
+        res.json({"result": result})
     }
     else
     {
-       res.json({"result": "unauthorized"});
+       res.json({result: {authorized:"unauthorized"}});
     }
 })
 
