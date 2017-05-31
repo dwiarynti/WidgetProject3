@@ -5,6 +5,7 @@ var db = require('./connection');
 
 var appmanagementdb = db.sublevel('appmanagement');
 var sequencedb = db.sublevel('sequencenumber');
+var userdb = db.sublevel('user');
 
 appmanagementdb.get('appmanagement', function (err, app) {
     if (err) {
@@ -151,5 +152,69 @@ router.get('/appmanagement/:_id', function (req, res) {
         res.json({ "obj": item });
     });
 })
+
+router.get('/appmanagement/getbyuser/:_id',function(req,res)
+{
+    var userid = req.params._id;
+    appmanagementdb.get('appmanagement', function (err, management) {
+        if (err)
+            if (err.message == "Key not found in database") {
+                res.json({ "success": true, "message": "no data", "obj": [] });
+            }
+            else {
+                res.json(500, err);
+            }
+
+        else
+        userdb.get('user',function(err,data)
+        {
+            if(err)
+            {
+            if (err.message == "Key not found in database") {
+                res.json({"success": true, "message": "no data", "obj":[]})
+            }
+            else
+            {
+                res.json(500,err);
+            }
+            }
+            else
+            {
+               var user = "";
+               for(var a = 0; a< data.length;a++)
+               {
+                 if(data[a].id == userid)
+                 {
+                     user = data[a];
+                 }
+               }
+                var result = [];
+                var count = 0;
+                if(user!= "")
+                {
+                for(var i = 0 ; i < management.length; i++)
+                {
+                    for(var j= 0; j < user.pages.length;j++)
+                    {
+                        if(management[i].id == user.pages[j].id)
+                        {
+                            result.push(management[i]);
+                        }
+                    }
+                    count +=1;
+                }
+                if(count == management.length)
+                {
+                    res.json({"success":true, "obj": result});
+                }
+            }
+            else
+            {
+                res.json({"success":true, "obj": result});
+            }
+         }
+       });
+    });
+});
 
 module.exports = router;

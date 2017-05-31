@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-//var session = require('express-session');
+var session = require('express-session');
 var db = require('./connection');
 var sequencedb = db.sublevel('sequencenumberuser');
 var userdb = db.sublevel('user');
@@ -8,10 +8,20 @@ var userdb = db.sublevel('user');
 var users = [
     {
         id: 1,
-        username:'qwe',
+        username:'dwi',
         password:'123',
-        pages: [],
-        role:{}
+        pages: [
+        {
+            id:14
+        },
+        {
+            id:16
+        },
+        {
+            id:18
+        }
+        ],
+        role:"user"
     },
     
 ]
@@ -158,7 +168,7 @@ router.post('/user/login',function(req,res)
         if(result!= null || result!= "")
         {
           
-            //req.session.authorized = "authorized";
+            req.session.authorized = "authorized";
             res.json({"success": true,"obj": result});
         }
         else
@@ -171,15 +181,15 @@ router.post('/user/login',function(req,res)
 
 router.get('/user/session',function(req,res)
 {
-    res.json({"result": "authorized"});
-    // if(req.session.authorized)
-    // {
-    //     res.json({"result": req.session.authorized})
-    // }
-    // else
-    // {
-    //     res.json({"result": "unauthorized"});
-    // }
+    
+    if(req.session.authorized)
+    {
+        res.json({"result": req.session.authorized})
+    }
+    else
+    {
+        res.json({"result": "unauthorized"});
+    }
 })
 
 router.get('/user/getall',function(req,res)
