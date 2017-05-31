@@ -8,7 +8,7 @@ var userdb = db.sublevel('user');
 var users = [
     {
         id: 1,
-        username:'dwi',
+        username:'user5',
         password:'123',
         pages: [
         {
@@ -62,11 +62,15 @@ router.post('/user/createuser',function(req,res)
         users.id = generateid;
         userdb.put('user', users, function (err) {
             if (err) res.json(500, err);
-            else res.json({ success: true });
+            else 
+             sequencedb.put('sequencenumberuser', generateid, function (err, no) {
+                            if (err) res.json(500, err)
+                            else
+                                res.json({ "success": true})
+                        });
+          
         });
-    })
-        
-    
+    })   
 })
 router.post('/user/create', function (req, res) {
 
