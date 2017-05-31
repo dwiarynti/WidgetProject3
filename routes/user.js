@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var session = require('express-session');
+//var session = require('express-session');
 var db = require('./connection');
 var sequencedb = db.sublevel('sequencenumberuser');
 var userdb = db.sublevel('user');
@@ -147,7 +147,7 @@ router.post('/user/login',function(req,res)
     userdb.get('user',function(err,datauser)
     {
         var result = {};
-        for(var i = 0 ; i < datauser.lenght;i++)
+        for(var i = 0 ; i < datauser.length;i++)
         {
             var element = datauser[i];
             if(element.username == user.username && element.password == user.password)
@@ -158,8 +158,8 @@ router.post('/user/login',function(req,res)
         if(result!= null || result!= "")
         {
           
-            req.session.authorized = "authorized";
-            res.json({"success": true,"obj": session});
+            //req.session.authorized = "authorized";
+            res.json({"success": true,"obj": result});
         }
         else
         {
@@ -172,14 +172,15 @@ router.post('/user/login',function(req,res)
 router.get('/user/session',function(req,res)
 {
     
-    if(req.session.authorized)
-    {
-        res.json({"result": req.session.authorized})
-    }
-    else
-    {
-        res.json({"result": "unauthorized"});
-    }
+    res.json({"result": "authorized"})
+    // if(req.session.authorized)
+    // {
+    //     res.json({"result": req.session.authorized})
+    // }
+    // else
+    // {
+    //     res.json({"result": "unauthorized"});
+    // }
 })
 
 router.get('/user/getall',function(req,res)
