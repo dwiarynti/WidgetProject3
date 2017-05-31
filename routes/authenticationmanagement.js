@@ -22,8 +22,8 @@ router.get('/auth/init',function(req,res)
         }
         else
         {
-            auth = true;
-            res.json({"success":true,"obj": auth})
+           
+            res.json({"success":true,"obj": data})
 
         }
     })
@@ -33,7 +33,7 @@ router.get('/auth/init',function(req,res)
 router.post('/auth/update',function(req,res)
 {
    
-    var auth = req.body.auth;
+    var auth = true;
     authmanagementdb.put('authmanagement',auth,function(err)
     {
         if(err) res.json(500,err);
