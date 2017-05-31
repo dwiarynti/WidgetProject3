@@ -203,7 +203,7 @@ router.get('/user/session',function(req,res)
     }
     else
     {
-       res.json({"result": {authorized:"unauthorized"}});
+       res.json({"result": "unauthorized"});
     }
 })
 
