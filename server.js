@@ -36,7 +36,13 @@ var user = require('./routes/user');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({secret: 'ssshhhhh'}));
+
+app.use(session({
+  secret: 'ssshhhhh',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 //
 
 // Routes (using rocksdb)
