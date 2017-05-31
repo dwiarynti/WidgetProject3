@@ -196,7 +196,7 @@ router.get('/appmanagement/getbyuser/:_id',function(req,res)
                 {
                     for(var j= 0; j < user.pages.length;j++)
                     {
-                        if(management[i].id == user.pages[j].id)
+                        if(management[i].id == user.pages[j])
                         {
                             result.push(management[i]);
                         }
