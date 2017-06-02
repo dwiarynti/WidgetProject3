@@ -160,6 +160,95 @@ router.post('/user/create', function (req, res) {
         
 });
 
+router.post('/user/register', function (req, res) {
+
+    var generateid ="";
+    sequencedb.get('sequencenumberuser',function(err,sequence)
+    {
+         if (err)
+         {
+          if (err.message == "Key not found in database") {
+                var no = 0;
+                sequencedb.put('sequencenumberuser', no, function (err, id) {
+                    if (err) res.json(500, err)
+                    else 
+                    generateid = id + 1;
+                });
+            }
+            else {
+                res.json(500, err);
+            }
+         }
+        else
+        {
+            generateid = sequence +1;
+        }
+
+        if(generateid != "")
+        {
+        var user = {
+            id : generateid,
+            username: req.body.username,
+            password :req.body.password,
+            role : "User",
+            pages : [],
+        }  
+        var listobj = [];
+        userdb.get('user',function(err,obj)
+        {
+            if(err)
+            if(err.message == "Key not found in database")
+            {
+               listobj.push(user);
+            }
+            else
+            {
+                res.json(500,err);
+            }
+            else
+            var username = "";
+            for(var i  = 0; i < obj.length ; i++)
+            {
+                if(obj[i].username == user.username )
+                {
+                    username = obj[i].username;
+                }
+            }
+            if(username != "")
+            {
+                res.json({"success": false , "message": "Username is already taken"});
+            }
+            else
+            {
+            if(obj.length != 0)
+            {
+                listobj = obj;
+                listobj.push(user);
+
+            }
+            else
+            {
+                listobj.push(user);
+            }
+
+            userdb.put('user', listobj, function (err) {
+            if (err) res.json(500, err);
+            else 
+            sequencedb.put('sequencenumberuser', generateid, function (err, no) {
+                            if (err) res.json(500, err)
+                            else
+                                res.json({ "success": true})
+                        });
+            });
+            }
+     });
+        
+    }
+});
+        
+});
+
+
 router.post('/user/login',function(req,res)
 {
     var user = {"username": req.body.username,"password":req.body.password};
