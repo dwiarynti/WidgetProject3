@@ -18,7 +18,7 @@ angular.module('app').config(['$routeProvider', function ($routeProvider) {
         {
             url: '/home',
             config: {
-                template: '<div>WELCOME</div>'
+                template: '<div><h1>WELCOME</h1></div>'
             }
         },
         {

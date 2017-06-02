@@ -65,14 +65,14 @@ angular.module('app').controller('appController',
             };
 
             $scope.signUp = function(){
-                $scope.registerobj
                 userresource.username = $scope.registerobj.username;
                 userresource.password = $scope.registerobj.password;
                 userresource.$register(function(data){
                     console.log(data);
                     if(data.success){
                         $scope.state = 'authorized';
-                        $scope.errmessage = "";                        
+                        $scope.errmessage = "";         
+                        $scope.loginobj = $scope.registerobj;           
                     }else{
                         $scope.errmessage = data.message;
                     }
