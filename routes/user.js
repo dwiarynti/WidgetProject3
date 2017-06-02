@@ -191,6 +191,13 @@ router.post('/user/login',function(req,res)
     })
 });
 
+router.post('/user/logout',function(req,res)
+{
+    req.session.destroy();
+    res.json({result: {authorized:"unauthorized"}});
+
+})
+
 router.get('/user/session',function(req,res)
 {
     
