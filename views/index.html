@@ -25,14 +25,15 @@
     
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>-->
     <script src="/javascripts/Scripts/angular.min.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.min.js"></script>-->
     <script src="/javascripts/Scripts/angular-animate.min.js"></script>
     <script src="/javascripts/Scripts/angular-route.min.js"></script>
     <script src="/javascripts/Scripts/angular-resource.js"></script>    
     <script src="/javascripts/Scripts/angular-gridster.min.js"></script>
     <script src="/javascripts/Scripts/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.0/ui-bootstrap-tpls.min.js"></script>
     <!--<script src="/javascripts/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>-->
     <script src="/javascripts/Scripts/ngStorage.min.js"></script>
-<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
     <script src="/javascripts/app/services/common.service.js"></script>
 
     <script src="/javascripts/dist/psFramework.js"></script>
@@ -94,10 +95,10 @@
     <!--<script src="/javascripts/angularproject/dialog/mvp-person/mvp-person-dialog-ctrl.js"></script>-->
 
 </head>
-<body class="container-fluid" ng-controller="appController">
+<body class="container-fluid" ng-controller="appController" ng-style="state == 'unauthorized'?{'background-color':'#eee'}:{}">
 
     <div ng-switch="state">
-        <div class="row" style="background-color: #eee;">
+        <div class="row" >
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 <div ng-switch-when="unauthorized" class="sign-in-form">
