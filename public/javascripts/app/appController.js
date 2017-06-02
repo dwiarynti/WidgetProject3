@@ -57,6 +57,8 @@ angular.module('app').controller('appController',
                         }else{
                             $scope.getUserPage(data.obj.id);
                         }
+                        $scope.errmessage = "";         
+                        
                     }else{
                         $scope.errmessage = data.obj;
                     }
@@ -82,6 +84,7 @@ angular.module('app').controller('appController',
             $scope.getUserPage = function(userid){
                 appmanagementresource.$getbyuser({_id:userid},function(data){
                     console.log(data);
+                    $scope.menuItems=[];
                     angular.forEach(data.obj, function (obj) {
                         $scope.menuItems.push({
                             label: obj.pagename, href: '/prevpage/' + obj.id, icon: 'fa-dashboard', isGroup: false, submenuItems: []
@@ -122,7 +125,7 @@ angular.module('app').controller('appController',
                     // },
                     { label: 'App Management', href: '/appmanagement', icon: 'fa-user', isGroup: false, submenuItems: [] },
                     { label: 'User Management', href: '/usermanagement', icon: 'fa-user', isGroup: false, submenuItems: [] },
-                    { label: 'Auth Setting', href: '/authsetting', icon: 'fa-user', isGroup: false, submenuItems: [] }
+                    { label: 'Auth Setting', href: '/authsetting', icon: 'fa-wrench', isGroup: false, submenuItems: [] }
                 ];
 
 

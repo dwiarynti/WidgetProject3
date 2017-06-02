@@ -9,6 +9,7 @@ ps-dashboard {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     background-color: white;
     overflow: hidden;
+    border-radius: 1%;
 }
 
 .ps-widget-header {
