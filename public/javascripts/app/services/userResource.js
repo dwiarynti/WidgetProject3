@@ -14,6 +14,7 @@
                  update: {method:'POST', params:{action:'update'}},                 
                  delete: {method:'POST', params:{action:'delete'}},                 
                  logout: {method:'POST', params:{action:'logout'}},                 
+                 register: {method:'POST', params:{action:'register'}},                 
                });
     }
 }());

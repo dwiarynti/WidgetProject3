@@ -4,12 +4,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Widget Project</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link href="/javascripts/Content/bootstrap.min.css" rel="stylesheet" />
+    <!--<link href="/javascripts/Content/bootstrap.min.css" rel="stylesheet" />-->
     <link href="/javascripts/Content/font-awesome.min.css" rel="stylesheet" />
     <link href="/javascripts/Content/angular-gridster.min.css" rel="stylesheet" />
     <link href="/javascripts/Content/AdminLTE.css" rel="stylesheet" />
     <link href="/javascripts/app/app.css" rel="stylesheet" />
     <link href="/javascripts/dist/psFramework.css" rel="stylesheet" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    
 
     <!-- widget css -->
     <link href="/javascripts/app/widgets/wwaTemperature/wwaTemperature.css" rel="stylesheet" />
@@ -28,9 +30,9 @@
     <script src="/javascripts/Scripts/angular-resource.js"></script>    
     <script src="/javascripts/Scripts/angular-gridster.min.js"></script>
     <script src="/javascripts/Scripts/bootstrap.min.js"></script>
-    <script src="/javascripts/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <!--<script src="/javascripts/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>-->
     <script src="/javascripts/Scripts/ngStorage.min.js"></script>
-
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
     <script src="/javascripts/app/services/common.service.js"></script>
 
     <script src="/javascripts/dist/psFramework.js"></script>
@@ -95,23 +97,61 @@
 <body class="container-fluid" ng-controller="appController">
 
     <div ng-switch="state">
-        <div ng-switch-when="unauthorized" class="sign-in-form">
-            <h2>Widget Project Admin App</h2>
-            <h4>Sign In</h4>
-            <form>
-                <p ng-if="errmessage != ''" class="text-danger">* {{errmessage}}</p>
+        <div class="row" style="background-color: #eee;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div ng-switch-when="unauthorized" class="sign-in-form">
+                            <h2>Widget Project Admin App</h2>
+                            <uib-tabset style="background-color: white;">
+                            <uib-tab class="tab-users">
+                                <uib-tab-heading>
+                                    <i class="fa fa-fw fa-users"></i> Login
+                                </uib-tab-heading>
+                                <form style="margin:1%">
+                                    <h1>Login</h1>
+                                    <p ng-if="errmessage != ''" class="text-danger">* {{errmessage}}</p>
 
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" ng-model="loginobj.username" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" ng-model="loginobj.password" class="form-control"/>
-                </div>
-            </form>
-            <button class="btn btn-default" ng-click="signIn()">Sign In</button>
+                                    <div class="form-group">
+                                        <label>Username</label>
+                                        <input type="text" ng-model="loginobj.username" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" ng-model="loginobj.password" class="form-control"/>
+                                    </div>
+                                    <button class="btn btn-default" ng-click="signIn()">Sign In</button>                
+                                </form>
+                                    <br>
+                                
+                            </uib-tab>
+                            <uib-tab class="tab-users">
+                                <uib-tab-heading>
+                                    <i class="fa fa-fw fa-users"></i> Register
+                                </uib-tab-heading>
+                                <form style="margin:1%">
+                                    <h1>Register</h1>
+                                    <p ng-if="errmessage != ''" class="text-danger">* {{errmessage}}</p>
+
+                                    <div class="form-group">
+                                        <label>Username</label>
+                                        <input type="text" ng-model="registerobj.username" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" ng-model="registerobj.password" class="form-control"/>
+                                    </div>
+                                    <button class="btn btn-default" ng-click="signUp()">Sign Up</button>                
+                                    
+                                    
+                                </form>
+                                <br>
+                                
+                            </uib-tab>
+                            </uib-tabset>
+                        </div>
+            </div>
         </div>
+        
         
             <div ng-switch-when="authorized">
             <ps-framework title="Admin"

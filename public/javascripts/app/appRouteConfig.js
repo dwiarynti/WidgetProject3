@@ -16,6 +16,12 @@ angular.module('app').config(['$routeProvider', function ($routeProvider) {
             }
         },
         {
+            url: '/home',
+            config: {
+                template: '<div>WELCOME</div>'
+            }
+        },
+        {
             url: '/appmanagement',
             config: {
                 templateUrl: '/javascripts/angularproject/partialviews/appmanagement.html'
@@ -51,6 +57,6 @@ angular.module('app').config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when(route.url, route.config);
     });
 
-    $routeProvider.otherwise({ redirectTo: '/appmanagement' });
+    $routeProvider.otherwise({ redirectTo: '/home' });
 
 }]);

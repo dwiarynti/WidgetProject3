@@ -91,3 +91,39 @@
     font-size: 15px;
     line-height: 32px;
 }
+
+.tab-users,
+.tab-chats,
+.tab-settings{
+  width: 50%;
+}
+
+.nav>li {
+  background-color: #CECECE;
+  color: #FFF;
+  font-size: 1em;
+  text-align: center;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+  background-color: #67c0ea;
+  border: none;
+  color: #FFF;
+}
+
+.nav-tabs>li>a {
+  border: none;
+  border-radius: 0;
+  color: #FFF;
+  margin: 0;
+}
+
+.nav-tabs>li>a:focus,
+.nav-tabs>li>a:hover {
+  background-color: #3c8dbc;
+  border: none;
+  border-radius: 0;
+  color: #FFF;
+}

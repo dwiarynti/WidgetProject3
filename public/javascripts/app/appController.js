@@ -8,6 +8,7 @@ angular.module('app').controller('appController',
             var authsettingresource = new authsettingResource();                    
             $scope.state = 'unauthorized';
             $scope.loginobj = {username:"", password:""};
+            $scope.registerobj = {username:"", password:""};
             $scope.menuItems = [];
             $scope.userobj = {"id":0,"authorized":"", "username":"", "role":""};
             $scope.errmessage = "";
@@ -62,6 +63,21 @@ angular.module('app').controller('appController',
                 });
                 
             };
+
+            $scope.signUp = function(){
+                $scope.registerobj
+                userresource.username = $scope.registerobj.username;
+                userresource.password = $scope.registerobj.password;
+                userresource.$register(function(data){
+                    console.log(data);
+                    if(data.success){
+                        $scope.state = 'authorized';
+                        $scope.errmessage = "";                        
+                    }else{
+                        $scope.errmessage = data.message;
+                    }
+                });                
+            }
 
             $scope.getUserPage = function(userid){
                 appmanagementresource.$getbyuser({_id:userid},function(data){
