@@ -35,6 +35,7 @@ angular.module('app').controller('appController',
                     $scope.userobj.role = data.result.role
                     $scope.userobj.username = data.result.username;
                     $scope.userobj.id = data.result.userid;
+                    $scope.loginobj.username = data.result.username;
                     if($scope.state == 'authorized' && $scope.userobj.role == "Admin"){
                         $scope.initMenu();
                     }else{
