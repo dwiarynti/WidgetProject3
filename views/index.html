@@ -99,25 +99,17 @@
 
     <div ng-switch="state" >
         <div class="row" >
-        <div ng-switch-when="unauthorized" class="sign-in-form">        
-			<div class="col-md-6 col-md-offset-3">
-				<div class="panel panel-login">
-					<div class="panel-heading">
-						<div class="row">
-							<h2>MVP POC</h2>
-						</div>
-						<hr>
-					</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-lg-12">
-								<uib-tabset style="background-color: white;" class="rounded">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div ng-switch-when="unauthorized" class="sign-in-form">
+                            <h2>MVP POC</h2>
+                            <uib-tabset style="background-color: white;" class="rounded">
                             <uib-tab class="tab-users">
                                 <uib-tab-heading>
                                     <i class="fa fa-fw fa-sign-in"></i> Login
                                 </uib-tab-heading>
                                 <form style="margin:1%">
-                                    <h3 class="text-center">Login</h1>
+                                    <h1>Login</h1>
                                     <p ng-if="errmessage != ''" class="text-danger">* {{errmessage}}</p>
 
                                     <div class="form-group">
@@ -138,7 +130,7 @@
                                     <i class="fa fa-fw fa-pencil-square-o"></i> Register
                                 </uib-tab-heading>
                                 <form style="margin:1%">
-                                    <h3 class="text-center">Register</h1>
+                                    <h1>Register</h1>
                                     <p ng-if="errmessage != ''" class="text-danger">* {{errmessage}}</p>
 
                                     <div class="form-group">
@@ -157,12 +149,7 @@
                                 
                             </uib-tab>
                             </uib-tabset>
-							</div>
-						</div>
-					</div>
-				</div>
-			
-                </div>
+                        </div>
             </div>
         </div>
         
