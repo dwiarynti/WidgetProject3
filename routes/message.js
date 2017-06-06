@@ -32,8 +32,8 @@ router.post('/message/create',function(req,res)
             "id" : generateid,
             "datetime" : req.body.datetime,
             "topic" : req.body.topic,
-            "siteid" : "001",
-            "locationid": "003"
+            "siteid" : req.body.siteid,
+            "locationid": req.body.locationid
         }
         var listobj =[];
         messagedb.get('message',function(err,obj)
