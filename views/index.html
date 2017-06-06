@@ -4,7 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Widget Project</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link href="/javascripts/Content/bootstrap.min.css" rel="stylesheet" />
+    <!--<link href="/javascripts/Content/bootstrap.min.css" rel="stylesheet" />-->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="/javascripts/Content/font-awesome.min.css" rel="stylesheet" />
     <link href="/javascripts/Content/angular-gridster.min.css" rel="stylesheet" />
     <!--<link href="/javascripts/Content/AdminLTE.css" rel="stylesheet" />-->
@@ -20,18 +21,21 @@
     <link href="/javascripts/angularproject/css/mvp.css" rel="stylesheet" />
     <!--<link href="/javascripts/angularproject/css/mvp-person.css" rel="stylesheet" />-->
     <link href="/javascripts/angularproject/css/common.css" rel="stylesheet" />
+    <link href="/javascripts/angularproject/css/notification.css" rel="stylesheet" />
 
     <script src="/javascripts/Scripts/jquery-2.1.3.min.js"></script>
     
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>-->
     <script src="/javascripts/Scripts/angular.min.js"></script>
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.min.js"></script>-->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-sanitize.js"></script>
     <script src="/javascripts/Scripts/angular-animate.min.js"></script>
     <script src="/javascripts/Scripts/angular-route.min.js"></script>
     <script src="/javascripts/Scripts/angular-resource.js"></script>    
     <script src="/javascripts/Scripts/angular-gridster.min.js"></script>
     <script src="/javascripts/Scripts/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.0/ui-bootstrap-tpls.min.js"></script>-->
     <!--<script src="/javascripts/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>-->
     <script src="/javascripts/Scripts/ngStorage.min.js"></script>
     <script src="/javascripts/app/services/common.service.js"></script>
@@ -44,6 +48,7 @@
     <script src="/javascripts/app/appController.js"></script>
     <script src="/javascripts/angularproject/controllers/appmanagement-ctrl.js"></script>    
     <script src="/javascripts/angularproject/controllers/usermanagement-ctrl.js"></script>    
+    <script src="/javascripts/angularproject/controllers/notificationmanagement-ctrl.js"></script>    
     <script src="/javascripts/angularproject/controllers/authsetting-ctrl.js"></script>    
     <script src="/javascripts/angularproject/controllers/appcomposer-ctrl.js"></script>    
     <script src="/javascripts/angularproject/controllers/mvp-location-ctrl.js"></script>
@@ -61,7 +66,8 @@
     <script src="/javascripts/app/services/locationResource.js"></script>    
     <script src="/javascripts/app/services/widgetResource.js"></script>    
     <script src="/javascripts/app/services/locationsiteResource.js"></script>    
-    <script src="/javascripts/app/services/appmanagementResource.js"></script>    
+    <script src="/javascripts/app/services/appmanagementResource.js"></script>     
+    <script src="/javascripts/app/services/notificationmanagementResource.js"></script>     
     <script src="/javascripts/app/services/authsettingResource.js"></script>    
     <script src="/javascripts/app/services/personResource.js"></script>    
     <script src="/javascripts/app/services/deviceResource.js"></script>
@@ -182,6 +188,13 @@
         
     </div>
 
+    <script type="text/ng-template" id="tpl.html">
+        <div class="popover-content">
+<div>
+        <p >iuggig</p>
+    </div>
+        </div> 
+        </script>
 
 </body>
 </html>

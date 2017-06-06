@@ -126,7 +126,8 @@ angular.module('app').controller('appController',
                     // },
                     { label: 'App Management', href: '/appmanagement', icon: 'fa-user', isGroup: false, submenuItems: [] },
                     { label: 'User Management', href: '/usermanagement', icon: 'fa-user', isGroup: false, submenuItems: [] },
-                    { label: 'Auth Setting', href: '/authsetting', icon: 'fa-wrench', isGroup: false, submenuItems: [] }
+                    { label: 'Auth Setting', href: '/authsetting', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
+                    { label: 'Notification Management', href: '/notificationmanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] }
                 ];
 
 

@@ -46,6 +46,12 @@ angular.module('app').config(['$routeProvider', function ($routeProvider) {
             }
         },
         {
+            url: '/notificationmanagement',
+            config: {
+                templateUrl: '/javascripts/angularproject/partialviews/notificationmanagement.html'
+            }
+        },
+        {
             url: '/authsetting',
             config: {
                 templateUrl: '/javascripts/angularproject/partialviews/authsetting.html'
