@@ -170,7 +170,7 @@ router.get('/message/getall',function(req,res)
                                     }
                                 }
                             }
-                            res.json({"success":true,"obj":listmessage});
+                            res.json({"success":true,"obj":listmessage[0]});
                         }
                      });
 
