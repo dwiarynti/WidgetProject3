@@ -1,13 +1,13 @@
 <div ng-controller="notificationmanagementcontroller" style="color:black">
     <ul style="list-style-type: none;padding: 0px;">
-        <li ng-repeat="notification in notificationList" >
+        <li class="alert_li" ng-repeat="notification in notificationList" >
             <p>
                 {{notification.topic}}
             </p>
             <p>
-                {{notification.datetime}}
+                {{notification.datetime | date:'yyyy-MMM-dd HH:mm'}}
             </p>
-            <hr>
+            <!--<hr>-->
         </li>
     </ul>
 </div>

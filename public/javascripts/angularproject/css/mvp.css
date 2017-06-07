@@ -129,3 +129,10 @@
   border-radius: 0;
   color: #FFF;
 }
+li.alert_li {
+  /*font-size: 11px; */
+  color:grey;
+  padding:10px 0px 2px 0px;
+  border-bottom: thin solid #c0c0c0;
+}
+li.alert_li:hover{background-color:#eee}

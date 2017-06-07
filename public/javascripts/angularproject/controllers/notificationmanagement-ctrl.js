@@ -16,6 +16,7 @@ angular.module('app').controller('notificationmanagementcontroller',
                         obj.datetimeORI = obj.datetime;
                     }, this);
                     $scope.notificationList= data.obj;
+                    $scope.$parent.$parent.notificationList = data.obj;
                 });
                 locationsiteresource.$init({_id:siteid}, function(data){
                     // console.log(data);                    
