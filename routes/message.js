@@ -624,6 +624,57 @@ router.post('/message/update/',function(req,res)
         
 });
 
+router.post('/message/delete/',function(req,res)
+{
+    var listmessage = [];
+    messagedb.get('message',function(err,messages)
+    {
+        if(err)
+        {
+            if(err.message == "Key not found in database")
+            {
+                res.json({"success":true , "obj":[]})
+            }
+            else
+            {
+                res.json(500,err);
+            }
+        }
+        else
+        {
+            if(messages.length > 0)
+            {
+                for(var i = 0 ; i < messages.length;i++)
+                {
+                    if(messages[i].id != req.body.id)
+                    {
+                       listmessage.push(messages[i]);
+                    }
+                }
+            }
+            else{
+            if (messages.id != req.body.id)
+             {
+                   listmessage.push(messages);
+             }
+            }
+
+            messagedb.put('message',listmessage,function(err)
+            {
+                if(err)
+                {
+                    res.json(500,err);
+                }
+                else
+                {
+                     res.json({ "success": true });
+                }
+            })
+        }
+    });
+        
+});
+
 
 
 module.exports = router;
