@@ -508,7 +508,121 @@ router.get('/message/getbyid/:_id',function(req,res)
             
         }
     });
-})
+});
+
+
+router.post('/message/update/',function(req,res)
+{
+    messagedb.get('message',function(err,messages)
+    {
+        if(err)
+        {
+            if(err.message == "Key not found in database")
+            {
+                res.json({"success":true , "obj":[]})
+            }
+            else
+            {
+                res.json(500,err);
+            }
+        }
+        else
+        {
+            if(messages.length > 0)
+            {
+                for(var i = 0 ; i < messages.length;i++)
+                {
+                    if(messages[i].id == req.body.id)
+                    {
+                       messages[i].datetime = req.body.datetime;
+                       messages[i].topic = req.body.topic;
+                       messages[i].siteid = req.body.siteid;
+                       messages[i].locationid = req.body.locationid;
+                    }
+                }
+            }
+            else{
+            if (messages.id == req.body.id)
+             {
+                    messages.datetime = req.body.datetime;
+                    messages.topic = req.body.topic;
+                    messages.siteid = req.body.siteid;
+                    messages.locationid = req.body.locationid;
+             }
+            }
+
+            messagedb.put('message',messages,function(err)
+            {
+                if(err)
+                {
+                    res.json(500,err);
+                }
+                else
+                {
+                     res.json({ "success": true });
+                }
+            })
+        }
+    });
+        
+});
+
+
+router.post('/message/update/',function(req,res)
+{
+    messagedb.get('message',function(err,messages)
+    {
+        if(err)
+        {
+            if(err.message == "Key not found in database")
+            {
+                res.json({"success":true , "obj":[]})
+            }
+            else
+            {
+                res.json(500,err);
+            }
+        }
+        else
+        {
+            if(messages.length > 0)
+            {
+                for(var i = 0 ; i < messages.length;i++)
+                {
+                    if(messages[i].id == req.body.id)
+                    {
+                       messages[i].datetime = req.body.datetime;
+                       messages[i].topic = req.body.topic;
+                       messages[i].siteid = req.body.siteid;
+                       messages[i].locationid = req.body.locationid;
+                    }
+                }
+            }
+            else{
+            if (messages.id == req.body.id)
+             {
+                    messages.datetime = req.body.datetime;
+                    messages.topic = req.body.topic;
+                    messages.siteid = req.body.siteid;
+                    messages.locationid = req.body.locationid;
+             }
+            }
+
+            messagedb.put('message',messages,function(err)
+            {
+                if(err)
+                {
+                    res.json(500,err);
+                }
+                else
+                {
+                     res.json({ "success": true });
+                }
+            })
+        }
+    });
+        
+});
 
 
 
