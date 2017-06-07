@@ -244,7 +244,7 @@ router.get('/message/getall',function(req,res)
                             }
                             var result = [];
                             result.push(messages);
-                            res.json({"success":true,"obj":result});
+                            res.json({"success":true,"obj":result[0]});
                         }
                      });
                   
@@ -403,7 +403,7 @@ router.get('/message/getbysite/:_id',function(req,res)
                             }
                             var result = [];
                             result.push(messages);
-                            res.json({"success":true,"obj":result});
+                            res.json({"success":true,"obj":result[0]});
                         }
 
 
