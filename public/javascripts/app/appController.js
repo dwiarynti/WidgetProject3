@@ -1,11 +1,12 @@
 ﻿"use strict";
 
 angular.module('app').controller('appController',
-    ['$scope', '$rootScope', 'appmanagementResource', 'userResource','authsettingResource',
-        function ($scope, $rootScope, appmanagementResource, userResource, authsettingResource) {
+    ['$scope', '$rootScope', 'appmanagementResource', 'userResource','authsettingResource','notificationmanagementResource',
+        function ($scope, $rootScope, appmanagementResource, userResource, authsettingResource, notificationmanagementResource) {
             var userresource = new userResource();            
             var appmanagementresource = new appmanagementResource();  
             var authsettingresource = new authsettingResource();                    
+            var notificationmanagementresource = new notificationmanagementResource();
             $scope.state = 'unauthorized';
             $scope.loginobj = {username:"", password:""};
             $scope.registerobj = {username:"", password:""};
@@ -13,10 +14,11 @@ angular.module('app').controller('appController',
             $scope.userobj = {"id":0,"authorized":"", "username":"", "role":""};
             $scope.errmessage = "";
             $scope.authenticationStatus = true;
+            $scope.notificationList = [];
 
             authsettingresource.$init(function(data){
-
                 if(data.success){
+                    // $scope.getNotification();
                     $scope.state = data.obj ? 'unauthorized':'authorized';
                     $scope.authenticationStatus = data.obj;
                     if(data.obj){
@@ -24,8 +26,14 @@ angular.module('app').controller('appController',
                     }else{
                         $scope.initMenu();
                     }
+                //     notificationmanagementresource.$getAll(function(data){
+                //     if(data.success){
+                //         $rootScope.notificationList = data.obj;
+                //     }
+                //     console.log($scope.notificationList);
+                    
+                // });
                 }
-                console.log($scope.state);
             });
 
             $scope.getSession = function(){
@@ -100,7 +108,7 @@ angular.module('app').controller('appController',
 
             $rootScope.addedNewApp = false;
 
-            $scope.$watch(function(){ return $rootScope.addedNewApp }, function () {
+            $scope.$watch(function(){ return $rootScope.addedNewApp }, function () {                
                 //console.log($rootScope.addedNewApp);
                 if ($rootScope.addedNewApp){
                     if($scope.userobj.role == "Admin" || !$scope.authenticationStatus){
@@ -153,6 +161,17 @@ angular.module('app').controller('appController',
                 });
             }
 
+            // $scope.getNotification = function(){
+            //     notificationmanagementresource.$getAll(function(data){
+            //         if(data.success){
+            //             $rootScope.notificationList = data.obj;
+            //         }
+            //         console.log($scope.notificationList);
+                    
+            //     });
+            // }
+            // $scope.test = "aaaa";
+            // $scope.notificationtemplate = '/javascripts/angularproject/partialviews/notificationmanagement.html';
             //Menu init when app run
             // $scope.initMenu();   
         }

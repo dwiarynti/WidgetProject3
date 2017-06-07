@@ -10,8 +10,9 @@
                  getAll: {method:'GET', params:{action:'getall'}},
                  create: {method:'POST', params:{action:'create'}},
                  update: {method:'POST', params:{action:'update'}},
+                 delete: {method:'POST', params:{action:'delete'}},
                  get: {method:'GET'},
-                 getbyuser: {method:'GET', params:{action:'getbyuser'}},      
+                 getbysite: {method:'GET', params:{action:'getbysite'}},      
                })
     }
 }());
