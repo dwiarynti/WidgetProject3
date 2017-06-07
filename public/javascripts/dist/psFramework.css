@@ -203,6 +203,7 @@ ps-dashboard {
 .ps-user-profile-small {
     color: #333;
     padding-top: 4px;
+    padding-right: 2%;
 }
 
 .ps-user-profile-small > span {
