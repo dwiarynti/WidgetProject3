@@ -5,6 +5,7 @@ var db = require('./connection');
 
 var authmanagementdb = db.sublevel('authmanagement');
 var messagedb = db.sublevel('message');
+var sitedb = db.sublevel('site');
 router.get('/auth/init',function(req,res)
 {
     var totalnotif =0;
@@ -33,9 +34,17 @@ router.get('/auth/init',function(req,res)
                 listmessage.push(messages[i]);                                       
             }
           }
-          if(req.session.role == "User")
+          if(req.session.role == "User" || req.session.role == "Super Admin")
           {
-             totalnotif = listmessage.length;
+              var countemessage = 0;
+              for(var i = 0 ; i < listmessage.length; i++)
+              {
+              if(listmessage[i].siteid == req.session.siteid)
+                {
+                   countemessage+=1;                    
+                }
+              }
+              totalnotif = countemessage;
           }
           else
           {
