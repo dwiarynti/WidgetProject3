@@ -332,10 +332,7 @@ router.get('/user/getall',function(req,res)
                           {
                             data[j].sitename = sites[i].sitename;                          
                           }
-                          else
-                          {
-                               data[j].sitename ="";
-                          }
+                          
                         }
                      }
                     res.json({"success": true,  "obj":data})
@@ -381,10 +378,7 @@ router.get('/user/:_id',function(req,res)
                 {
                     user.sitename = sites[i].sitename;
                 }
-                else
-                {
-                    user.sitename ="";
-                }
+                
             }
             
             res.json({"success":true,"obj":user});
