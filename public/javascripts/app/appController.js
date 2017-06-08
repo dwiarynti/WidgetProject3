@@ -11,7 +11,7 @@ angular.module('app').controller('appController',
             $scope.loginobj = {username:"", password:""};
             $scope.registerobj = {username:"", password:""};
             $scope.menuItems = [];
-            $scope.userobj = {"id":0,"authorized":"", "username":"", "role":""};
+            $scope.userobj = {id:0,"authorized":"", username:"", role:"", siteid:""};
             $scope.errmessage = "";
             $scope.authenticationStatus = true;
             $scope.notificationnumber = 0;
@@ -38,6 +38,7 @@ angular.module('app').controller('appController',
                     $scope.userobj.role = data.result.role
                     $scope.userobj.username = data.result.username;
                     $scope.userobj.id = data.result.userid;
+                    $scope.userobj.siteid = data.result.siteid;
                     $scope.loginobj.username = data.result.username;
                     if($scope.state == 'authorized' && $scope.userobj.role == "Admin"){
                         $scope.initMenu();
@@ -58,7 +59,11 @@ angular.module('app').controller('appController',
                         $scope.state = 'authorized';
                         if(data.obj.role == "Admin"){
                              $scope.initMenu();
-                        }else{
+                        }
+                        // else if(){
+
+                        // }
+                        else{
                             $scope.getUserPage(data.obj.id);
                         }
                         $scope.errmessage = "";         

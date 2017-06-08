@@ -1,14 +1,16 @@
 angular.module('app').controller('usermanagementcontroller',
-    ['$scope','$location', 'userResource' ,'passingdataservice', '$rootScope','appmanagementResource','$filter',
-        function ($scope, $location, userResource, passingdataservice, $rootScope, appmanagementResource, $filter) {
+    ['$scope','$location', 'userResource' ,'passingdataservice', '$rootScope','appmanagementResource','$filter','siteResource',
+        function ($scope, $location, userResource, passingdataservice, $rootScope, appmanagementResource, $filter,siteResource) {
            var userresource = new userResource();
            var appmanagementresource = new appmanagementResource();
+           var siteresource = new siteResource();
            $scope.pagelist = [];
+           $scope.sitelist = [];
            $scope.pagelistEditMode = [];
             $scope.roles =[
                 {"rolename": "Admin"}, 
-                {"rolename": "User"}
-                // {"rolename": "Super Admin"}
+                {"rolename": "User"},
+                {"rolename": "Super Admin"}
                 ];
             $scope.userobject = {
                 "username":"",
@@ -22,9 +24,17 @@ angular.module('app').controller('usermanagementcontroller',
             $scope.userlist = [];
             $scope.init = function(){
                 userresource.$getall(function(data){
+                    console.log(data);
                     $scope.userlist = data.obj;
                 });
                 $scope.getPageList();
+                $scope.getSiteList();
+            }
+
+            $scope.getSiteList = function(){
+                siteresource.$getall(function(data){
+                    $scope.sitelist = data.obj;
+                });
             }
 
             $scope.getPageList = function(){
@@ -42,7 +52,8 @@ angular.module('app').controller('usermanagementcontroller',
                     "username":"",
                     "password":"",
                     "role":"",
-                    "pages":[]
+                    "pages":[],
+                    "siteid":""
                 }
                 $("#modal-add").modal('show');
             }
@@ -54,6 +65,7 @@ angular.module('app').controller('usermanagementcontroller',
                 userresource.password = $scope.userobject.password;
                 userresource.role = $scope.userobject.role;
                 userresource.pages = $scope.userobject.pages;
+                userresource.siteid = $scope.userobject.siteid;
                 userresource.$create(function(data){
                     console.log(data);
                     if(data.success){
@@ -117,7 +129,8 @@ angular.module('app').controller('usermanagementcontroller',
                 userresource.username = $scope.selecteduser.username;
                 userresource.password= $scope.selecteduser.password;
                 userresource.role= $scope.selecteduser.role;
-                userresource.pages= $scope.selecteduser.pages
+                userresource.pages= $scope.selecteduser.pages;
+                userresource.siteid = $scope.selecteduser.siteid;                
                 userresource.$update(function(data){
                     if(data.success){
                         $("#modal-edit").modal('hide');

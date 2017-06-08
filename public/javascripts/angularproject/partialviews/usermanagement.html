@@ -57,6 +57,12 @@
                             <option value="{{role.rolename}}" ng-repeat="role in roles">{{role.rolename}}</option>
                         </select>
                     </div>
+                    <div class="form-group has-feedback" ng-show="userobject.role != 'Super Admin'">
+                        <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="userobject.siteid">
+                            <option value="">Please Select Site</option>
+                            <option value="{{site.id}}" ng-repeat="site in sitelist">{{site.sitename}}</option>
+                        </select>
+                    </div>
                     <div class="form-group has-feedback">
                         <label>Select Page :</label>
                         <div class="row">
@@ -98,6 +104,12 @@
                         <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="selecteduser.role">
                             <option value="">Please Select Role</option>
                             <option ng-selected="isSelectedRole(selecteduser.role, role.rolename)" value="{{role.rolename}}" ng-repeat="role in roles">{{role.rolename}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group has-feedback" ng-show="selecteduser.role != 'Super Admin'">
+                        <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="selecteduser.siteid">
+                            <option value="">Please Select Site</option>
+                            <option value="{{site.id}}" ng-repeat="site in sitelist">{{site.sitename}}</option>
                         </select>
                     </div>
                     <div class="form-group has-feedback">
