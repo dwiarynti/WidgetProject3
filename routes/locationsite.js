@@ -62,7 +62,7 @@ locationdb.get('locationsite', function (err, locs) {
     }
 });
 
-router.get('/locationsite/getall/:_id', function (req, res) {
+router.get('/locationsite/getbysite/:_id', function (req, res) {
     var id = req.params._id;
     var listitem = [];
     var sitename = {};
@@ -122,6 +122,57 @@ router.get('/locationsite/getall/:_id', function (req, res) {
     });
 
 
+});
+
+router.get('/locationsite/getall', function (req, res) {
+  
+    var listitem = [];
+    
+    sitedb.get('site', function (err, sites) {
+    if (err)
+    {
+            if (err.message == "Key not found in database") {
+                res.json({ "success": true, "message": "no data", "obj": [] });
+            }
+            else {
+                res.json(500, err);
+            }
+    }
+    else
+    {
+        locationdb.get('locationsite',function(err,locations)
+        {
+            if(err)
+            {
+                if (err.message == "Key not found in database") 
+                {
+                res.json({ "success": true, "message": "no data", "obj": [] });
+                }
+                else
+                {
+                res.json(500,err);
+                }
+            }
+            else 
+            {
+                for(var i = 0 ; i < sites.length;i++)
+                {
+                    for(var x = 0 ; x < locations.length;x++)
+                    {
+                        if(locations[x] != null)
+                        {
+                        if(sites[i].id == locations[x].siteid)
+                        {
+                            locations[x].sitename = sites[i].sitename;
+                        }
+                        }
+                    }
+                }
+                res.json({ "obj": locations })
+            }
+        })
+    }
+ });
 });
 
 router.post('/locationsite/create', function (req, res) {
