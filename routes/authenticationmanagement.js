@@ -24,13 +24,22 @@ router.get('/auth/init',function(req,res)
       }
       else
       {
+          var listmessage =[];
+          var date = new Date();
+          for(var i = 0 ; i < messages.length; i++)
+          {
+             if(new Date(messages[i].datetime) >= new Date(date))
+             {     
+                listmessage.push(messages[i]);                                       
+            }
+          }
           if(req.session.role == "User")
           {
-            totalnotif = messages.length;
+             totalnotif = listmessage.length;
           }
           else
           {
-              totalnotif = messages.length;
+               totalnotif = listmessage.length;
           }
           authmanagementdb.get('authmanagement',function(err,data)
           {

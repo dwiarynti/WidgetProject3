@@ -99,6 +99,7 @@ router.post('/message/create',function(req,res)
 
 router.get('/message/getall',function(req,res)
 {
+    
     messagedb.get('message',function(err,messages)
     {
         if(err)
@@ -126,54 +127,22 @@ router.get('/message/getall',function(req,res)
                     }
                 }
                 else
-                {   
-                    if(messages.length > 0)
-                    {
-                        if(sites.length > 0)
-                        {
-                            for(var i = 0 ; i < sites.length;i++)
-                            {
-                                for(var j = 0 ; j < messages.length; j++)
-                                {
-                                    if(sites[i].id == messages[j].siteid)
-                                    {
-                                        messages[j].sitename = sites[i].sitename;
-                                    }
-                                }
-                            }
+                {
+                     for(var i = 0 ; i < sites.length;i++)
+                     {
+                       for(var j = 0 ; j < messages.length; j++)
+                       {
+                        
+                         if(sites[i].id == messages[j].siteid)
+                          {
+                            messages[j].sitename = sites[i].sitename;
+                               
+                          }
+                         
                         }
-                        else
-                        {
-                            for(var i = 0 ; i < messages.length; i++)
-                            {
-                                if(messages[i].siteid == sites.id)
-                                {
-                                      messages[j].sitename = sites.sitename;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if(sites.length > 0)
-                        {
-                            for(var i = 0 ; i < sites.length; i++)
-                            {
-                                if(messages.siteid == sites[i].id)
-                                {
-                                    messages.sitename = sites[i].sitename;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if(messages.siteid == sites.id)
-                            {
-                                messages.sitename = sites.sitename;
-                            }
-                        }
-                    }
-                    locationdb.get('locationsite',function(err,locations)
+                     }
+
+                     locationdb.get('locationsite',function(err,locations)
                     {
                         if(err)
                         {
@@ -188,243 +157,29 @@ router.get('/message/getall',function(req,res)
                         }
                         else
                         {
-                            if(locations.length > 0)
+                            for(var j = 0 ; j < messages.length; j++)
                             {
-                                if(messages.length > 0)
+                             if(locations[i] != null)
+                              {   
+                               if(locations[i].id == messages[j].locationid)
                                 {
-                                for(var i = 0 ; i < locations.length;i++)
-                                {
-                                    for(var j = 0 ; j < messages.length; j++)
-                                    {
-                                        if(locations[i] != null)
-                                        {   
-                                        if(locations[i].id == messages[j].locationid)
-                                        {
-                                            messages[j].locationname = locations[i].locationname;
-                                        }
-                                        }
-                                    }
-                                 }
+                                  messages[j].locationname = locations[i].locationname;
                                 }
-                                else
-                                {
-                                    for(var i = 0 ; i < locations.length;i++)
-                                    {
-                                        if(locations[i] !=null)
-                                        {
-                                            if(locations[i].id == messages.locationid)
-                                            {
-                                                messages.locationname = locations[i].locationname;
-                                            }
-                                        }
-                                        
-                                    }
                                 }
-                            }
-                            else
-                            {
-                                if(messages.length > 0)
-                                {
-                                    for(var i = 0 ; i < messages.length; i++)
-                                    {
-                                        if(messages[i].locationid == locations.id)
-                                        {
-                                            messages[j].locationname = locations.locationname;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    if(messages.locationid == locations.id)
-                                    {
-                                        messages.locationname = locations.locationname;
-                                    }
-                                    
-                                }
-                            }
-                            var result = [];
-                            result.push(messages);
-                            res.json({"success":true,"obj":result[0]});
+                             }
+                              res.json({"success":true,"obj":messages});
                         }
-                     });
-                  
-
-                   
-                }
-            })
-            
-        }
-
-    })
-});
-
-router.get('/message/getbysite/:_id',function(req,res)
-{
-    var id = req.params._id;
-    var sitename = "";
-    var listmessage =[];
-    sitedb.get('site', function (err, sites) {
-    if (err)
-    {
-        if (err.message == "Key not found in database") {
-                res.json({ "success": true, "message": "no data", "obj": [] });
-        }
-        else {
-                res.json(500, err);
-        }
-    }
-    else
-    {
-        if(sites.length > 0)
-        {
-            for (var i = 0; i < sites.length; i++) {
-            var element = sites[i];
-            if (element.id == id)
-            sitename = element.sitename;
-            }
-        }
-        else
-        {
-            if(sites.id == id)
-            {
-                sitename = sites.sitename;
-            }
-        }
-        if(sitename != "")
-        {
-            messagedb.get('message',function(err,messages)
-            {
-                if(err)
-                {
-                    if(err.message == "Key not found in database")
-                    {
-                        res.json({"success":true , "obj":[]})
-                    }
-                    else
-                    {
-                        res.json(500,err);
-                    }
-                }
-                else
-                {
-                    if(messages.length > 0)
-                    {
-                    for(var i = 0 ; i < messages.length; i++)
-                    {
-                        if(messages[i].siteid == id)
-                        {
-                            messages[i].sitename = sitename; 
-                            listmessage.push(messages[i]);                         
-                        }
-                    }
-                    messages = [];
-                    messages = listmessage;
-                    }
-                    else
-                    {
-                        if(messages.siteid == id)
-                        {
-                            messages.sitename = sitename;
-                            listmessage.push(messages);
-                        }
-                        messages = [];
-                        messages = listmessage;
-
-                    }
-
-                    locationdb.get('locationsite',function(err,locations)
-                    {
-                        if(err)
-                        {
-                            if(err.message == "Key not found in database")
-                            {
-                                res.json({"success":true , "obj":[]})
-                            }
-                            else
-                            {
-                                res.json(500,err);
-                            }
-                        }
-                        else
-                        {
-                            if(locations.length > 0)
-                            {
-                                if(messages.length > 0)
-                                {
-                                for(var i = 0 ; i < locations.length;i++)
-                                {
-                                    for(var j = 0 ; j < messages.length; j++)
-                                    {
-                                        if(locations[i] != null)
-                                        {   
-                                        if(locations[i].id == messages[j].locationid)
-                                        {
-                                            messages[j].locationname = locations[i].locationname;
-                                        }
-                                        }
-                                    }
-                                 }
-                                }
-                                else
-                                {
-                                    for(var i = 0 ; i < locations.length;i++)
-                                    {
-                                        if(locations[i] != null)
-                                        {
-                                            if(locations[i].id == messages.locationid)
-                                            {
-                                                messages.locationname = locations[i].locationname;
-                                            }
-                                        }
-                                        
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if(messages.length > 0)
-                                {
-                                    for(var i = 0 ; i < messages.length; i++)
-                                    {
-                                        if(messages[i].locationid == locations.id)
-                                        {
-                                            messages[j].locationname = locations.locationname;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    if(messages.locationid == locations.id)
-                                    {
-                                        messages.locationname = locations.locationname;
-                                    }
-                                    
-                                }
-                            }
-                            var result = [];
-                            result.push(messages);
-                            res.json({"success":true,"obj":result[0]});
-                        }
-
-
                     });
                 }
-            })
-
+            });
         }
-        else
-        {
-            res.json({"success":true, "obj":[],"message": "no data"})
-        }
-    }
-    });
+    }); 
+});
 
-})
-
-router.get('/message/getbyid/:_id',function(req,res)
+router.get('/message/getbydate',function(req,res)
 {
-    var id = req.params._id;
-    var selectedmessage = {};
+    var listmessage =[];
+    var date = new Date();
     messagedb.get('message',function(err,messages)
     {
         if(err)
@@ -440,76 +195,72 @@ router.get('/message/getbyid/:_id',function(req,res)
         }
         else
         {
-            if(messages.length > 0)
-            {
-                for(var i = 0 ; i < messages.length;i++)
-                {
-                    if(messages[i].id == id)
-                    {
-                        selectedmessage = messages[i];
-                    }
-                }
-            }
-            else{
-                if(messages.id == id)
-                {
-                    selectedmessage = messages;
-                }
-
-            }
-
             sitedb.get('site',function(err,sites)
             {
-                if(sites.length > 0)
+                if (err)
                 {
-                    for(var a = 0 ; a < sites.length;a++)
-                    {
-                       
-                        if(selectedmessage.siteid == sites[a].id)
-                        {
-                            selectedmessage.sitename = sites[a].sitename;
-                        }
+                    if (err.message == "Key not found in database") {
+                        res.json({ "success": true, "message": "no data", "obj": [] });
+                    }
+                    else {
+                        res.json(500, err);
                     }
                 }
                 else
                 {
-                    if(selectedmessage.siteid == sites.id)
-                    {
-                        selectedmessage.sitename = sites.sitename;
-                    }
-                }
-
-                locationdb.get('locationsite',function(err,locations)
-                {
-                    if(locations.length > 0)
-                    {
-                        for(var a = 0 ; a < locations.length;a++)
-                        {
-                          if(locations[a] != null)
+                     for(var i = 0 ; i < sites.length;i++)
+                     {
+                       for(var j = 0 ; j < messages.length; j++)
+                       {
+                         if(new Date(messages[j].datetime) >= new Date(date))
+                         {
+                         if(sites[i].id == messages[j].siteid)
                           {
-                            if(selectedmessage.locationid == locations[a].id)
-                            {
-                                selectedmessage.locationname = locations[a].locationname;
-                            }
+                            messages[j].sitename = sites[i].sitename;
+                            listmessage.push(messages[j]);     
                           }
+                         }
                         }
-                    }
-                    else
+                     }
+
+                     locationdb.get('locationsite',function(err,locations)
                     {
-                        if(selectedmessage.locationid == locations.id)
+                        if(err)
                         {
-                            selectedmessage.locationname = locations.locationname;
+                            if(err.message == "Key not found in database")
+                            {
+                                res.json({"success":true , "obj":[]})
+                            }
+                            else
+                            {
+                                res.json(500,err);
+                            }
                         }
-                    }
-                    res.json({"success": true, "obj": selectedmessage})
-                })
-                
-            })
-            
+                        else
+                        {
+                            for(var j = 0 ; j < listmessage.length; j++)
+                            {
+                             if(locations[i] != null)
+                              {   
+                               if(locations[i].id == listmessage[j].locationid)
+                                {
+                                  listmessage[j].locationname = locations[i].locationname;
+                                }
+                                }
+                             }
+                              res.json({"success":true,"obj":listmessage});
+                        }
+                    });
+                }
+            });
         }
-    });
+    }); 
 });
 
+router.get('/message/getbysite/:_id',function(req,res)
+{
+    
+});
 
 router.post('/message/update/',function(req,res)
 {
