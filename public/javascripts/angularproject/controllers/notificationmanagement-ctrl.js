@@ -7,16 +7,29 @@ angular.module('app').controller('notificationmanagementcontroller',
             $scope.notificationList=[];
             $scope.locationList=[];
             $scope.deleteuserid = 0;
-            var siteid = "001";
+            var siteid = $rootScope.userobj;
+            console.log($rootScope.userobj);
             $scope.init = function(){
-                notificationmanagementresource.$getAll(function(data){
-                    angular.forEach(data.obj, function(obj) {
-                        obj.editmode = false;
-                        obj.datetimeORI = obj.datetime;
-                    }, this);
-                    $scope.notificationList= data.obj;
-                    $scope.$parent.$parent.notificationnumber = data.obj.length;
-                });
+                if(!$rootScope.authenticationStatus){
+                    notificationmanagementresource.$getAll(function(data){
+                        angular.forEach(data.obj, function(obj) {
+                            obj.editmode = false;
+                            obj.datetimeORI = obj.datetime;
+                        }, this);
+                        $scope.notificationList= data.obj;
+                        $scope.$parent.$parent.notificationnumber = data.obj.length;
+                    });
+                }else{
+                    notificationmanagementresource.$getbysite({_id:siteid}, function(data){
+                        angular.forEach(data.obj, function(obj) {
+                            obj.editmode = false;
+                            obj.datetimeORI = obj.datetime;
+                        }, this);
+                        $scope.notificationList= data.obj;
+                        $scope.$parent.$parent.notificationnumber = data.obj.length;
+                    });
+                }
+
                 locationsiteresource.$init({_id:siteid}, function(data){        
                     $scope.locationList = data.obj;
                 });

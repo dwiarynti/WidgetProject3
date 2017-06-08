@@ -2,7 +2,7 @@
     <div class="common-widget">
     <div class="common-heading">
         <img class="common-icon" ng-src="/javascripts/images/employee.png" alt="employee" />
-        <span class="www-employee-title">Notification Management</span>
+        <span class="www-employee-title">Site Management</span>
     </div>
     <div class="common-body">
         <div class="row" style="margin:1%">
@@ -14,47 +14,15 @@
                 <thead>
                     <tr>
                         <th style="width: 7%;">Site</th>
-                        <th style="width: 14%;">Time Stamp</th>
-                        <th style="width: 7%;">Location</th>
-                        <!--<th style="width: 11%;">Status</th>-->
                         <th style="width: 7%;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="obj in notificationList">
-                        <td ng-if="obj.editmode == false">{{obj.topic}}</td>
+                    <tr ng-repeat="obj in sitelist">
+                        <td ng-if="obj.editmode == false">{{obj.sitename}}</td>
                         <td ng-if="obj.editmode == true">
-                            <input type="text" placeholder="Topic" class="form-control col-md-6" ng-model="obj.topic">
+                            <input type="text" placeholder="Topic" class="form-control col-md-6" ng-model="obj.sitename">
                         </td>
-                        
-                        <td ng-if="obj.editmode == false">{{obj.datetime | date:'yyyy-MMM-dd HH:mm'}}</td>
-                        <!--<td ng-if="obj.editmode == false">{{obj.datetime}}</td>-->
-                        <td ng-if="obj.editmode == true">
-                            <input type="datetime-local" placeholder="Time Stamp" class="form-control col-md-3" ng-model="obj.datetime" style="width:50%">
-                            <!--<input type="time" placeholder="Time Stamp" class="form-control col-md-3" ng-model="obj.time" style="width:50%">-->
-
-                            <!--<input type="text" class="form-control" datetime-picker="dd MMM yyyy HH:mm" ng-model="myDate" is-open="isOpen"  />
-    <span class="input-group-btn">
-        <button type="button" class="btn btn-default" ng-click="openCalendar($event, prop)"><i class="fa fa-calendar"></i></button>
-    </span>-->
-                        </td>
-                        
-                        <td ng-if="obj.editmode == false">{{obj.locationname}}</td>
-                        <td ng-if="obj.editmode == true">
-                            <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="obj.locationid">
-                                <option value="">Please Select</option>
-                                <option value="{{location.id}}" ng-repeat="location in locationList">{{location.locationname}}</option>
-                            </select>
-                        </td>
-
-                        <!--<td ng-if="obj.notificationstatus == true && obj.editmode == false">Enable</td>
-                        <td ng-if="obj.notificationstatus == false && obj.editmode == false">Disable</td>-->
-
-                        <!--<td ng-if="obj.editmode == true">
-                            <input type="radio" name="pagestatustype_{{obj.id}}" ng-model="obj.pagestatus" data-ng-value="true" /> Enable
-                            <input type="radio" name="pagestatustype_{{obj.id}}" ng-model="obj.pagestatus" data-ng-value="false"/> Disable
-                        </td>-->
-
 
                         <td ng-if="obj.editmode == false">
                             <a ng-click="Edit(obj)" class="link" style="cursor: pointer">Edit</a> |
@@ -86,11 +54,11 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <a href="javascript:;" class="close" data-dismiss="modal">x</a>
-                            <h4 class="modal-title">Delete Notification</h4>
+                            <h4 class="modal-title">Delete site</h4>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                            <p>Are you sure you want to delete this notification?</p>
+                            <p>Are you sure you want to delete this site?</p>
                             </div>
                         </div>
                         <div class="modal-footer">

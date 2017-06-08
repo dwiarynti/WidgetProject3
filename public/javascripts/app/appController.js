@@ -11,17 +11,17 @@ angular.module('app').controller('appController',
             $scope.loginobj = {username:"", password:""};
             $scope.registerobj = {username:"", password:""};
             $scope.menuItems = [];
-            $scope.userobj = {id:0,"authorized":"", username:"", role:"", siteid:""};
+            $rootScope.userobj = {id:0,authorized:"", username:"", role:"", siteid:""};
             $scope.errmessage = "";
-            $scope.authenticationStatus = true;
+            $rootScope.authenticationStatus = true;
             $scope.notificationnumber = 0;
 
             //check authentication status (on/off)
             authsettingresource.$init(function(data){
-                console.log(data);
+                // console.log(data);
                 if(data.success){
                     $scope.state = data.obj ? 'unauthorized':'authorized';
-                    $scope.authenticationStatus = data.obj;
+                    $rootScope.authenticationStatus = data.obj;
                     $scope.notificationnumber = data.totalnotif;
                     if(data.obj){
                         $scope.getSession();
@@ -33,19 +33,19 @@ angular.module('app').controller('appController',
 
             $scope.getSession = function(){
                 userresource.$session(function(data){
-                    console.log(data);
+                    // console.log(data);
                     $scope.state = data.result.authorized;
-                    $scope.userobj.role = data.result.role
-                    $scope.userobj.username = data.result.username;
-                    $scope.userobj.id = data.result.userid;
-                    $scope.userobj.siteid = data.result.siteid;
+                    $rootScope.userobj.role = data.result.role
+                    $rootScope.userobj.username = data.result.username;
+                    $rootScope.userobj.id = data.result.userid;
+                    $rootScope.userobj.siteid = data.result.siteid;
                     $scope.loginobj.username = data.result.username;
-                    if($scope.state == 'authorized' && $scope.userobj.role == "Admin"){
+                    if($scope.state == 'authorized' && $rootScope.userobj.role == "Admin"){
                         $scope.initMenu();
                     }else{
-                        $scope.getUserPage($scope.userobj.id);
+                        $scope.getUserPage($rootScope.userobj.id);
                     }
-                    console.log($scope.state);
+                    // console.log($scope.state);
                 });
             }
 
@@ -54,7 +54,7 @@ angular.module('app').controller('appController',
                 userresource.password = $scope.loginobj.password;
                 userresource.$login(function(data){
                     console.log(data);
-                    $scope.userobj = data.obj;
+                    $rootScope.userobj = data.obj;
                     if(data.success){
                         $scope.state = 'authorized';
                         if(data.obj.role == "Admin"){
@@ -92,14 +92,13 @@ angular.module('app').controller('appController',
 
             $scope.getUserPage = function(userid){
                 appmanagementresource.$getbyuser({_id:userid},function(data){
-                    console.log(data);
+                    // console.log(data);
                     $scope.menuItems=[];
                     angular.forEach(data.obj, function (obj) {
                         $scope.menuItems.push({
                             label: obj.pagename, href: '/prevpage/' + obj.id, icon: 'fa-dashboard', isGroup: false, submenuItems: []
                         });
                     });
-                    console.log($scope.menuItems);
                 });
             }
 
@@ -111,10 +110,10 @@ angular.module('app').controller('appController',
             $scope.$watch(function(){ return $rootScope.addedNewApp }, function () {                
                 //console.log($rootScope.addedNewApp);
                 if ($rootScope.addedNewApp){
-                    if($scope.userobj.role == "Admin" || !$scope.authenticationStatus){
+                    if($rootScope.userobj.role == "Admin" || !$rootScope.authenticationStatus){
                         $scope.initMenu();
                     }else{
-                        $scope.getUserPage($scope.userobj.id);
+                        $scope.getUserPage($rootScope.userobj.id);
                     }
                 }
                     // $scope.initMenu();
