@@ -34,7 +34,7 @@ router.get('/auth/init',function(req,res)
                 listmessage.push(messages[i]);                                       
             }
           }
-          if(req.session.role == "User" || req.session.role == "Super Admin")
+          if(req.session.role == "User" || req.session.role == "Admin")
           {
               var countemessage = 0;
               for(var i = 0 ; i < listmessage.length; i++)
