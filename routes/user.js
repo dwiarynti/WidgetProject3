@@ -4,7 +4,7 @@ var session = require('express-session');
 var db = require('./connection');
 var sequencedb = db.sublevel('sequencenumberuser');
 var userdb = db.sublevel('user');
-
+var sitedb = db.sublevel('site');
 var users = [
     {
         id: 1,
@@ -25,17 +25,6 @@ var users = [
     },
     
 ]
-
-// sequencedb.get('sequencenumberuser', function (err, persons) {
-//     if (err) {
-//         //console.log('person', err);
-//         if (err.message == "Key not found in database") {
-//             sequencedb.put('sequencenumberuser', person, function (err) {
-//                 console.log('sequencenumberuser data init');
-//             });
-//         }
-//     }
-// });
 
 router.post('/user/createuser',function(req,res)
 {
@@ -103,6 +92,7 @@ router.post('/user/create', function (req, res) {
             username: req.body.username,
             password :req.body.password,
             role : req.body.role,
+            siteid : req.body.siteid,
             pages : req.body.pages
         }  
         var listobj = [];
@@ -191,6 +181,7 @@ router.post('/user/register', function (req, res) {
             username: req.body.username,
             password :req.body.password,
             role : "User",
+            siteid:"",
             pages : [],
         }  
         var listobj = [];
@@ -270,6 +261,7 @@ router.post('/user/login',function(req,res)
             req.session.username = result.username;
             req.session.role = result.role;
             req.session.userid = result.id;
+            req.session.siteid = result.siteid;
             res.json({"success": true,"obj": result});
         }
         else
@@ -297,6 +289,7 @@ router.get('/user/session',function(req,res)
         result.username = req.session.username;
         result.role = req.session.role;
         result.userid = req.session.userid;
+        result.siteid = req.session.siteid;
         res.json({"result": result})
     }
     else
@@ -321,7 +314,34 @@ router.get('/user/getall',function(req,res)
         }
         else
         {
-             res.json({"success": true,  "obj":data})
+            sitedb.get('site',function(err,sites)
+            {
+                if (err)
+                {
+                    if (err.message != "Key not found in database") {
+                    res.json(500,err);
+                    }
+                }
+                else
+                {
+                    for(var i = 0 ; i < sites.length;i++)
+                     {
+                       for(var j = 0 ; j < data.length; j++)
+                       {             
+                         if(sites[i].id == data[j].siteid)
+                          {
+                            data[j].sitename = sites[i].sitename;                          
+                          }
+                          else
+                          {
+                               data[j].sitename ="";
+                          }
+                        }
+                     }
+                    res.json({"success": true,  "obj":data})
+                }
+            });
+           
         }
     })
 })
@@ -345,7 +365,31 @@ router.get('/user/:_id',function(req,res)
                    user = userlist[i];
                }
            }
-           res.json({"success":true,"obj":user})
+           sitedb.get('site',function(err,sites)
+           {
+            if (err)
+            {
+                if (err.message != "Key not found in database") {
+                res.json(500,err);
+                }
+            }
+            else
+            {
+            for(var i = 0 ; i < sites.length;i++)
+            {
+                if(sites[i].id == user.siteid)
+                {
+                    user.sitename = sites[i].sitename;
+                }
+                else
+                {
+                    user.sitename ="";
+                }
+            }
+            
+            res.json({"success":true,"obj":user});
+            }
+        });
         }
     })
 })
@@ -364,6 +408,7 @@ router.post('/user/update',function(req,res)
                 obj[i].username = req.body.username;
                 obj[i].password = req.body.password;
                 obj[i].role = req.body.role;
+                obj[i].siteid = req.body.siteid;
                 obj[i].pages = req.body.pages;
             }
             listobj.push(obj[i]);
