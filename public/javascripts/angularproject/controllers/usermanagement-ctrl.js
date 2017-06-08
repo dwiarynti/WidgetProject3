@@ -5,7 +5,11 @@ angular.module('app').controller('usermanagementcontroller',
            var appmanagementresource = new appmanagementResource();
            $scope.pagelist = [];
            $scope.pagelistEditMode = [];
-            $scope.roles =[{"rolename": "Admin"}, {"rolename": "User"}];
+            $scope.roles =[
+                {"rolename": "Admin"}, 
+                {"rolename": "User"}
+                // {"rolename": "Super Admin"}
+                ];
             $scope.userobject = {
                 "username":"",
                 "password":"",

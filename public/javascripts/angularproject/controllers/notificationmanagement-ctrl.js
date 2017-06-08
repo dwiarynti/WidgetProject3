@@ -10,16 +10,14 @@ angular.module('app').controller('notificationmanagementcontroller',
             var siteid = "001";
             $scope.init = function(){
                 notificationmanagementresource.$getAll(function(data){
-                    // console.log(data.obj);
                     angular.forEach(data.obj, function(obj) {
                         obj.editmode = false;
                         obj.datetimeORI = obj.datetime;
                     }, this);
                     $scope.notificationList= data.obj;
-                    $scope.$parent.$parent.notificationList = data.obj;
+                    $scope.$parent.$parent.notificationnumber = data.obj.length;
                 });
-                locationsiteresource.$init({_id:siteid}, function(data){
-                    // console.log(data);                    
+                locationsiteresource.$init({_id:siteid}, function(data){        
                     $scope.locationList = data.obj;
                 });
             }
@@ -28,7 +26,6 @@ angular.module('app').controller('notificationmanagementcontroller',
             $scope.init();
             $scope.Edit = function(obj){
                 obj.editmode = true;
-                // obj.datetime = Date(obj.datetime);
                 obj.datetime="";
             }
             $scope.Add = function(){

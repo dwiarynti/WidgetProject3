@@ -14,25 +14,20 @@ angular.module('app').controller('appController',
             $scope.userobj = {"id":0,"authorized":"", "username":"", "role":""};
             $scope.errmessage = "";
             $scope.authenticationStatus = true;
-            $scope.notificationList = [];
+            $scope.notificationnumber = 0;
 
+            //check authentication status (on/off)
             authsettingresource.$init(function(data){
+                console.log(data);
                 if(data.success){
-                    // $scope.getNotification();
                     $scope.state = data.obj ? 'unauthorized':'authorized';
                     $scope.authenticationStatus = data.obj;
+                    $scope.notificationnumber = data.totalnotif;
                     if(data.obj){
                         $scope.getSession();
                     }else{
                         $scope.initMenu();
                     }
-                //     notificationmanagementresource.$getAll(function(data){
-                //     if(data.success){
-                //         $rootScope.notificationList = data.obj;
-                //     }
-                //     console.log($scope.notificationList);
-                    
-                // });
                 }
             });
 
@@ -135,7 +130,8 @@ angular.module('app').controller('appController',
                     { label: 'App Management', href: '/appmanagement', icon: 'fa-user', isGroup: false, submenuItems: [] },
                     { label: 'User Management', href: '/usermanagement', icon: 'fa-user', isGroup: false, submenuItems: [] },
                     { label: 'Auth Setting', href: '/authsetting', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
-                    { label: 'Notification Management', href: '/notificationmanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] }
+                    { label: 'Notification Management', href: '/notificationmanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
+                    { label: 'Site Management', href: '/sitemanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] }
                 ];
 
 
