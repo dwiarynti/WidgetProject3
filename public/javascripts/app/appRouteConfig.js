@@ -57,6 +57,12 @@ angular.module('app').config(['$routeProvider', function ($routeProvider) {
                 templateUrl: '/javascripts/angularproject/partialviews/authsetting.html'
             }
         },
+        {
+            url: '/sitemanagement',
+            config: {
+                templateUrl: '/javascripts/angularproject/partialviews/sitemanagement.html'
+            }
+        },
     ];
 
     routes.forEach(function (route) {
