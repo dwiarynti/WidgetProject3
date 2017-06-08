@@ -7,7 +7,7 @@ angular.module('app').controller('notificationmanagementcontroller',
             $scope.notificationList=[];
             $scope.locationList=[];
             $scope.deleteuserid = 0;
-            var siteid = $rootScope.userobj;
+            var siteid = $rootScope.userobj.siteid;
             console.log($rootScope.userobj);
             $scope.init = function(){
                 if(!$rootScope.authenticationStatus){
@@ -19,6 +19,9 @@ angular.module('app').controller('notificationmanagementcontroller',
                         $scope.notificationList= data.obj;
                         $scope.$parent.$parent.notificationnumber = data.obj.length;
                     });
+                    locationsiteresource.$getall( function(data){        
+                        $scope.locationList = data.obj;
+                    });
                 }else{
                     notificationmanagementresource.$getbysite({_id:siteid}, function(data){
                         angular.forEach(data.obj, function(obj) {
@@ -28,11 +31,12 @@ angular.module('app').controller('notificationmanagementcontroller',
                         $scope.notificationList= data.obj;
                         $scope.$parent.$parent.notificationnumber = data.obj.length;
                     });
+                    locationsiteresource.$getbysite({_id:siteid}, function(data){        
+                        $scope.locationList = data.obj;
+                    });
                 }
+console.log(siteid);
 
-                locationsiteresource.$init({_id:siteid}, function(data){        
-                    $scope.locationList = data.obj;
-                });
             }
 
 

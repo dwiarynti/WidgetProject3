@@ -6,7 +6,7 @@ angular.module('app').controller('mpv-locationcontroller',
             var locationsiteresource = new locationsiteResource();
             // var selectedfilter = $scope.$parent.item.widgetSettings.selectedfilter;            
             $scope.getAllLocationSite = function(){
-                locationsiteresource.$init({_id:siteid}, function(data){
+                locationsiteresource.$getbysite({_id:siteid}, function(data){
                     console.log(data);                    
                     $scope.LocationList = data.obj;
                 });
