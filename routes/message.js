@@ -157,6 +157,8 @@ router.get('/message/getall',function(req,res)
                         }
                         else
                         {
+                            for(var i = 0 ; i < locations.length; i++)
+                            {
                             for(var j = 0 ; j < messages.length; j++)
                             {
                              if(locations[i] != null)
@@ -167,6 +169,7 @@ router.get('/message/getall',function(req,res)
                                 }
                                 }
                              }
+                            }
                               res.json({"success":true,"obj":messages});
                         }
                     });
