@@ -1,18 +1,21 @@
 angular.module('app').controller('notificationmanagementcontroller',
-    ['$scope','$location', 'notificationmanagementResource', 'passingdataservice', '$rootScope', 'locationsiteResource','$filter',
-        function ($scope, $location, notificationmanagementResource, passingdataservice, $rootScope, locationsiteResource, $filter) {
+    ['$scope','$location', 'notificationmanagementResource', 'passingdataservice', '$rootScope', 'locationsiteResource','$filter','siteResource',
+        function ($scope, $location, notificationmanagementResource, passingdataservice, $rootScope, locationsiteResource, $filter, siteResource) {
             var notificationmanagementresource = new notificationmanagementResource();
             var locationsiteresource = new locationsiteResource();
-            // var passingdataservice = new passingdataservice();
+            var siteresource = new siteResource();
             $scope.notificationList=[];
             $scope.locationList=[];
+            $scope.siteList=[];
             $scope.deleteuserid = 0;
+            $scope.userobj = $rootScope.userobj;
             var siteid = $rootScope.userobj.siteid;
             console.log($rootScope.userobj);
-            $scope.init = function(){
-                if(!$rootScope.authenticationStatus){
-                    notificationmanagementresource.$getAll(function(data){
-                        angular.forEach(data.obj, function(obj) {
+
+            $scope.getAllNotification = function(){
+                notificationmanagementresource.$getAll(function(data){
+                    console.log(data);
+                    angular.forEach(data.obj, function(obj) {
                             obj.editmode = false;
                             obj.datetimeORI = obj.datetime;
                         }, this);
@@ -21,9 +24,11 @@ angular.module('app').controller('notificationmanagementcontroller',
                     });
                     locationsiteresource.$getall( function(data){        
                         $scope.locationList = data.obj;
-                    });
-                }else{
-                    notificationmanagementresource.$getbysite({_id:siteid}, function(data){
+                    });    
+            }
+
+            $scope.getNotificationbySite = function(){
+                notificationmanagementresource.$getbysite({_id:siteid}, function(data){
                         angular.forEach(data.obj, function(obj) {
                             obj.editmode = false;
                             obj.datetimeORI = obj.datetime;
@@ -34,9 +39,25 @@ angular.module('app').controller('notificationmanagementcontroller',
                     locationsiteresource.$getbysite({_id:siteid}, function(data){        
                         $scope.locationList = data.obj;
                     });
-                }
-console.log(siteid);
+            }
 
+            $scope.getAllSite = function(){
+                siteresource.$getall(function(data){
+                    $scope.siteList = data.obj;
+                });
+            }
+
+
+            $scope.init = function(){
+                if(!$rootScope.authenticationStatus || siteid == ""){
+                    $scope.getAllNotification();
+                    if(siteid == ""){
+                        $scope.getAllSite();
+                    }
+                }else{
+                    $scope.getNotificationbySite();
+                }
+                console.log("Siteid: "+siteid);
             }
 
 
@@ -50,8 +71,6 @@ console.log(siteid);
             }
 
             $scope.Save = function(obj){
-                console.log(obj);
-
                 notificationmanagementresource.datetime = obj.datetime;
                 notificationmanagementresource.topic = obj.topic;
                 notificationmanagementresource.siteid = obj.siteid;
@@ -64,8 +83,6 @@ console.log(siteid);
             }
 
             $scope.Update = function(obj){
-                console.log(obj.datetime);
-                // var datetime = $scope.convertodatetime(obj.date, obj.time);
                 obj.datetime = obj.datetime == "" && obj.datetimeORI != ""?obj.datetimeORI:obj.datetime;
                 
                 notificationmanagementresource.id = obj.id;
@@ -111,6 +128,8 @@ console.log(siteid);
                     }
                 });
             }
+
+
 
         }
     ]);

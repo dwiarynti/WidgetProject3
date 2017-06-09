@@ -40,10 +40,11 @@ angular.module('app').controller('appController',
                     $rootScope.userobj.id = data.result.userid;
                     $rootScope.userobj.siteid = data.result.siteid;
                     $scope.loginobj.username = data.result.username;
-                    if($scope.state == 'authorized' && $rootScope.userobj.role == "Admin"){
-                        $scope.initMenu();
-                    }else{
+                    if($rootScope.userobj.role == "User"){
                         $scope.getUserPage($rootScope.userobj.id);
+                    }else{
+                        $scope.initMenu($rootScope.userobj.role);
+                        
                     }
                     // console.log($scope.state);
                 });
@@ -57,14 +58,15 @@ angular.module('app').controller('appController',
                     $rootScope.userobj = data.obj;
                     if(data.success){
                         $scope.state = 'authorized';
-                        if(data.obj.role == "Admin"){
-                             $scope.initMenu();
+                        if(data.obj.role == "User"){
+                             $scope.getUserPage(data.obj.id);
                         }
-                        // else if(){
+                        // else if(data.obj.role == "Super Admin"){
 
                         // }
                         else{
-                            $scope.getUserPage(data.obj.id);
+                            $scope.initMenu(data.obj.role);
+                            
                         }
                         $scope.errmessage = "";         
                         
@@ -110,17 +112,18 @@ angular.module('app').controller('appController',
             $scope.$watch(function(){ return $rootScope.addedNewApp }, function () {                
                 //console.log($rootScope.addedNewApp);
                 if ($rootScope.addedNewApp){
-                    if($rootScope.userobj.role == "Admin" || !$rootScope.authenticationStatus){
-                        $scope.initMenu();
-                    }else{
+                    if($rootScope.userobj.role == "User"){
                         $scope.getUserPage($rootScope.userobj.id);
+                    }else{
+                        console.log("role :" + $rootScope.userobj.role);
+                        $scope.initMenu($rootScope.userobj.role);                        
                     }
                 }
                     // $scope.initMenu();
             });
 
             // Init       
-            $scope.initMenu = function () {
+            $scope.initMenu = function (role) {
 
                 $scope.menuItems = [
                     // { label: 'Dashboard', href: '/dashboard', icon: 'fa-dashboard', isGroup: false, submenuItems: [] },
@@ -134,9 +137,11 @@ angular.module('app').controller('appController',
                     { label: 'App Management', href: '/appmanagement', icon: 'fa-user', isGroup: false, submenuItems: [] },
                     { label: 'User Management', href: '/usermanagement', icon: 'fa-user', isGroup: false, submenuItems: [] },
                     { label: 'Auth Setting', href: '/authsetting', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
-                    { label: 'Notification Management', href: '/notificationmanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
-                    { label: 'Site Management', href: '/sitemanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] }
+                    { label: 'Notification Management', href: '/notificationmanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] }
                 ];
+                if(role == "Super Admin"){
+                    $scope.menuItems.push({ label: 'Site Management', href: '/sitemanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] });
+                }
 
 
                 appmanagementresource.$init(function (data) {
