@@ -43,7 +43,7 @@
                         <td ng-if="obj.editmode == true">
                             <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="obj.locationid">
                                 <option value="">Please Select</option>
-                                <option value="{{location.id}}" ng-repeat="location in locationList">{{location.locationname}}</option>
+                                <option value="{{location.id}}" ng-selected="isSelectedItem(location.id, obj.locationid)" ng-repeat="location in locationList">{{location.locationname}}</option>
                             </select>
                         </td>
 

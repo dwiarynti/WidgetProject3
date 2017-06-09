@@ -100,7 +100,7 @@ angular.module('app').controller('notificationmanagementcontroller',
             }
             
             $scope.turnoffaddmode = function(index){
-                $scope.PageList.splice(index,1);
+                $scope.notificationList.splice(index,1);
             }
 
             $scope.turnoffeditmode = function(obj){
@@ -128,7 +128,9 @@ angular.module('app').controller('notificationmanagementcontroller',
                     }
                 });
             }
-
+            $scope.isSelectedItem =function(itemA, itemB){
+                return itemA == itemB ? true:false;
+            }
 
 
         }

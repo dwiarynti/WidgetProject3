@@ -113,8 +113,8 @@ angular.module('app').controller('usermanagementcontroller',
                 $scope.deleteuserid = obj.id;
             }
 
-            $scope.isSelectedRole =function(roleA, roleB){
-                return roleA == roleB ? true:false;
+            $scope.isSelectedItem =function(itemA, itemB){
+                return itemA == itemB ? true:false;
             }
             
             $scope.Update = function(){
