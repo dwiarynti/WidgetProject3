@@ -13,11 +13,11 @@
                 <table id="data-table" datatable="ng" dt-options="dtOptions" width="100%" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th style="width: 7%;">Topic</th>
-                        <th style="width: 14%;">Time Stamp</th>
-                        <th style="width: 7%;">Location</th>
-                        <!--<th style="width: 11%;">Status</th>-->
-                        <th style="width: 7%;">Action</th>
+                        <th style="width: 11%;">Topic</th>
+                        <th style="width: 11%;">Time Stamp</th>
+                        <th style="width: 11%;">Location</th>
+                        <th style="width: 11%;" ng-if="userobj.role == 'Super Admin'">Site</th>
+                        <th style="width: 11%;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,13 +47,14 @@
                             </select>
                         </td>
 
-                        <!--<td ng-if="obj.notificationstatus == true && obj.editmode == false">Enable</td>
-                        <td ng-if="obj.notificationstatus == false && obj.editmode == false">Disable</td>-->
+                        <td ng-if="obj.editmode == false && userobj.role == 'Super Admin'">{{obj.sitename}}</td>
+                        <td ng-if="obj.editmode == true && userobj.role == 'Super Admin'">
+                            <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="obj.siteid">
+                                <option value="">Please Select</option>
+                                <option value="{{site.id}}" ng-repeat="site in siteList">{{site.sitename}}</option>
+                            </select>
+                        </td>
 
-                        <!--<td ng-if="obj.editmode == true">
-                            <input type="radio" name="pagestatustype_{{obj.id}}" ng-model="obj.pagestatus" data-ng-value="true" /> Enable
-                            <input type="radio" name="pagestatustype_{{obj.id}}" ng-model="obj.pagestatus" data-ng-value="false"/> Disable
-                        </td>-->
 
 
                         <td ng-if="obj.editmode == false">

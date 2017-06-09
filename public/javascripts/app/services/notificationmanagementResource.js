@@ -12,7 +12,11 @@
                  update: {method:'POST', params:{action:'update'}},
                  delete: {method:'POST', params:{action:'delete'}},
                  get: {method:'GET'},
-                 getbysite: {method:'GET', params:{action:'getbysite'}},      
+                 getbysite: {method:'GET', params:{action:'getbysite'}},  
+                 getbysitedate: {method:'GET', params:{action:'getbysitedate'}},  
+                 getbydate: {method:'GET', params:{action:'getbydate'}},  
+                 
+                     
                })
     }
 }());
