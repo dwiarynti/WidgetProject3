@@ -7,12 +7,15 @@ angular.module('app').controller('notificationpopovercontroller',
             $scope.getactivenotificationpopoverbysite = function(){
                 notificationmanagementresource.$getbysitedate({_id:$rootScope.userobj.siteid},function(data){
                     $scope.notificationList = data.obj;
+                    $scope.$parent.$parent.notificationnumber = data.obj.length;
+
                 });
             }
             
             $scope.getallactivenotificationpopover = function(){
                 notificationmanagementresource.$getbydate(function(data){
                     $scope.notificationList = data.obj;
+                    $scope.$parent.$parent.notificationnumber = data.obj.length;                    
                 });
             }
 

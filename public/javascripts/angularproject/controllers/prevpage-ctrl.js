@@ -1,7 +1,6 @@
 angular.module('app').controller('prewpagecontroller',
     ['$scope', '$routeParams', 'appmanagementResource',
         function ($scope, $routeParams, appmanagementResource) {
-            console.log($routeParams.id);
 
             var appmanagementresource = new appmanagementResource();
             $scope.pervpageObj = {};

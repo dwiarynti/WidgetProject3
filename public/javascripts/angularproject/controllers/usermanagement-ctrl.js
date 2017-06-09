@@ -24,7 +24,7 @@ angular.module('app').controller('usermanagementcontroller',
             $scope.userlist = [];
             $scope.init = function(){
                 userresource.$getall(function(data){
-                    console.log(data);
+                    
                     $scope.userlist = data.obj;
                 });
                 $scope.getPageList();
@@ -39,7 +39,6 @@ angular.module('app').controller('usermanagementcontroller',
 
             $scope.getPageList = function(){
                 appmanagementresource.$init(function(data){
-                    // console.log(data);
                     $scope.pagelist = data.obj;
                     $scope.pagelistEditMode = data.obj;
                 });
@@ -67,7 +66,7 @@ angular.module('app').controller('usermanagementcontroller',
                 userresource.pages = $scope.userobject.pages;
                 userresource.siteid = $scope.userobject.siteid;
                 userresource.$create(function(data){
-                    console.log(data);
+                    
                     if(data.success){
                         $("#modal-add").modal('hide');   
                         $scope.init();                     
@@ -76,11 +75,9 @@ angular.module('app').controller('usermanagementcontroller',
                     }
 
                 });
-                // console.log($scope.userobject);
             }
 
             $scope.pushSelectedTransactionType = function(obj, active, mode){
-                console.log(mode);
                 if (active){
                     if(mode=="add"){
                         $scope.userobject.pages.push(obj.id);
@@ -100,19 +97,15 @@ angular.module('app').controller('usermanagementcontroller',
 
             $scope.btnEditClick = function(obj){
                 $("#modal-edit").modal('show');
-                // console.log($scope.selecteduser);
                 
                 angular.forEach($scope.pagelistEditMode, function (pageobj) {
                     var qwe = $filter('filter')(obj.pages,function(item){
                         return pageobj.id === item
                     })[0];
-                    // console.log(qwe);
                     
                     pageobj.selected = qwe != undefined ? true:false;
                 });
                 $scope.selecteduser = obj;
-                console.log($scope.selecteduser);
-                console.log(obj);
             }
 
             $scope.btnDeleteClick = function(obj){

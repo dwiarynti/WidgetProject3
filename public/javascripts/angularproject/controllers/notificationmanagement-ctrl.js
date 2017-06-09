@@ -10,17 +10,18 @@ angular.module('app').controller('notificationmanagementcontroller',
             $scope.deleteuserid = 0;
             $scope.userobj = $rootScope.userobj;
             var siteid = $rootScope.userobj.siteid;
-            console.log($rootScope.userobj);
 
             $scope.getAllNotification = function(){
                 notificationmanagementresource.$getAll(function(data){
-                    console.log(data);
-                    angular.forEach(data.obj, function(obj) {
+                    
+                    angular.forEach(data.obj.messages, function(obj) {
+                        console.log(data);
+
                             obj.editmode = false;
                             obj.datetimeORI = obj.datetime;
                         }, this);
-                        $scope.notificationList= data.obj;
-                        $scope.$parent.$parent.notificationnumber = data.obj.length;
+                        $scope.notificationList= data.obj.messages;
+                        $scope.$parent.$parent.notificationnumber = data.obj.messages.length;
                     });
                     locationsiteresource.$getall( function(data){        
                         $scope.locationList = data.obj;
@@ -29,12 +30,13 @@ angular.module('app').controller('notificationmanagementcontroller',
 
             $scope.getNotificationbySite = function(){
                 notificationmanagementresource.$getbysite({_id:siteid}, function(data){
-                        angular.forEach(data.obj, function(obj) {
+                    console.log(data);
+                        angular.forEach(data.obj.messages, function(obj) {
                             obj.editmode = false;
                             obj.datetimeORI = obj.datetime;
                         }, this);
-                        $scope.notificationList= data.obj;
-                        $scope.$parent.$parent.notificationnumber = data.obj.length;
+                        $scope.notificationList= data.obj.messages;
+                        $scope.$parent.$parent.notificationnumber = data.obj.messages.length;
                     });
                     locationsiteresource.$getbysite({_id:siteid}, function(data){        
                         $scope.locationList = data.obj;
@@ -57,7 +59,6 @@ angular.module('app').controller('notificationmanagementcontroller',
                 }else{
                     $scope.getNotificationbySite();
                 }
-                console.log("Siteid: "+siteid);
             }
 
 
@@ -91,7 +92,7 @@ angular.module('app').controller('notificationmanagementcontroller',
                 notificationmanagementresource.siteid = obj.siteid;
                 notificationmanagementresource.locationid = obj.locationid;
                 notificationmanagementresource.$update(function(data){
-                    console.log(data);
+                    
                     if(data.success){
                         $scope.turnoffeditmode(obj);
                         $scope.init();

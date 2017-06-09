@@ -4,7 +4,6 @@ angular.module('app').controller('mpv-devicecontroller',
             $scope.deviceList = [];
             var deviceresource = new deviceResource();
             var siteid = "001";
-            // console.log($scope);
 
 
             $scope.$watch(function () {

@@ -6,7 +6,6 @@ angular.module('app').controller('appmanagemetcontroller',
             $scope.PageList=[];
             appmanagementresource.$init(function(data){
                 $scope.PageList = data.obj;
-                console.log(data.obj);
                 angular.forEach($scope.PageList,function(item) {
                     item.editmode = false;
                              
@@ -30,13 +29,11 @@ angular.module('app').controller('appmanagemetcontroller',
             }
 
             $scope.Update = function(obj){
-                console.log(obj);
                 appmanagementresource.id = obj.id;
                 appmanagementresource.pagename = obj.pagename;
                 appmanagementresource.pagestatus = obj.pagestatus;
                 appmanagementresource.widget = obj.widget;
                 appmanagementresource.$update(function(data){
-                    console.log(data);
                     if(data.success){
                         $scope.turnoffeditmode(obj);
                         

@@ -56,10 +56,9 @@ angular.module("psFramework").controller("psFrameworkController",
             $scope.isMenuButtonVisible = true;
             $scope.isMenuVertical = true;
             $scope.notificationnumber = $scope.$parent.$parent.notificationnumber;
-            console.log($scope.$parent.$parent);
 
             $scope.$watch(function(){ return $scope.$parent.$parent.notificationList }, function (data) {
-                console.log($scope.$parent.$parent.notificationList);
+                // console.log($scope.$parent.$parent.notificationList);
             });
 
             $scope.logout = function(){
@@ -312,7 +311,6 @@ angular.module('psDashboard').directive('psWidgetBody',
                 var newElement = angular.element(scope.item.template);
                 element.append(newElement);
                 $compile(newElement)(scope);
-                // console.log(scope);
 
                 scope.close = function () {
                     scope.widgets.splice(scope.widgets.indexOf(scope.item), 1);

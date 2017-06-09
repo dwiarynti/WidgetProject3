@@ -5,7 +5,6 @@ angular.module('app').controller('authsettingcontroller',
             $scope.obj = false;
 
             authsettingresource.$init(function(data){
-                console.log(data.obj);
                 $scope.obj = data.obj;
             });
 

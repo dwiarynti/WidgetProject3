@@ -11,7 +11,6 @@ angular.module('app').controller('mpv-personlocationcontroller',
                 var selectedfilter = $scope.$parent.item.widgetSettings.selectedfilter;
                 personlocationresource.devicename  = selectedfilter || null;
                 personlocationresource.$filter({_id:siteid}, function(data){
-                    console.log(data.obj);
                     $scope.personlocationList = data.obj;
                 });
             });

@@ -18,7 +18,7 @@ angular.module('app').controller('appController',
 
             //check authentication status (on/off)
             authsettingresource.$init(function(data){
-                // console.log(data);
+                // 
                 if(data.success){
                     $scope.state = data.obj ? 'unauthorized':'authorized';
                     $rootScope.authenticationStatus = data.obj;
@@ -33,7 +33,7 @@ angular.module('app').controller('appController',
 
             $scope.getSession = function(){
                 userresource.$session(function(data){
-                    // console.log(data);
+                    // 
                     $scope.state = data.result.authorized;
                     $rootScope.userobj.role = data.result.role
                     $rootScope.userobj.username = data.result.username;
@@ -46,7 +46,6 @@ angular.module('app').controller('appController',
                         $scope.initMenu($rootScope.userobj.role);
                         
                     }
-                    // console.log($scope.state);
                 });
             }
 
@@ -54,16 +53,14 @@ angular.module('app').controller('appController',
                 userresource.username = $scope.loginobj.username;
                 userresource.password = $scope.loginobj.password;
                 userresource.$login(function(data){
-                    console.log(data);
+                    
                     $rootScope.userobj = data.obj;
+                    $scope.notificationnumber = data.obj.length;
                     if(data.success){
                         $scope.state = 'authorized';
                         if(data.obj.role == "User"){
                              $scope.getUserPage(data.obj.id);
                         }
-                        // else if(data.obj.role == "Super Admin"){
-
-                        // }
                         else{
                             $scope.initMenu(data.obj.role);
                             
@@ -81,7 +78,7 @@ angular.module('app').controller('appController',
                 userresource.username = $scope.registerobj.username;
                 userresource.password = $scope.registerobj.password;
                 userresource.$register(function(data){
-                    console.log(data);
+                    
                     if(data.success){
                         $scope.state = 'authorized';
                         $scope.errmessage = "";         
@@ -94,7 +91,7 @@ angular.module('app').controller('appController',
 
             $scope.getUserPage = function(userid){
                 appmanagementresource.$getbyuser({_id:userid},function(data){
-                    // console.log(data);
+                    // 
                     $scope.menuItems=[];
                     angular.forEach(data.obj, function (obj) {
                         $scope.menuItems.push({
@@ -109,13 +106,11 @@ angular.module('app').controller('appController',
 
             $rootScope.addedNewApp = false;
 
-            $scope.$watch(function(){ return $rootScope.addedNewApp }, function () {                
-                //console.log($rootScope.addedNewApp);
+            $scope.$watch(function(){ return $rootScope.addedNewApp }, function () {
                 if ($rootScope.addedNewApp){
                     if($rootScope.userobj.role == "User"){
                         $scope.getUserPage($rootScope.userobj.id);
                     }else{
-                        console.log("role :" + $rootScope.userobj.role);
                         $scope.initMenu($rootScope.userobj.role);                        
                     }
                 }
@@ -171,7 +166,6 @@ angular.module('app').controller('appController',
             //         if(data.success){
             //             $rootScope.notificationList = data.obj;
             //         }
-            //         console.log($scope.notificationList);
                     
             //     });
             // }

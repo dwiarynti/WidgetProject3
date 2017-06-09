@@ -2,12 +2,11 @@ angular.module('app').controller('mpv-locationcontroller',
     ['$scope', 'locationsiteResource',
         function ($scope, locationsiteResource) {
             $scope.LocationList = [];
-            // console.log($scope);
             var locationsiteresource = new locationsiteResource();
             // var selectedfilter = $scope.$parent.item.widgetSettings.selectedfilter;            
             $scope.getAllLocationSite = function(){
                 locationsiteresource.$getbysite({_id:siteid}, function(data){
-                    console.log(data);                    
+                                        
                     $scope.LocationList = data.obj;
                 });
             }
@@ -17,10 +16,9 @@ angular.module('app').controller('mpv-locationcontroller',
                 var locationsiteresource = new locationsiteResource();
                 locationsiteresource.locationname = selectedfilter.by == "Location"? selectedfilter.option : null;
                 locationsiteresource.zone = selectedfilter.by == "Zone" ? selectedfilter.option : null;
-                // console.log(locationsiteresource);
                 
                 locationsiteresource.$filter({_id:siteid}, function(data){
-                    console.log(data);
+                    
                     $scope.LocationList = data.obj;
                 });
             }
@@ -30,8 +28,7 @@ angular.module('app').controller('mpv-locationcontroller',
             $scope.$watch(function () {
                 return $scope.$parent.item.widgetSettings.selectedfilter;
             }, function () {
-                var selectedfilter = $scope.$parent.item.widgetSettings.selectedfilter;                 
-                // console.log(selectedfilter);
+                var selectedfilter = $scope.$parent.item.widgetSettings.selectedfilter;
                 if(selectedfilter.by != "" && selectedfilter.option != ""){
                     $scope.getFilteredLocationSite();
                 }else{
