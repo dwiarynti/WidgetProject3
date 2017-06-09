@@ -232,7 +232,7 @@ router.get('/message/getbydate',function(req,res)
                          }
                         }
                      }
-                     
+
                      locationdb.get('locationsite',function(err,locations)
                     {
                         if(err)
@@ -316,9 +316,9 @@ router.get('/message/getbysite/:_id',function(req,res)
                             listmessage.push(messages[i]);                         
                     }
                     }
-                    for(var x = 0 ; x < messages.length; x++)
+                    for(var x = 0 ; x < listmessage.length; x++)
                     {
-                        if(new Date(messages[x].datetime) >= new Date(date))
+                        if(new Date(listmessage[x].datetime) >= new Date(date))
                         {
                             totalnotif +=1;
                         }
