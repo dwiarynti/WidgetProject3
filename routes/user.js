@@ -5,6 +5,7 @@ var db = require('./connection');
 var sequencedb = db.sublevel('sequencenumberuser');
 var userdb = db.sublevel('user');
 var sitedb = db.sublevel('site');
+var messagedb = db.sublevel('message');
 var users = [
     {
         id: 1,
@@ -262,7 +263,54 @@ router.post('/user/login',function(req,res)
             req.session.role = result.role;
             req.session.userid = result.id;
             req.session.siteid = result.siteid;
+            
+            var totalnotif =0;
+            messagedb.get('message',function(err,messages)
+            {
+            if(err)
+            {
+                if(err.message == "Key not found in database")
+                {
+                    totalnotif =0;
+                }
+                else
+                {
+                    res.json(500,err);
+                }
+            }
+            else
+            {
+                var listmessage =[];
+                var date = new Date();
+                for(var i = 0 ; i < messages.length; i++)
+                {
+                    if(new Date(messages[i].datetime) >= new Date(date))
+                    {     
+                        listmessage.push(messages[i]);                                       
+                    }
+                }
+                if(req.session.role == "User" || req.session.role == "Admin")
+                {
+                    var countemessage = 0;
+                    for(var i = 0 ; i < listmessage.length; i++)
+                    {
+                    if(listmessage[i].siteid == req.session.siteid)
+                        {
+                        countemessage+=1;                    
+                        }
+                    }
+                    totalnotif = countemessage;
+                }
+                else
+                {
+                    totalnotif = listmessage.length;
+                }
+                
+            }
+            result.totalnotif = totalnotif;
             res.json({"success": true,"obj": result});
+            });
+                    
         }
         else
         {
