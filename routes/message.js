@@ -128,21 +128,27 @@ router.get('/message/getall',function(req,res)
                 }
                 else
                 {
+                    var totalnotif =0;
+                    var date = new Date()
                      for(var i = 0 ; i < sites.length;i++)
                      {
                        for(var j = 0 ; j < messages.length; j++)
                        {
-                        
-                         if(sites[i].id == messages[j].siteid)
-                          {
+                        if(sites[i].id == messages[j].siteid)
+                        {
                             messages[j].sitename = sites[i].sitename;
                                
-                          }
-                         
-                        }
+                        }      
+                       }
                      }
-
-                     locationdb.get('locationsite',function(err,locations)
+                    for(var x = 0 ; x < messages.length; x++)
+                    {
+                        if(new Date(messages[x].datetime) >= new Date(date))
+                        {
+                            totalnotif +=1;
+                        }
+                    }
+                    locationdb.get('locationsite',function(err,locations)
                     {
                         if(err)
                         {
@@ -170,7 +176,8 @@ router.get('/message/getall',function(req,res)
                                 }
                              }
                             }
-                              res.json({"success":true,"obj":messages});
+                            var result = {"totalnotif": totalnotif,"messages":messages}
+                            res.json({"success":true,"obj":result});
                         }
                     });
                 }
@@ -225,7 +232,7 @@ router.get('/message/getbydate',function(req,res)
                          }
                         }
                      }
-
+                     
                      locationdb.get('locationsite',function(err,locations)
                     {
                         if(err)
@@ -298,7 +305,10 @@ router.get('/message/getbysite/:_id',function(req,res)
                     }
                 }
                 else
-                {  for(var i = 0 ; i < messages.length; i++)
+                {  
+                    var date = new Date();
+                    var totalnotif = 0;
+                    for(var i = 0 ; i < messages.length; i++)
                     {
                     if(messages[i].siteid == id)
                     {
@@ -306,7 +316,13 @@ router.get('/message/getbysite/:_id',function(req,res)
                             listmessage.push(messages[i]);                         
                     }
                     }
-
+                    for(var x = 0 ; x < messages.length; x++)
+                    {
+                        if(new Date(messages[x].datetime) >= new Date(date))
+                        {
+                            totalnotif +=1;
+                        }
+                    }
                     locationdb.get('locationsite',function(err,locations)
                     {
                         if(err)
@@ -335,7 +351,8 @@ router.get('/message/getbysite/:_id',function(req,res)
                                         }
                                     }
                                 }
-                            res.json({"success":true,"obj":listmessage});
+                        var result = {"totalnotif": totalnotif,"messages":listmessage}
+                        res.json({"success":true,"obj":result});
                         }
                     });
 
