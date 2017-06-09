@@ -342,6 +342,96 @@ router.get('/message/getbysite/:_id',function(req,res)
     });
 });
 
+
+router.get('/message/getbysitedate/:_id',function(req,res)
+{
+    var id = req.params._id;
+    var sitename = "";
+    var listmessage =[];
+    var date = new Date();
+    sitedb.get('site', function (err, sites) {
+    if (err)
+    {
+        if (err.message == "Key not found in database") {
+                res.json({ "success": true, "message": "no data", "obj": [] });
+        }
+        else {
+                res.json(500, err);
+        }
+    }
+    else
+    {
+            for (var i = 0; i < sites.length; i++) {
+                var element = sites[i];
+                if (element.id == id)
+                sitename = element.sitename;
+            }
+
+            messagedb.get('message',function(err,messages)
+            {
+                if(err)
+                {
+                    if(err.message == "Key not found in database")
+                    {
+                        res.json({"success":true , "obj":[]})
+                    }
+                    else
+                    {
+                        res.json(500,err);
+                    }
+                }
+                else
+                {  for(var i = 0 ; i < messages.length; i++)
+                    {
+                        if(new Date(messages[i].datetime) >= new Date(date))
+                        {
+                            if(messages[i].siteid == id)
+                            {
+                            messages[i].sitename = sitename; 
+                            listmessage.push(messages[i]);                         
+                            }       
+                        }
+                    }
+
+                    locationdb.get('locationsite',function(err,locations)
+                    {
+                        if(err)
+                        {
+                            if(err.message == "Key not found in database")
+                            {
+                                res.json({"success":true , "obj":[]})
+                            }
+                            else
+                            {
+                                res.json(500,err);
+                            }
+                        }
+                        else
+                        {
+                               for(var i = 0 ; i < locations.length;i++)
+                                {
+                                    for(var j = 0 ; j < listmessage.length; j++)
+                                    {
+                                        if(locations[i] != null)
+                                        {   
+                                        if(locations[i].id == listmessage[j].locationid)
+                                        {
+                                            listmessage[j].locationname = locations[i].locationname;
+                                        }
+                                        }
+                                    }
+                                }
+                            res.json({"success":true,"obj":listmessage});
+                        }
+                    });
+
+                }
+            });
+        }
+    });
+});
+
+
 router.post('/message/update/',function(req,res)
 {
     messagedb.get('message',function(err,messages)
