@@ -1,8 +1,8 @@
 ﻿"use strict";
 
 angular.module('app').controller('appController',
-    ['$scope', '$rootScope', 'appmanagementResource', 'userResource','authsettingResource','notificationmanagementResource',
-        function ($scope, $rootScope, appmanagementResource, userResource, authsettingResource, notificationmanagementResource) {
+    ['$scope', '$rootScope', '$location', 'appmanagementResource', 'userResource','authsettingResource','notificationmanagementResource',
+        function ($scope, $rootScope, $location, appmanagementResource, userResource, authsettingResource, notificationmanagementResource) {
             var userresource = new userResource();            
             var appmanagementresource = new appmanagementResource();  
             var authsettingresource = new authsettingResource();                    
@@ -53,10 +53,11 @@ angular.module('app').controller('appController',
                 userresource.username = $scope.loginobj.username;
                 userresource.password = $scope.loginobj.password;
                 userresource.$login(function(data){
-                    
-                    $rootScope.userobj = data.obj;
-                    $scope.notificationnumber = data.obj.length;
+   
                     if(data.success){
+                        $location.path( "/home" );
+                        $rootScope.userobj = data.obj;
+                        $scope.notificationnumber = data.obj.totalnotif;
                         $scope.state = 'authorized';
                         if(data.obj.role == "User"){
                              $scope.getUserPage(data.obj.id);

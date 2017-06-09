@@ -15,13 +15,12 @@ angular.module('app').controller('notificationmanagementcontroller',
                 notificationmanagementresource.$getAll(function(data){
                     
                     angular.forEach(data.obj.messages, function(obj) {
-                        console.log(data);
 
                             obj.editmode = false;
                             obj.datetimeORI = obj.datetime;
                         }, this);
                         $scope.notificationList= data.obj.messages;
-                        $scope.$parent.$parent.notificationnumber = data.obj.messages.length;
+                        $scope.$parent.$parent.notificationnumber = data.obj.totalnotif;
                     });
                     locationsiteresource.$getall( function(data){        
                         $scope.locationList = data.obj;
@@ -36,7 +35,7 @@ angular.module('app').controller('notificationmanagementcontroller',
                             obj.datetimeORI = obj.datetime;
                         }, this);
                         $scope.notificationList= data.obj.messages;
-                        $scope.$parent.$parent.notificationnumber = data.obj.messages.length;
+                        $scope.$parent.$parent.notificationnumber = data.obj.totalnotif;
                     });
                     locationsiteresource.$getbysite({_id:siteid}, function(data){        
                         $scope.locationList = data.obj;
