@@ -5,6 +5,7 @@ angular.module('app').controller('notificationmanagementcontroller',
             var locationsiteresource = new locationsiteResource();
             var siteresource = new siteResource();
             $scope.notificationList=[];
+            $scope.notificationPopoverList=[];
             $scope.locationList=[];
             $scope.siteList=[];
             $scope.deleteuserid = 0;
@@ -47,6 +48,20 @@ angular.module('app').controller('notificationmanagementcontroller',
                     $scope.siteList = data.obj;
                 });
             }
+            $scope.getactivenotificationpopoverbysite = function(){
+                notificationmanagementresource.$getbysitedate({_id:$rootScope.userobj.siteid},function(data){
+                    $scope.notificationPopoverList = data.obj;
+                    $scope.$parent.$parent.notificationnumber = data.obj.length;
+
+                });
+            }
+            
+            $scope.getallactivenotificationpopover = function(){
+                notificationmanagementresource.$getbydate(function(data){
+                    $scope.notificationPopoverList = data.obj;
+                    $scope.$parent.$parent.notificationnumber = data.obj.length;                    
+                });
+            }
 
 
             $scope.init = function(){
@@ -57,6 +72,13 @@ angular.module('app').controller('notificationmanagementcontroller',
                     }
                 }else{
                     $scope.getNotificationbySite();
+                }
+
+                //notification popover
+                if($rootScope.userobj.role== "Super Admin" || !$rootScope.authenticationStatus){
+                    $scope.getallactivenotificationpopover();
+                }else{
+                    $scope.getactivenotificationpopoverbysite();
                 }
             }
 
@@ -130,6 +152,22 @@ angular.module('app').controller('notificationmanagementcontroller',
             }
             $scope.isSelectedItem =function(itemA, itemB){
                 return itemA == itemB ? true:false;
+            }
+
+
+            $scope.getactivenotificationpopoverbysite = function(){
+                notificationmanagementresource.$getbysitedate({_id:$rootScope.userobj.siteid},function(data){
+                    $scope.notificationPopoverList = data.obj;
+                    $scope.$parent.$parent.notificationnumber = data.obj.length;
+
+                });
+            }
+            
+            $scope.getallactivenotificationpopover = function(){
+                notificationmanagementresource.$getbydate(function(data){
+                    $scope.notificationPopoverList = data.obj;
+                    $scope.$parent.$parent.notificationnumber = data.obj.length;                    
+                });
             }
 
 
