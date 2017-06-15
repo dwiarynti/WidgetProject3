@@ -145,12 +145,12 @@ router.post('/person/update',function(req,res)
         {
             if(persons[i].uuid == req.body.uuid)
             {
-               persons[i].name =  req.body.name,
-               persons[i].nick = req.body.nick,
-               persons[i].email = req.body.email;
-               persons[i].datemodified = req.body.datamodified;
-               persons[i].changeby = req.body.changeby;
-               persons[i].changebyname = req.body.changebyname;
+               persons[i].name =  req.body.personobj.name,
+               persons[i].nick = req.body.personobj.nick,
+               persons[i].email = req.body.personobj.email;
+               persons[i].datemodified = req.body.personobj.datamodified;
+               persons[i].changeby = req.body.personobj.changeby;
+               persons[i].changebyname = rreq.body.personobj.changebyname;
             }
         }
         persondb.put('person', persondb , function(err)
