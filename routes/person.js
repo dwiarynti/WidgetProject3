@@ -217,7 +217,7 @@ router.post('/person/delete',function(req,res)
         {
             if(err.message == "Key not found in database")
             {
-                listobj.push(person);
+                res.json(404,err);
             }
             else
             {
