@@ -17,9 +17,9 @@ persondb.get('person', function (err, persons) {
     }
 });
 
-persondb.post('/person/cleanup',function(err)
+router.post('/person/cleanup',function(err)
 {
-    var a = [];
+    var listobj = [];
     persondb.put('person',listobj,function(err)
         {
             if(err)
@@ -28,7 +28,7 @@ persondb.post('/person/cleanup',function(err)
             }
             else
             {
-                 res.json({"success": tru});
+                 res.json({"success": true});
             }
         });
 });
