@@ -1,6 +1,6 @@
 angular.module('app').controller('peoplemanagementcontroller',
-    ['$scope','personResource',
-        function ($scope, personResource) {
+    ['$scope', '$rootScope','personResource',
+        function ($scope, $rootScope, personResource) {
             var personresource = new personResource();
             $scope.peopleList = [];
             $scope.deleteuuid = "";
@@ -9,6 +9,7 @@ angular.module('app').controller('peoplemanagementcontroller',
 
             $scope.init = function(){
                 personresource.$getAll(function(data){
+                    console.log(data.obj);
                     $scope.peopleList = data.obj;
                 });
             }
@@ -53,6 +54,9 @@ angular.module('app').controller('peoplemanagementcontroller',
             }
 
             $scope.Update = function(obj){
+                obj.datamodified = date;
+                obj.changeby = $rootScope.userobj.id;
+                obj.changebyname = $rootScope.userobj.username;
                 personresource.personobj = obj;
                 personresource.$update(function(data){
                     if(data.success)
@@ -63,16 +67,17 @@ angular.module('app').controller('peoplemanagementcontroller',
             
             $scope.btnDeleteClick = function(obj){
                 $("#modal-delete").modal('show');
-                $scope.deleteuuid = obj.id;
+                $scope.deleteuuid = obj.uuid;
             }
             
             $scope.Delete = function(){
-                // personresource.personobj.uuid = $scope.deleteuuid;
-                // personresource.$delete(function(data){
-                //     if(data.success)
-                //         $scope.init();
+                personresource.personobj = {uuid:$scope.deleteuuid};
+                personresource.$delete(function(data){
+                    if(data.success)
+                        $scope.init();
+                        $("#modal-delete").modal('hide');
                     
-                // });
+                });
             }
 
         }
