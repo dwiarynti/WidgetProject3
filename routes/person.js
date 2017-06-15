@@ -153,7 +153,7 @@ router.post('/person/update',function(req,res)
                persons[i].changebyname = rreq.body.personobj.changebyname;
             }
         }
-        persondb.put('person', persondb , function(err)
+        persondb.put('person', persons , function(err)
         {
             if(err)
             {
