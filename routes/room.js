@@ -122,7 +122,15 @@ router.get('/room/getall',function(req,res)
         }
         else
         {
-            res.json({"success": true , "obj": rooms});
+            var listobj = [];
+            for(var i = 0 ; i < rooms.length; i++)
+            {
+                if(rooms[i].disable == false)
+                {
+                    listobj.push(rooms[i]);
+                }
+            }
+            res.json({"success": true , "obj": listobj});
         }
     })
 })
@@ -136,7 +144,7 @@ router.get('/room/get/:_id',function(req,res)
         {
             if(err.message == "Key not found in database")
             {
-                res.json(404,err);
+                res.json(404,"not found");
             }
             else
             {
@@ -165,5 +173,98 @@ router.get('/room/get/:_id',function(req,res)
     })
 });
 
+router.post('/room/update',function(req,res)
+{
+
+    roomdb.get('room',function(err,rooms)
+    {
+        if(err)
+        {
+            if(err.message == "Key not found in database")
+            {
+                res.json(404,"notfound")
+            }
+            else
+            {
+                res.json(500,err);
+            }
+        }
+        else
+        {
+            var parent ;
+            if(req.body.roomobj.parent != null)
+            {
+                parent = req.body.roomobj.parent;
+            }
+            else    
+            {
+                parent = "";
+            }
+            for(var i = 0; i < rooms.length; i++)
+            {
+                if(rooms[i].uuid == req.body.roomobj.uuid)
+                {
+                    rooms[i].name = req.body.roomobj.name;
+                    rooms[i].parent = parent;
+                    rooms[i].datemodified = req.body.roomobj.datemodified;
+                    rooms[i].changeby = req.body.roomobj.changeby;
+                    rooms[i].changebyname = req.body.roomobj.changebyname;
+                }
+            }
+
+            roomdb.put('room',rooms,function(err)
+            {
+                if(err)
+                {
+                    res.json(500,err);
+                }
+                else{
+                    res.json({"success": true})
+                }
+            })
+        }
+    })
+    
+})
+
+router.post('/room/delete',function(req,res)
+{
+    roomdb.get('room',function(err,rooms)
+    {
+        if(err)
+        {
+            if(err.message == "Key not found in database")
+            {
+                res.json(404,"not found");
+            }
+            else
+            {
+                res.json(500,err);
+            }
+        }
+        else
+        {
+            for(var i = 0; i < rooms.length;i++)
+            {
+                if(rooms[i].uuid == req.body.roomobj.uuid)
+                {
+                    rooms[i].disable = true;
+                }
+            }
+
+            roomdb.put('room',rooms,function(err)
+            {
+                if(err)
+                {
+                    res.json(500,err);
+                }
+                else
+                {
+                    res.json({"success": true})
+                }
+            })
+        }
+    })
+})
 
 module.exports = router;
