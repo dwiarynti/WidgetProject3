@@ -17,7 +17,7 @@ persondb.get('person', function (err, persons) {
     }
 });
 
-router.post('/person/cleanup',function(err)
+router.post('/person/cleanup',function(req,res)
 {
     var listobj = [];
     persondb.put('person',listobj,function(err)
