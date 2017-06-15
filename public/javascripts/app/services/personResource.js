@@ -9,7 +9,8 @@
                {
                  init: {method:'GET', params:{action:'getbysite'}},
                  create: {method:'POST', params:{action:'create'}},
-                 getAll: {method:'GET', params:{action:'getall'}}
+                 getAll: {method:'GET', params:{action:'getall'}},
+                 update: {method:'POST', params:{action:'update'}}
                })
     }
 }());

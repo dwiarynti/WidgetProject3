@@ -3,6 +3,8 @@ angular.module('app').controller('peoplemanagementcontroller',
         function ($scope, personResource) {
             var personresource = new personResource();
             $scope.peopleList = [];
+            $scope.deleteuuid = "";
+            
             var date = new Date();
 
             $scope.init = function(){
@@ -48,6 +50,29 @@ angular.module('app').controller('peoplemanagementcontroller',
             
             $scope.turnoffeditmode = function(obj){
                 obj.editmode = false;
+            }
+
+            $scope.Update = function(obj){
+                personresource.personobj = obj;
+                personresource.$update(function(data){
+                    if(data.success)
+                        $scope.init();
+                    
+                });
+            }
+            
+            $scope.btnDeleteClick = function(obj){
+                $("#modal-delete").modal('show');
+                $scope.deleteuuid = obj.id;
+            }
+            
+            $scope.Delete = function(){
+                // personresource.personobj.uuid = $scope.deleteuuid;
+                // personresource.$delete(function(data){
+                //     if(data.success)
+                //         $scope.init();
+                    
+                // });
             }
 
         }
