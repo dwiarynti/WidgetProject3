@@ -19,7 +19,39 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="pageobj in PageList">
+                    <tr ng-repeat="person in peopleList">
+                        <!--viewmode-->
+                        <td ng-if="person.uuid != '' && person.editmode!=true">{{person.name}}</td>
+                        <td ng-if="person.uuid != '' && person.editmode!=true">{{person.nick}}</td>
+                        <td ng-if="person.uuid != '' && person.editmode!=true">{{person.email}}</td>
+                        <td ng-if="person.uuid != '' && person.editmode!=true">
+                            <a ng-click="Edit(person)" class="link" style="cursor: pointer">Edit</a> |
+                            <!--<a ng-click="turnoffaddmode($index)" class="link" style="cursor: pointer">Cancel</a>-->
+                        </td>
+
+                        <!--add&editmode-->
+                        <td ng-if="person.uuid == '' || person.editmode==true">
+                            <input type="text" placeholder="Name" class="form-control col-md-6" ng-model="person.name">
+                        </td>
+                        <td ng-if="person.uuid == '' || person.editmode==true">
+                            <input type="text" placeholder="Nick" class="form-control col-md-6" ng-model="person.nick">
+                        </td>
+                        <td ng-if="person.uuid == '' || person.editmode==true">
+                            <input type="text" placeholder="Email" class="form-control col-md-6" ng-model="person.email">
+                        </td>
+                        <!--addmode-->
+                        <td ng-if="person.uuid == '' && person.editmode!=true">
+                            <a ng-click="Save(person)" class="link" style="cursor: pointer">Save</a> |
+                            <a ng-click="turnoffaddmode($index)" class="link" style="cursor: pointer">Cancel</a>
+                        </td>
+                        <!--editmode-->
+                        <td ng-if="person.uuid != '' && person.editmode==true">
+                            <a ng-click="Save(person)" class="link" style="cursor: pointer">Save</a> |
+                            <a ng-click="turnoffeditmode(person)" class="link" style="cursor: pointer">Cancel</a>
+                        </td>
+                        
+
+
                     </tr>
                 </tbody>
             </table>  
