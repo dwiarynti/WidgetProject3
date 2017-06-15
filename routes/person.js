@@ -125,7 +125,17 @@ router.post('/person/create', function (req, res) {
             }
             else
             {
-                res.json({"success": true});
+               sequencedb.put('sequencenumberperson',generateid,function(err)
+                {
+                    if(err)
+                    {
+                        res.json(500,err);
+                    }
+                    else
+                    {
+                        res.json({ "success": true })
+                    }
+                })
             }
         })
     });
@@ -136,9 +146,19 @@ router.post('/person/update',function(req,res)
 {
     persondb.get('person',function(err,persons)
     {
+
+        if(err)
+        {
+            if(err.message != "Key not found in database")
+            {
+                res.json(500,err);
+            }
+        }
+        else
+        {
         for(var i = 0 ; i < persons.length; i++)
         {
-            if(persons[i].uuid == req.body.uuid)
+            if(persons[i].uuid == req.body.personobj.uuid)
             {
                persons[i].name =  req.body.personobj.name,
                persons[i].nick = req.body.personobj.nick,
@@ -159,6 +179,7 @@ router.post('/person/update',function(req,res)
                 res.json({"success": true});
             }
         })
+        }
     });
 });
 
