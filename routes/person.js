@@ -79,11 +79,11 @@ router.post('/person/create', function (req, res) {
     var person = {
         uuid : generateid,
         version: 1,
-        name : req.body.name,
-        nick : req.body.nick,
-        email : req.body.email,
+        name :req.body.personobj.name,
+        nick : req.body.personobj.nick,
+        email : req.body.personobj.email,
         definedbytenant : "",
-        datecreated : req.body.datacreated,
+        datecreated : req.body.personobj.datacreated,
         datemodified : "",
         changeby : "",
         changebyname :""
@@ -122,7 +122,7 @@ router.post('/person/create', function (req, res) {
             }
         }
 
-        persondb.push('person',listobj,function(err)
+        persondb.put('person',listobj,function(err)
         {
             if(err)
             {
