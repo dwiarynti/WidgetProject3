@@ -235,7 +235,7 @@ router.post('/person/delete',function(req,res)
                 }
             }
 
-            persondb.put('person',listobj,function(err)
+            persondb.put('person',persons,function(err)
             {
                 if(err)
                 {
