@@ -63,6 +63,24 @@ angular.module('app').config(['$routeProvider', function ($routeProvider) {
                 templateUrl: '/javascripts/angularproject/partialviews/sitemanagement.html'
             }
         },
+        {
+            url: '/devicemanagement',
+            config: {
+                templateUrl: '/javascripts/angularproject/partialviews/devicemanagement.html'
+            }
+        },
+        {
+            url: '/locationmanagement',
+            config: {
+                templateUrl: '/javascripts/angularproject/partialviews/locationmanagement.html'
+            }
+        },
+        {
+            url: '/peoplemanagement',
+            config: {
+                templateUrl: '/javascripts/angularproject/partialviews/peoplemanagement.html'
+            }
+        },
     ];
 
     routes.forEach(function (route) {
