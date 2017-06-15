@@ -7,7 +7,9 @@
         return $resource("/api/person/:action/:_id",
                { _id: '@_id' },
                {
-                 init: {method:'GET', params:{action:'getbysite'}}
+                 init: {method:'GET', params:{action:'getbysite'}},
+                 create: {method:'POST', params:{action:'create'}},
+                 getAll: {method:'GET', params:{action:'getall'}}
                })
     }
 }());
