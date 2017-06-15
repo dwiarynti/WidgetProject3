@@ -17,7 +17,7 @@ persondb.get('person', function (err, persons) {
     }
 });
 
-persondb.post('/person/deletedata',function(err)
+persondb.post('/person/cleanup',function(err)
 {
     var a = [];
     persondb.put('person',listobj,function(err)
