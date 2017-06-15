@@ -88,6 +88,7 @@ router.post('/person/create', function (req, res) {
         changeby : "",
         changebyname :""
     }
+    var a = [];
     persondb.get('person',function(err,persons)
     {
         if(err)
@@ -110,15 +111,9 @@ router.post('/person/create', function (req, res) {
             }
             else
             {
-                if(person != null)
-                {
-                    listobj[0] = persons;
+                
                     listobj.push(person);
-                }
-                else
-                {
-                    listobj.push(person);
-                }
+                
             }
         }
 
@@ -150,7 +145,7 @@ router.post('/person/update',function(req,res)
                persons[i].email = req.body.personobj.email;
                persons[i].datemodified = req.body.personobj.datamodified;
                persons[i].changeby = req.body.personobj.changeby;
-               persons[i].changebyname = rreq.body.personobj.changebyname;
+               persons[i].changebyname = req.body.personobj.changebyname;
             }
         }
         persondb.put('person', persons , function(err)
