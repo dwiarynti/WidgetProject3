@@ -4,29 +4,7 @@ var router = express.Router();
 var db = require('./connection');
 var persondb = db.sublevel('person');
 var sitedb = db.sublevel('site');
-
-var person = [
-    {
-        id: 1,
-        name: "Budi",
-        siteid: "001"
-    },
-    {
-        id: 2,
-        name: "Anton",
-        siteid: "001"
-    },
-    {
-        id: 3,
-        name: "Didi",
-        siteid: "002"
-    },
-    {
-        id: 4,
-        name: "Ani",
-        siteid: "002"
-    }
-]
+var sequencedb = db.sublevel('sequencenumberperson');
 
 persondb.get('person', function (err, persons) {
     if (err) {
@@ -78,10 +56,85 @@ router.get('/person/:_id', function (req, res) {
 });
 
 router.post('/person/create', function (req, res) {
-    persondb.put('person', person, function (err) {
-        if (err) res.json(500, err);
-        else res.json({ success: true });
+
+    var generateid = "";
+    var listobj = [];
+    sequencedb.get('sequencenumberperson',function(err,id)
+    {
+        if(err)
+        {
+            if(err.message == "Key not found in database")
+            {
+                generateid = 1;
+            }
+            else
+            {
+                res.json(500,err);
+            }
+        }
+        else{
+            generateid = id+1;
+        }
+
+    var person = {
+        uuid : generateid,
+        version: 1,
+        name : req.body.name,
+        nick : req.body.nick,
+        email : req.body.email,
+        definedbytenant : req.body.definedbytenant,
+        datacreated : req.body.datacreated,
+        datamodified : req.body.datamodified,
+        changeby : req.body.changeby,
+        changebyname : req.body.changebyname
+    }
+    persondb.get('person',function(err,persons)
+    {
+        if(err)
+        {
+            if(err.message == "Key not found in database")
+            {
+                listobj.push(person);
+            }
+            else
+            {
+                res.json(500,err);
+            }
+        }
+        else
+        {
+            if(persons.length > 0)
+            {
+                listobj = persons;
+                listobj.push(person);
+            }
+            else
+            {
+                if(person != null)
+                {
+                    listobj[0] = persons;
+                    listobj.push(person);
+                }
+                else
+                {
+                    listobj.push(person);
+                }
+            }
+        }
+
+        persondb.push('person',listobj,function(err)
+        {
+            if(err)
+            {
+                res.json(500,err);
+            }
+            else
+            {
+                res.json({"success": true});
+            }
+        })
     });
+});
 });
 
 router.get('/person/getbysite/:_id', function (req, res) {
