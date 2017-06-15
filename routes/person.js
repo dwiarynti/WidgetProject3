@@ -229,7 +229,7 @@ router.post('/person/delete',function(req,res)
             var listobj = [];
             for(var i = 0 ; i < persons.length;i++)
             {
-                if(persons[i].uuid != req.obj.personobj.uuid)
+                if(persons[i].uuid != req.body.personobj.uuid)
                 {
                     persons[i].disable = true
                 }
