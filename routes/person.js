@@ -17,6 +17,21 @@ persondb.get('person', function (err, persons) {
     }
 });
 
+persondb.post('/person/deletedata',function(err)
+{
+    var a = [];
+    persondb.put('person',listobj,function(err)
+        {
+            if(err)
+            {
+                res.json(500,err);
+            }
+            else
+            {
+                 res.json({"success": tru});
+            }
+        });
+});
 
 router.get('/person/getall', function (req, res) {
     persondb.get('person', function (err, person) {
@@ -25,10 +40,20 @@ router.get('/person/getall', function (req, res) {
                 res.json({ "success": true, "message": "no data", "obj": [] });
             }
             else {
+               
                 res.json(500, err);
             }
-
-        else res.json({ "success": true, "obj": person })
+        
+        else 
+         var listobj = [];
+                for(var i = 0 ; i < person.length;i++)
+                {
+                    if(person[i].disable == false)
+                    {
+                        listobj.push(person[i])
+                    }
+                }
+        res.json({ "success": true, "obj": listobj })
     });
 });
 
@@ -86,7 +111,8 @@ router.post('/person/create', function (req, res) {
         datecreated : req.body.personobj.datacreated,
         datemodified : "",
         changeby : "",
-        changebyname :""
+        changebyname :"",
+        disable : false
     }
     var a = [];
     persondb.get('person',function(err,persons)
@@ -205,7 +231,7 @@ router.post('/person/delete',function(req,res)
             {
                 if(persons[i].uuid != req.obj.personobj.uuid)
                 {
-                    listobj.push(persons[i]);
+                    persons[i].disable = true
                 }
             }
 
