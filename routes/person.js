@@ -82,11 +82,11 @@ router.post('/person/create', function (req, res) {
         name : req.body.name,
         nick : req.body.nick,
         email : req.body.email,
-        definedbytenant : req.body.definedbytenant,
-        datacreated : req.body.datacreated,
-        datamodified : req.body.datamodified,
-        changeby : req.body.changeby,
-        changebyname : req.body.changebyname
+        definedbytenant : "",
+        datecreated : req.body.datacreated,
+        datemodified : "",
+        changeby : "",
+        changebyname :""
     }
     persondb.get('person',function(err,persons)
     {
@@ -135,6 +135,36 @@ router.post('/person/create', function (req, res) {
         })
     });
 });
+});
+
+router.post('/person/update',function(req,res)
+{
+    persondb.get('person',function(err,persons)
+    {
+        for(var i = 0 ; i < persons.length; i++)
+        {
+            if(persons[i].uuid == req.body.uuid)
+            {
+               persons[i].name =  req.body.name,
+               persons[i].nick = req.body.nick,
+               persons[i].email = req.body.email;
+               persons[i].datemodified = req.body.datamodified;
+               persons[i].changeby = req.body.changeby;
+               persons[i].changebyname = req.body.changebyname;
+            }
+        }
+        persondb.put('person', persondb , function(err)
+        {
+            if(err)
+            {
+                res.json(500,err);
+            }
+            else
+            {
+                res.json({"success": true});
+            }
+        })
+    });
 });
 
 router.get('/person/getbysite/:_id', function (req, res) {
