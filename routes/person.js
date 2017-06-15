@@ -183,6 +183,50 @@ router.post('/person/update',function(req,res)
     });
 });
 
+router.post('/person/delete',function(req,res)
+{
+    persondb.get('person',function(err,persons)
+    {
+        if(err)
+        {
+            if(err.message == "Key not found in database")
+            {
+                listobj.push(person);
+            }
+            else
+            {
+                res.json(500,err);
+            }
+        }
+        else
+        {
+            var listobj = [];
+            for(var i = 0 ; i < persons.length;i++)
+            {
+                if(persons[i].uuid != req.obj.personobj.uuid)
+                {
+                    listobj.push(persons[i]);
+                }
+            }
+
+            persondb.put('person',listobj,function(err)
+            {
+                if(err)
+                {
+                    res.json(500,err);
+                }
+                else
+                {
+                    res.json({"success": true});
+                }
+            })
+        }
+    })
+})
+
+
+
+
 router.get('/person/getbysite/:_id', function (req, res) {
     var id = req.params._id;
     var listitem = [];
