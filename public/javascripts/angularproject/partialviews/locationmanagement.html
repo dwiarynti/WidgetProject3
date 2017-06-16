@@ -2,7 +2,7 @@
     <div class="common-widget">
     <div class="common-heading">
         <img class="common-icon" ng-src="/javascripts/images/employee.png" alt="employee" />
-        <span class="www-employee-title">location Management</span>
+        <span class="www-employee-title">Location Management</span>
     </div>
     <div class="common-body">
         <div class="row" style="margin:1%">
@@ -13,16 +13,67 @@
                 <thead>
                     <tr>
                         <th style="width: 11%;">Name</th>
+                        <th style="width: 11%;">Area Type</th>                        
                         <th style="width: 11%;">Parent</th>
-                        <th style="width: 11%;">Area Type</th>
                         <th style="width: 11%;">Short Address</th>
                         <th style="width: 11%;">Full Address</th>
-                        <th style="width: 11%;">Location</th>
+                        <!--<th style="width: 11%;">Location</th>-->
+                        <th style="width: 11%;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="pageobj in PageList">
+                    <tr ng-repeat="room in roomList">
+                        <!--viewmode-->
+                        <td ng-if="room.uuid != '' && room.editmode!=true">{{room.name}}</td>
+                        <td ng-if="room.uuid != '' && room.editmode!=true">{{room.areatype}}</td>                        
+                        <td ng-if="room.uuid != '' && room.editmode!=true">{{room.parent}}</td>
+                        <td ng-if="room.uuid != '' && room.editmode!=true">{{room.shortaddress}}</td>
+                        <td ng-if="room.uuid != '' && room.editmode!=true">{{room.fulladdress}}</td>
+                        <!--<td ng-if="room.uuid != '' && room.editmode!=true">{{room.Location}}</td>-->
+                        <td ng-if="room.uuid != '' && room.editmode!=true">
+                            <a ng-click="Edit(room)" class="link" style="cursor: pointer">Edit</a> |
+                            <a ng-click="btnDeleteClick(room)" class="link" style="cursor: pointer">Delete</a>
+                        </td>
+
+                        <!--add&editmode-->
+                        <td ng-if="room.uuid == '' || room.editmode==true">
+                            <input type="text" placeholder="Name" class="form-control col-md-6" ng-model="room.name">
+                        </td>
+                        <td ng-if="room.uuid == '' || room.editmode==true">
+                            <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="room.areatype" ng-change="getParent(room.areatype)">
+                                <option value="">Please Select</option>
+                                <option value="{{obj.level}}" ng-repeat="obj in areatype">{{obj.name}}</option>
+                            </select>
+                        </td>
+                        <td ng-if="room.uuid == '' || room.editmode==true">
+                            <select ng-disabled="parentList.length == 0" class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="room.parent" ng-change="getParent(room.parent)">
+                                <option value="">Please Select</option>
+                                <option value="{{parent.uuid}}" ng-repeat="parent in parentList">{{parent.name}}</option>
+                            </select>
+                        </td>
+
+                        <td ng-if="room.uuid == '' || room.editmode==true">
+                            <input type="text" placeholder="Short Address" class="form-control col-md-6" ng-model="room.shortaddress">
+                        </td>
+                        <td ng-if="room.uuid == '' || room.editmode==true">
+                            <input type="text" placeholder="Nick" class="form-control col-md-6" ng-model="room.fulladdress">
+                        </td>
+                        <!--<td ng-if="room.uuid == '' || room.editmode==true">
+                            <input type="text" placeholder="Email" class="form-control col-md-6" ng-model="room.Location">
+                        </td>-->
+                        <!--addmode-->
+                        <td ng-if="room.uuid == '' && room.editmode!=true">
+                            <a ng-click="Save(room)" class="link" style="cursor: pointer">Save</a> |
+                            <a ng-click="turnoffaddmode($index)" class="link" style="cursor: pointer">Cancel</a>
+                        </td>
+                        <!--editmode-->
+                        <td ng-if="room.uuid != '' && room.editmode==true">
+                            <a ng-click="Update(room)" class="link" style="cursor: pointer">Update</a> |
+                            <a ng-click="turnoffeditmode(room)" class="link" style="cursor: pointer">Cancel</a>
+                        </td>
                         
+
+
                     </tr>
                 </tbody>
             </table>  
@@ -32,4 +83,27 @@
 
 </div>
 
+</div>
+    <div class="modal modal-message fade" id="modal-delete">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a href="javascript:;" class="close" data-dismiss="modal">x</a>
+                            <h4 class="modal-title">Delete room</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                            <p>Are you sure you want to delete this room?</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="javascript:;" class="btn btn-default btn-width btn-margin" data-dismiss="modal">Cancel</a>
+                            <button type="button" class="btn btn-default btn-width" ng-click="Delete()">
+                                <span>Ok</span>
+                            </button>
+                        
+                        </div>
+                    </div>
+                </div>
+        </div>
 </div>
