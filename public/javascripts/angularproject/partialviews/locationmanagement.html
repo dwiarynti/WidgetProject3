@@ -54,7 +54,7 @@
                         </td>
 
                         <td ng-if="room.uuid == '' || room.editmode==true">
-                            <input type="text" placeholder="Short Address" class="form-control col-md-6" ng-model="room.shortaddress" ng-change="concatShortAddress(room)">
+                            <input type="text" placeholder="Short Address" class="form-control col-md-6" ng-model="room.shortaddress" >
                         </td>
                         <td ng-if="room.uuid == '' || room.editmode==true">
                             <textarea class="form-control col-md-6" disabled rows="2" cols="50" ng-model="room.fulladdress"></textarea>

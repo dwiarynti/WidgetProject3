@@ -47,7 +47,7 @@ angular.module('app').controller('locationmanagementcontroller',
             $scope.Save = function(obj){
                 obj.areatype  = obj.areatype != "" ? $filter('filter')($scope.areatype, function (type) { return parseInt(obj.areatype) === type.level })[0].name:"";
                 obj.parent = parseInt(obj.parent);
-
+                $scope.concatShortAddress(obj);
                 if((obj.areatype != "site" && obj.parent == 0) || obj.areatype== ""){
                     $scope.errormessage = obj.areatype== "" ? "Please select area type": "Please select parent";
                 }else{
@@ -79,6 +79,7 @@ angular.module('app').controller('locationmanagementcontroller',
             }
 
             $scope.Update = function(obj){
+                $scope.concatShortAddress(obj);                
                 obj.datamodified = date;
                 obj.changeby = $rootScope.userobj.id;
                 obj.changebyname = $rootScope.userobj.username;
@@ -143,15 +144,27 @@ angular.module('app').controller('locationmanagementcontroller',
                 for(i=0;i<numberofloop;i++){
                     getParentData = $scope.getParentData(getParentData.parentobj.parent);
                     numberofloop = getParentData.level-1;
-
-                    fulladdress = fulladdress +" - "+ getParentData.parentobj.shortaddress;
+                    if(fulladdress == ""){
+                        fulladdress = getParentData.parentobj.shortaddress;
+                    }else if(getParentData.parentobj.shortaddress == ""){
+                        fulladdress = fulladdress;
+                    }else{
+                        fulladdress = fulladdress +" - "+ getParentData.parentobj.shortaddress;
+                    }
                 }
                 obj.fulladdress=fulladdress;
                 console.log(fulladdress);
             }
 
             $scope.concatShortAddress=function(obj){
-                obj.fulladdress = obj.shortaddress +" - "+ obj.fulladdress;
+                if(obj.fulladdress == ""){
+                    obj.fulladdress = obj.shortaddress;
+                }else if(obj.shortaddress == ""){
+                    obj.fulladdress = obj.fulladdress;
+                }else{
+                    obj.fulladdress = obj.fulladdress +" - "+ obj.shortaddress;
+                }
+                // obj.fulladdress = obj.shortaddress +" - "+ obj.fulladdress;
             }
 
 
