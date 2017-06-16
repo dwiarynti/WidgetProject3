@@ -42,13 +42,13 @@
                         <td ng-if="room.uuid == '' || room.editmode==true">
                             <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="room.areatype" ng-change="getParent(room.areatype)">
                                 <option value="">Please Select</option>
-                                <option value="{{obj.level}}" ng-repeat="obj in areatype">{{obj.name}}</option>
+                                <option value="{{obj.level}}" ng-repeat="obj in areatype" ng-selected="isSelectedItem(room.areatype, obj.name)">{{obj.name}}</option>
                             </select>
                         </td>
                         <td ng-if="room.uuid == '' || room.editmode==true">
-                            <select ng-disabled="parentList.length == 0" class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="room.parent" ng-change="getParent(room.parent)">
+                            <select ng-disabled="parentList.length == 0 || room.parent == 0" class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="room.parent" ng-change="getParent(room.parent)">
                                 <option value="">Please Select</option>
-                                <option value="{{parent.uuid}}" ng-repeat="parent in parentList">{{parent.name}}</option>
+                                <option value="{{parent.uuid}}" ng-repeat="parent in parentList" ng-selected="isSelectedItem(parent.uuid, room.parent)">{{parent.name}}</option>
                             </select>
                         </td>
 

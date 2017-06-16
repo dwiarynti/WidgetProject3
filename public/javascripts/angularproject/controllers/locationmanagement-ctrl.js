@@ -30,7 +30,7 @@ angular.module('app').controller('locationmanagementcontroller',
                 $scope.roomList.push({
                     uuid :"",
                     name:"",
-                    parent:"",
+                    parent:0,
                     datecreated:date,
                     datemodified : "",
                     changeby : "",
@@ -45,6 +45,7 @@ angular.module('app').controller('locationmanagementcontroller',
 
             $scope.Save = function(obj){
                 obj.areatype  = $filter('filter')($scope.areatype, function (type) { return parseInt(obj.areatype) === type.level })[0].name;
+                obj.parent = parseInt(obj.parent);
                 roomresource.roomobj = obj;
                 roomresource.$create(function(data){
                     if(data.success)
@@ -59,6 +60,9 @@ angular.module('app').controller('locationmanagementcontroller',
 
             $scope.Edit=function(obj){
                 obj.editmode = true;
+                console.log(obj);
+                var areatypelevel = $scope.getAreatypeLevel(obj.areatype);
+                $scope.getParent(areatypelevel);
             }
             
             $scope.turnoffeditmode = function(obj){
@@ -69,6 +73,7 @@ angular.module('app').controller('locationmanagementcontroller',
                 obj.datamodified = date;
                 obj.changeby = $rootScope.userobj.id;
                 obj.changebyname = $rootScope.userobj.username;
+                obj.parent = parseInt(obj.parent);                
                 roomresource.roomobj = obj;
                 roomresource.$update(function(data){
                     if(data.success)
@@ -104,5 +109,14 @@ angular.module('app').controller('locationmanagementcontroller',
                         }
                     });
             }
+            
+            $scope.isSelectedItem =function(itemA, itemB){
+                return itemA == itemB ? true:false;
+            }
+
+            $scope.getAreatypeLevel = function(areatype){
+                return $filter('filter')($scope.areatype, function (type) { return type.name === areatype })[0].level;
+            }
+
         }
     ]);
