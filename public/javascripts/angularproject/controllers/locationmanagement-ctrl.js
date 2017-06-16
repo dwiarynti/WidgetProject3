@@ -14,6 +14,7 @@ angular.module('app').controller('locationmanagementcontroller',
                 ];
             $scope.parentList = [];
             $scope.selectedareatype = "";
+            $scope.errormessage = "";
             
             var date = new Date();
 
@@ -44,14 +45,22 @@ angular.module('app').controller('locationmanagementcontroller',
             }
 
             $scope.Save = function(obj){
-                obj.areatype  = $filter('filter')($scope.areatype, function (type) { return parseInt(obj.areatype) === type.level })[0].name;
+                obj.areatype  = obj.areatype != "" ? $filter('filter')($scope.areatype, function (type) { return parseInt(obj.areatype) === type.level })[0].name:"";
                 obj.parent = parseInt(obj.parent);
-                roomresource.roomobj = obj;
-                roomresource.$create(function(data){
-                    if(data.success)
-                        $scope.init();
-                        
-                });
+
+                if((obj.areatype != "site" && obj.parent == 0) || obj.areatype== ""){
+                    $scope.errormessage = obj.areatype== "" ? "Please select area type": "Please select parent";
+                }else{
+                    $scope.errormessage = "";
+                    roomresource.roomobj = obj;
+                    roomresource.$create(function(data){
+                        if(data.success)
+                            $scope.init();
+                            
+                    });
+                }
+
+                
             }
 
             $scope.turnoffaddmode = function(index){
@@ -97,17 +106,19 @@ angular.module('app').controller('locationmanagementcontroller',
                 });
             }
 
-            $scope.getParent = function(obj){
-                console.log(obj);
+            $scope.getParent = function(uuid){
+                console.log(uuid);
                 $scope.parentList = [];
-                obj = parseInt(obj);
-                var list = $filter('filter')($scope.areatype, function (type) { return type.level < obj });
+                uuid = parseInt(uuid);
+                var list = $filter('filter')($scope.areatype, function (type) { return type.level == uuid-1 });
                     angular.forEach(list,function(item) {
                         var data = $filter('filter')($scope.roomList, function (room) { return room.areatype === item.name });
                         if(data.length != 0){
                             $scope.parentList.push.apply($scope.parentList, data);
                         }
                     });
+
+                // $scope.concatShortAddress(uuid);
             }
             
             $scope.isSelectedItem =function(itemA, itemB){
@@ -117,6 +128,33 @@ angular.module('app').controller('locationmanagementcontroller',
             $scope.getAreatypeLevel = function(areatype){
                 return $filter('filter')($scope.areatype, function (type) { return type.name === areatype })[0].level;
             }
+
+            $scope.getParentData = function(parentuuid){
+                var getParent = $filter('filter')($scope.roomList, function (room) { return room.uuid === parseInt(parentuuid) })[0];
+                var getlevel = $filter('filter')($scope.areatype, function (areatype) { return areatype.name === getParent.areatype })[0];
+                return {parentobj:getParent, level:getlevel.level};
+            }
+
+            $scope.concatShortAddressHierarchy = function(parentuuid, obj){
+                var fulladdress = "";
+                var getParentData = $scope.getParentData(parentuuid);
+                fulladdress = getParentData.parentobj.shortaddress;
+                var numberofloop = getParentData.level-1;
+                for(i=0;i<numberofloop;i++){
+                    getParentData = $scope.getParentData(getParentData.parentobj.parent);
+                    numberofloop = getParentData.level-1;
+
+                    fulladdress = fulladdress +" - "+ getParentData.parentobj.shortaddress;
+                }
+                obj.fulladdress=fulladdress;
+                console.log(fulladdress);
+            }
+
+            $scope.concatShortAddress=function(obj){
+                obj.fulladdress = obj.shortaddress +" - "+ obj.fulladdress;
+            }
+
+
 
         }
     ]);

@@ -9,6 +9,7 @@
             <div class="col-md-12" >
                 <button ng-click="Add()" type="button" class="btn btn-flat" data-widget=""><i class="glyphicon glyphicon-plus"></i> Add Field</button>
                 <br><br>
+                <p ng-if="errormessage != ''" class="text-danger">* {{errormessage}}</p>
                 <table id="data-table" datatable="ng" dt-options="dtOptions" width="100%" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -46,17 +47,17 @@
                             </select>
                         </td>
                         <td ng-if="room.uuid == '' || room.editmode==true">
-                            <select ng-disabled="parentList.length == 0 || room.parent == 0" class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="room.parent" ng-change="getParent(room.parent)">
+                            <select ng-disabled="parentList.length == 0 && room.parent == 0" class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="room.parent" ng-change="concatShortAddressHierarchy(room.parent, room)">
                                 <option value="">Please Select</option>
                                 <option value="{{parent.uuid}}" ng-repeat="parent in parentList" ng-selected="isSelectedItem(parent.uuid, room.parent)">{{parent.name}}</option>
                             </select>
                         </td>
 
                         <td ng-if="room.uuid == '' || room.editmode==true">
-                            <input type="text" placeholder="Short Address" class="form-control col-md-6" ng-model="room.shortaddress">
+                            <input type="text" placeholder="Short Address" class="form-control col-md-6" ng-model="room.shortaddress" ng-change="concatShortAddress(room)">
                         </td>
                         <td ng-if="room.uuid == '' || room.editmode==true">
-                            <input type="text" placeholder="Nick" class="form-control col-md-6" ng-model="room.fulladdress">
+                            <input disabled type="text" placeholder="Full Address" class="form-control col-md-6" ng-model="room.fulladdress" >
                         </td>
                         <!--<td ng-if="room.uuid == '' || room.editmode==true">
                             <input type="text" placeholder="Email" class="form-control col-md-6" ng-model="room.Location">
