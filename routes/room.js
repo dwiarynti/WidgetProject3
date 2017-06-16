@@ -209,6 +209,8 @@ router.post('/room/update',function(req,res)
                     rooms[i].datemodified = req.body.roomobj.datemodified;
                     rooms[i].changeby = req.body.roomobj.changeby;
                     rooms[i].changebyname = req.body.roomobj.changebyname;
+                    rooms[i].shortaddress= req.body.roomobj.shortaddress;
+                    rooms[i].fulladdress=req.body.roomobj.fulladdress;
                 }
             }
 
