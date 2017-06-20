@@ -296,4 +296,100 @@ router.post('/roomdev/delete',function(req,res)
     });
 });
 
+router.post('/roomdev/update',function(req,res)
+{
+    var devices = req.body.deviceobj;
+   
+    roomdevdevicedb.get('roomdevdevice',function(err,roomdev)
+    {
+        if(err)
+        {
+            if(err.message ==  "Key not found in database")
+            res.json({success:true,"obj": {}});
+            else
+            res.json(500,err);
+        }
+        else
+        {
+          var listobj = [];
+          var listroom = [];
+          var result = [];
+          for(var j = 0 ; j < roomdev.length;j++)
+          {
+            if(roomdev[j].euid == devices.euid)
+            {
+              roomdev[j].room = devices.room;
+              roomdev[j].type = devices.type;
+            
+            }
+          }
+          roomdevdevicedb.push('roomdevdevice',roomdev,function(err)
+          {
+            if(err)
+                res.json(500,err);
+            else
+
+            if(devices.type == "fixed")
+            {
+                roomdevroomdb.get('roomdevroom',function(err,roomroom)
+                {
+               
+                   if(roomroom.length > 0)
+                    {
+                        for(var i = 0 ; i < roomroom.length; i++)
+                        {
+                            if(roomroom[i].room == devices.room)
+                            {
+                                for(var j = 0 ; j < roomroom[i].device.length;j++)
+                                {
+                                    if(roomroom[i].device[j] == devices.euid)
+                                    {
+                                        roomroom[i].device[j] = devices.euid;
+                                    }
+                                }
+                            }
+                        }
+
+                        
+                }
+                else
+                {
+                    if(roomroom.room == devices.room)
+                    {
+                        for(var i  = 0 ; i < roomroom.device.length;i++)
+                        {
+                                if(roomroom.device[i] == devices.euid)
+                                  {
+                                      roomroom.device[i] = devices.euid;
+                                  }
+                        
+                        }
+                    }
+                }
+                
+                roomdevroomdb.put('roomdevroom',roomroom,function(err)
+                    {
+                        if(err)
+                        res.json(500,err);
+                        else
+                        res.json({"success": true })
+                    });
+
+                });
+            }
+            else
+            {
+                res.json({"success":true});
+            }
+
+          });
+          
+
+        }
+        
+        
+    });
+});
+
+
 module.exports = router;
