@@ -240,6 +240,89 @@ angular.module('app').factory('dataService',
                 }
             ];
 
+    var widgetform = [
+                {
+                    title: 'Text',
+                    settings: {
+                        // sizeX: 5,
+                        sizeY: 0,
+                        // minSizeX: 2,
+                        minSizeY: 0,
+                        template: '<mvptext></mvptext>',
+                        widgetSettings: {
+                            id: 5003,
+                            selectedfilter:{by:"", option:""},
+                            templateUrl: '/javascripts/angularproject/dialog/mvp-location/mvp-location-dialog.html',
+                            controller: 'mvp-locationdialogcontroller'
+                        }
+                    }
+                },
+                {
+                    title: 'Person',
+                    settings: {
+                        sizeX: 5,
+                        sizeY: 3,
+                        minSizeX: 2,
+                        minSizeY: 2,
+                        template: '<mvpperson></mvpperson>',
+                        widgetSettings: {
+                            id: 5003,
+                            selectedfilter :"",
+                            templateUrl: '',
+                            controller: ''
+                        }
+                    }
+                }, 
+                {
+                    title: 'Device',
+                    settings: {
+                        sizeX: 5,
+                        sizeY: 3,
+                        minSizeX: 2,
+                        minSizeY: 2,
+                        template: '<mvpdevice></mvpdevice>',
+                        widgetSettings: {
+                            id: 5003,
+                            selectedfilter :null,
+                            templateUrl: '/javascripts/angularproject/dialog/mvp-device/mvp-device-dialog.html',
+                            controller: 'mvp-devicedialogcontroller'
+                        }
+                    }
+                },
+                {
+                    title: 'Person Device',
+                    settings: {
+                        sizeX: 5,
+                        sizeY: 3,
+                        minSizeX: 2,
+                        minSizeY: 2,
+                        template: '<mvppersondevice></mvppersondevice>',
+                        widgetSettings: {
+                            id: 5003,
+                            selectedfilter :null,
+                            templateUrl: '/javascripts/angularproject/dialog/mvp-persondevice/mvp-persondevice-dialog.html',
+                            controller: 'mvp-persondevicedialogcontroller'
+                        }
+                    }
+                },
+                {
+                    title: 'Person Location',
+                    settings: {
+                        sizeX: 5,
+                        sizeY: 3,
+                        minSizeX: 2,
+                        minSizeY: 2,
+                        template: '<mvppersonlocation></mvppersonlocation>',
+                        widgetSettings: {
+                            id: 5003,
+                            selectedfilter :null,
+                            templateUrl: '/javascripts/angularproject/dialog/mvp-personlocation/mvp-personlocation-dialog.html',
+                            controller: 'mvp-personlocationdialogcontroller'
+                        }
+                    }
+                }
+            ];
+
     var getLocations = function () {
         return $timeout(function () {
             return locations;
@@ -279,12 +362,18 @@ angular.module('app').factory('dataService',
             return widgetDefinitions},300);
     }
 
+    var getWidgetForm = function(){
+        return $timeout(function(){
+            return widgetform},300);
+    }
+
 
     return {
         getLocations: getLocations,
         getLocation: getLocation,
         getEmployees: getEmployees,
         getEmployee: getEmployee,
-        getWidgetDefinition: getWidgetDefinition
+        getWidgetDefinition: getWidgetDefinition,
+        getWidgetForm: getWidgetForm
     };
 }]);

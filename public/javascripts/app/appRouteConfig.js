@@ -34,6 +34,12 @@ angular.module('app').config(['$routeProvider', function ($routeProvider) {
             }
         },
         {
+            url: '/appcomposertest',
+            config: {
+                templateUrl: '/javascripts/angularproject/partialviews/appcomposertest.html'
+            }
+        },
+        {
             url: '/prevpage/:id',
             config: {
                 templateUrl: '/javascripts/angularproject/partialviews/previewpage.html'

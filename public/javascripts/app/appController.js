@@ -137,6 +137,7 @@ angular.module('app').controller('appController',
                     { label: 'Loc Management', href: '/locationmanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
                     { label: 'People Management', href: '/peoplemanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
                     { label: 'Device Management', href: '/devicemanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
+                    { label: 'test', href: '/appcomposertest', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
 
                 ];
                 if(role == "Super Admin"){
