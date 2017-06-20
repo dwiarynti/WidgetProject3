@@ -42,7 +42,8 @@ angular.module('app').controller('devicemanagementcontroller',
                 roomdevresource.$create(function(data){
                     console.log(data);
                     if(data.success){
-                        $scope.init(); 
+                        $scope.init();
+                        $("#modal-add").modal('hide'); 
                     }else{
                         $scope.errormessage = data.messages;
                     }
@@ -60,7 +61,8 @@ angular.module('app').controller('devicemanagementcontroller',
                 roomdevresource.deviceobj = $scope.deviceobj;
                 roomdevresource.$update(function(data){
                     if(data.success){
-                        $scope.init(); 
+                        $scope.init();
+                        $("#modal-add").modal('hide'); 
                     }
                 });
             }
@@ -80,6 +82,7 @@ angular.module('app').controller('devicemanagementcontroller',
                     if(data.success){
                         $scope.init(); 
                         $scope.deviceobj={};
+                        $("#modal-delete").modal('hide');
                     }
                 });
             }
