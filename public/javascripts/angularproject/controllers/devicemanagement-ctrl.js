@@ -25,6 +25,7 @@ angular.module('app').controller('devicemanagementcontroller',
             {
                 $scope.action = "Add";
                 $scope.getroom();
+                $scope.errormessage = "";
                 $("#modal-add").modal('show');
             }
 
@@ -39,15 +40,19 @@ angular.module('app').controller('devicemanagementcontroller',
             $scope.Save = function(){
                 roomdevresource.deviceobj = $scope.deviceobj;
                 roomdevresource.$create(function(data){
+                    console.log(data);
                     if(data.success){
                         $scope.init(); 
+                    }else{
+                        $scope.errormessage = data.messages;
                     }
                 });
             }
 
             $scope.btnEditClick = function(obj){
                 $scope.deviceobj = obj;
-                $scope.action = "Edit";                
+                $scope.action = "Edit";        
+                $scope.errormessage = "";        
                 $("#modal-add").modal('show');                
             }
 

@@ -40,6 +40,10 @@ ps-dashboard {
     position: relative;
 }
 
+.ps-widget-body-text {
+    position: relative;
+}
+
 .ps-dashboard-header {
     font-size: 20px;
     border-bottom: 1px solid #444;
