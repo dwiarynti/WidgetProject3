@@ -9,7 +9,7 @@
                {
                  create: {method:'POST', params:{action:'create'}},
                  update: {method:'POST', params:{action:'update'}},
-                 getAll: {method:'GET', params:{action:'getalll'}},
+                 getAll: {method:'GET', params:{action:'getall'}},
                })
     }
 }());

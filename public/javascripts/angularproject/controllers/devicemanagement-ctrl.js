@@ -8,11 +8,14 @@ angular.module('app').controller('devicemanagementcontroller',
             $scope.deviceslist = [];
             $scope.deviceobj = {};
             $scope.roomlist =[];
-
+            $scope.action = "";
+            $scope.errormessage = "";
 
             $scope.init = function(){
                 roomdevresource.$getAll(function(data){
-                    $scope.deviceslist = data.obj;
+                    if(data.success)
+                        $scope.deviceslist = data.obj;
+                        $scope.getroom();
                 });
             }
 
@@ -20,14 +23,14 @@ angular.module('app').controller('devicemanagementcontroller',
 
             $scope.btnAddClick = function()
             {
-                $("#modal-add").modal('show');
+                $scope.action = "Add";
                 $scope.getroom();
-                
+                $("#modal-add").modal('show');
             }
 
             $scope.getroom = function(){
                 roomresource.$gettyperoom(function(data){
-                    console.log(data)
+                    // console.log(data)
                     if(data.success)
                         $scope.roomlist = data.obj;                   
                 });
@@ -39,12 +42,13 @@ angular.module('app').controller('devicemanagementcontroller',
                     if(data.success){
                         $scope.init(); 
                     }
-
                 });
             }
 
-            $scope.Edit = function(){
-
+            $scope.btnEditClick = function(obj){
+                $scope.deviceobj = obj;
+                $scope.action = "Edit";                
+                $("#modal-add").modal('show');                
             }
 
             $scope.Update = function(){
@@ -53,8 +57,11 @@ angular.module('app').controller('devicemanagementcontroller',
                     if(data.success){
                         $scope.init(); 
                     }
-
                 });
+            }
+            
+            $scope.isSelectedItem = function(itemA, itemB){
+                return itemA == itemB ? true:false;
             }
         }
     ]);
