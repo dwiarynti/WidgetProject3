@@ -68,5 +68,20 @@ angular.module('app').controller('devicemanagementcontroller',
             $scope.isSelectedItem = function(itemA, itemB){
                 return itemA == itemB ? true:false;
             }
+            
+            $scope.btnDeleteClick = function(obj){
+                $scope.deviceobj = obj; 
+                $("#modal-delete").modal('show');                
+            }
+
+            $scope.Delete = function(){
+                roomdevresource.deviceobj = $scope.deviceobj;
+                roomdevresource.$delete(function(data){
+                    if(data.success){
+                        $scope.init(); 
+                        $scope.deviceobj={};
+                    }
+                });
+            }
         }
     ]);

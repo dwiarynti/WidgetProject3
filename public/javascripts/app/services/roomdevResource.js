@@ -9,6 +9,7 @@
                {
                  create: {method:'POST', params:{action:'create'}},
                  update: {method:'POST', params:{action:'update'}},
+                 delete: {method:'POST', params:{action:'delete'}},
                  getAll: {method:'GET', params:{action:'getall'}},
                })
     }
