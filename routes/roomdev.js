@@ -218,7 +218,7 @@ router.post('/roomdev/delete',function(req,res)
               listobj.push(roomdev[j])
             }
           }
-          roomdevdevicedb.push('roomdevdevice',listobj,function(err)
+          roomdevdevicedb.put('roomdevdevice',listobj,function(err)
           {
             if(err)
                 res.json(500,err);
