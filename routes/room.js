@@ -127,8 +127,27 @@ router.get('/room/getall',function(req,res)
             {
                 if(rooms[i].disable == false)
                 {
+                    rooms[i].parentname = "";
                     listobj.push(rooms[i]);
                 }
+            }
+
+            for(var a = 0 ; a < listobj.length;a++)
+            {
+            for(var i = 0 ; i < listobj.length;i++)
+            {
+                if(listobj[i].parent != 0)
+                {
+                    if(listobj[i].parent == listobj[a].uuid)
+                    {
+                        listobj[i].parentname = listobj[a].name;
+                    }
+                }
+                else
+                {
+                     listobj[i].parentname = "-";
+                }
+            }
             }
             res.json({"success": true , "obj": listobj});
         }
