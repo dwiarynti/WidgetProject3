@@ -35,8 +35,7 @@ var personlocation = require('./routes/personlocation');
 var user = require('./routes/user');
 var auth = require('./routes/authenticationmanagement');
 var message = require('./routes/message');
-var room = require('./routes/room');
-var roomdev = require('./routes/roomdev');
+var room = require('./routes/room')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -62,7 +61,6 @@ app.use('/api',user);
 app.use('/api',auth);
 app.use('/api',message);
 app.use('/api',room);
-app.use('/api',roomdev);
 //
 
 
