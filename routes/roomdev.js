@@ -13,8 +13,10 @@ var roomdb = db.sublevel('room');
 
 router.post('/roomdev/create',function(req,res)
 {
-     var listobj = [];
-    var device  ={
+    var listobj = [];
+    var listroom = [];
+    var selectdevice = "";
+    var devices  = {
         euid : req.body.deviceobj.euid,
         room : req.body.deviceobj.room,
         type : req.body.deviceobj.type
@@ -24,118 +26,120 @@ router.post('/roomdev/create',function(req,res)
     {
         if(err)
         {
-            if(err.message != "Key not found in database")
-            {
-                res.json(500,err);
-            }
+            if(err.message == "Key not found in database")
+            listobj.push(devices);
             else
-            {
-                res.json({success:true,"obj": []});
-            }
-        }
-        if(roomdev.length > 0)
-        {
-            listobj= roomdev;
-            listobj.push = roomdevdevice;
+            res.json(500,err);
+            
         }
         else
         {
-            listobj.push(roomdevdevice);
+           if(roomdev.length > 0)
+           {
+               listobj = roomdev;
+               listobj.push(devices);
+           }
+           else
+           {
+               listobj.push(devices);
+           }
         }
-
+      
         roomdevdevicedb.put('roomdevdevice',listobj,function(err)
         {
             if(err)
-            {
-                res.json(500,err);
-            }
+            res.json(500,err);
             else
+            if(devices.type == "fixed")
             {
-                if(device.type == "fixed")
+                var room = {
+                    room : devices.room,
+                    version : 1,
+                    device  :[]
+                }
+                room.device.push(devices.euid);
+                roomdevroomdb.get('roomdevroom',function(err,roomroom)
                 {
-                    var selected = "";
-                    roomdevroomdb.get('roomdevroom',function(err,rooms)
+                    var result = [];
+                    
+                    if(err)
                     {
-                        for(var i = 0; i < rooms.length;i++)
+                        if(err.message == "Key not found in database")
                         {
-                            if(rooms[i].uuid ==roomdevdevice.room)
-                            {
-                                rooms[i].devices.push(roomdevdevice.device);
-                                selected = rooms[i];
-                            }
-                           
-                        }
-                        if(selected !="")
-                        {
-                            roomdevroomdb.put('roomdevroom',rooms,function(err)
-                            {
-                                if(err)
-                                {
-                                    res.json(500,err);
-                                }
-                                else
-                                {
-                                    res.json({"success": true});
-                                }
-                            });
+                            listroom.push(room);
                         }
                         else
                         {
-                            var listroom = [];
-                            var room = {
-                                    room: device.room,
-                                    version : 1,
-                                    device  : device.euid
-                            }
-                            if(rooms.length > 0)
+                            res.json(500,err);
+                        }
+                    }
+                    else
+                    {
+                        if(roomroom.length > 0)
+                        {
+                        for(var i = 0 ; i < roomroom.length; i++)
+                        {
+                            if(roomroom[i].room == devices.room)
                             {
-                                
-                                listroom = rooms;
-                                listroom.push(room);
+                                roomroom[i].device.push(devices.euid);
+                                selectdevice = roomroom[i];
+                            }
+                        }
+                        }
+                        else
+                        {
+                            if(roomroom.room == devices.room)
+                            {
+                                roomroom.device.push(devices.euid);
+                                result.push(roomroom);
                             }
                             else
                             {
-                                listroom.push(room);
+                                result[0] = roomroom;
+                                result.push(room);
                             }
-
-                            roomdevroomdb.put('roomdevroom',listroom,function(err)
-                            {
-                                if(err)
-                                {
-                                    res.json(500,err);
-                                }
-                                else
-                                {
-                                    res.json({"success": true});
-                                }
-                            });
+                            
+                            selectdevice = roomroom;
                         }
+                    }
+                    if(selectdevice != "")
+                    {
+                        listroom = result;
+                    }
+                    else
+                    {
+                        listroom = room;
+                    }
+                    roomdevroomdb.put('roomdevroom',listroom,function(err)
+                    {
+                        if(err)
+                        res.json(500,err);
+                        else
+                        res.json({"success": true })
                     });
-                }
-                else
-                {
-                    res.json({"success": true});
-                }
+
+                })
             }
-        });
+            else
+            {
+                res.json({"success": true })
+            }
+        })
     });
 });
 
-router.get('/roomdev/getalll',function(req,res)
+
+
+router.get('/roomdev/getall',function(req,res)
 {
-   
     roomdevdevicedb.get('roomdevdevice',function(err,roomdev)
     {
         if(err)
         {
-            if(err.message != "Key not found in database")
-            {
-                res.json(500,err);
-            }
+            if(err.message ==  "Key not found in database")
+            res.json({success:true,"obj": {}});
             else
-            {
-                res.json({success:true,"obj": []});
-            }
+            res.json(500,err);
         }
         else
         {
@@ -145,83 +149,31 @@ router.get('/roomdev/getalll',function(req,res)
             {
                 for(var j = 0 ; j < roomdev.length;j++)
                 {
-                    roomdev[j].roomname = "";
-                    if(roomdev[j].room == rooms[i].euid)
+                  
+                    if(roomdev[j].room == rooms[i].uuid)
                     {
                         roomdev[j].roomname = rooms[i].name;
                     }
+                    
                 }
             }
-            if(roomdev != null)
-            {
-                 res.json({"success" : true ,"obj": roomdev })
-            }
-            else
-            {
-                 res.json({"success" : true ,"obj": [] })
-            }
+            res.json({"success" : true ,"obj": roomdev })
            });
-            
-        
         }
+
     });
 });
 
-router.get('/roomdev/get/:_id',function(req,res)
+router.get('/roomdev/getroom',function(req,res)
 {
-    var id  = req.params._id;
-    roomdevdevicedb.get('roomdevdevice',function(err,roomdev)
+    roomdevroomdb.get('roomdevroom',function(err,data)
     {
         if(err)
-        {
-            if(err.message != "Key not found in database")
-            {
-                res.json(500,err);
-            }
-            else
-            {
-                res.json({success:true,"obj": {}});
-            }
-        }
+        res.json(500,err);
         else
-        {
-        var selected = "";
-        for(var i = 0 ; i < roomdev.length;i++)
-        {
-            if(roomdev[i].euid == id)
-            {
-                selected = roomdev[i];
-            }
-        }
-        roomdb.get('room',function(err,rooms)
-        {
-            for(var i = 0 ; i < rooms.length;i++)
-            {
-                
-                
-                    if(selected.room == rooms[i].euid)
-                    {
-                        selected.roomname = rooms[i].name;
-                    }
-                
-            }
-            if(selected != "")
-            {
-                 res.json({"success" : true ,"obj": selected })
-            }
-            else
-            {
-                 res.json({"success" : true ,"obj": {} })
-            }
-           });
-            
-        
-        }
-    });
-});
-
-
-
+        res.json({"success":true,"obj": data});
+    })
+})
 
 
 module.exports = router;
