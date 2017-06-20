@@ -16,6 +16,7 @@ router.post('/roomdev/create',function(req,res)
     var listobj = [];
     var listroom = [];
     var selectdevice = "";
+    var select = "";
     var devices  = {
         euid : req.body.deviceobj.euid,
         room : req.body.deviceobj.room,
@@ -36,15 +37,29 @@ router.post('/roomdev/create',function(req,res)
         {
            if(roomdev.length > 0)
            {
+                for(var a = 0 ;a< roomdev.length;a++)
+                {
+                    if(roomdev[a].euid == devices.euid)
+                    {
+                        select =  roomdev[a].euid;
+                    }
+                }
                listobj = roomdev;
                listobj.push(devices);
            }
            else
            {
+               if(roomdev.euid == devices.euid)
+               {
+                   select =  roomdev.euid
+               }
                listobj.push(devices);
            }
         }
+       
       
+        if(select == "")
+        {
         roomdevdevicedb.put('roomdevdevice',listobj,function(err)
         {
             if(err)
@@ -125,6 +140,11 @@ router.post('/roomdev/create',function(req,res)
                 res.json({"success": true })
             }
         })
+        }
+        else
+        {
+            res.json({"success" : false ,"messages": "mac address already exist"  })
+        }
     });
 });
 
@@ -173,7 +193,8 @@ router.get('/roomdev/getroom',function(req,res)
         else
         res.json({"success":true,"obj": data});
     })
-})
+});
+
 
 
 module.exports = router;
