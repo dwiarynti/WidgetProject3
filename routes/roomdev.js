@@ -148,8 +148,6 @@ router.post('/roomdev/create',function(req,res)
     });
 });
 
-
-
 router.get('/roomdev/getall',function(req,res)
 {
     roomdevdevicedb.get('roomdevdevice',function(err,roomdev)
@@ -195,6 +193,107 @@ router.get('/roomdev/getroom',function(req,res)
     })
 });
 
+router.post('/roomdev/delete',function(req,res)
+{
+    var devices = req.body.deviceobj;
+   
+    roomdevdevicedb.get('roomdevdevice',function(err,roomdev)
+    {
+        if(err)
+        {
+            if(err.message ==  "Key not found in database")
+            res.json({success:true,"obj": {}});
+            else
+            res.json(500,err);
+        }
+        else
+        {
+          var listobj = [];
+          var listroom = [];
+          var result = [];
+          for(var j = 0 ; j < roomdev.length;j++)
+          {
+            if(roomdev[j].euid != devices.euid)
+            {
+              listobj.push(roomdev[j])
+            }
+          }
+          roomdevdevicedb.push('roomdevdevice',listobj,function(err)
+          {
+            if(err)
+                res.json(500,err);
+            else
 
+            if(devices.type == "fixed")
+            {
+                roomdevroomdb.get('roomdevroom',function(err,roomroom)
+                {
+                    var roomdata = {
+                        room : devices.room,
+                        version: devices.version,
+                        device :[]
+                    }
+                   if(roomroom.length > 0)
+                    {
+                        for(var i = 0 ; i < roomroom.length; i++)
+                        {
+                            if(roomroom[i].room == devices.room)
+                            {
+                                for(var j = 0 ; j < roomroom[i].device.length;j++)
+                                {
+                                    if(roomroom[i].device[j] != devices.euid)
+                                    {
+                                         roomdata.device.push(roomroom[i].device[j]);
+                                    }
+                                }
+                            }
+                        }
+
+                        for(var i = 0 ; i < roomroom.length;i++)
+                        {
+                            if(roomroom[i].room == roomdata.room)
+                            {
+                                roomroom[i].device = roomdata.device;
+                            }
+                        }
+                        }
+                else
+                {
+                    if(roomroom.room == devices.room)
+                    {
+                        for(var i  = 0 ; i < roomroom.device.length;i++)
+                            {
+                                if(roomroom.device[i] != devices.euid)
+                                  {
+                                      roomdata.device.push(roomroom.device[i]);
+                                  }
+                              }
+                              roomroom.device = roomdata.device;
+                    }
+                }
+                
+                roomdevroomdb.put('roomdevroom',roomroom,function(err)
+                    {
+                        if(err)
+                        res.json(500,err);
+                        else
+                        res.json({"success": true })
+                    });
+
+                });
+            }
+            else
+            {
+                res.json({"success":true});
+            }
+
+          });
+          
+
+        }
+        
+        
+    });
+});
 
 module.exports = router;
