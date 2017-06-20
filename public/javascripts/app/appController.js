@@ -134,9 +134,10 @@ angular.module('app').controller('appController',
                     { label: 'User Management', href: '/usermanagement', icon: 'fa-user', isGroup: false, submenuItems: [] },
                     { label: 'Auth Setting', href: '/authsetting', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
                     { label: 'Notification Management', href: '/notificationmanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
+                    { label: 'Loc Management', href: '/locationmanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
+                    { label: 'People Management', href: '/peoplemanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
                     { label: 'Device Management', href: '/devicemanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
-                    { label: 'Location Management', href: '/locationmanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
-                    { label: 'People Management', href: '/peoplemanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] }
+
                 ];
                 if(role == "Super Admin"){
                     $scope.menuItems.push({ label: 'Site Management', href: '/sitemanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] });

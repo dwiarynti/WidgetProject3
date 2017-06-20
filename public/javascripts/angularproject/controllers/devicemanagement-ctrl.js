@@ -42,5 +42,19 @@ angular.module('app').controller('devicemanagementcontroller',
 
                 });
             }
+
+            $scope.Edit = function(){
+
+            }
+
+            $scope.Update = function(){
+                roomdevresource.deviceobj = $scope.deviceobj;
+                roomdevresource.$update(function(data){
+                    if(data.success){
+                        $scope.init(); 
+                    }
+
+                });
+            }
         }
     ]);

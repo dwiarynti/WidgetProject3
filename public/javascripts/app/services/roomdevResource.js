@@ -8,7 +8,8 @@
                { _id: '@_id' },
                {
                  create: {method:'POST', params:{action:'create'}},
-                 getAll: {method:'GET', params:{action:'getall'}},
+                 update: {method:'POST', params:{action:'update'}},
+                 getAll: {method:'GET', params:{action:'getalll'}},
                })
     }
 }());
