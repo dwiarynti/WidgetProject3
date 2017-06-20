@@ -10,8 +10,10 @@
                     create: {method:'POST', params:{action:'create'}},                
                     getall: {method:'GET', params:{action:'getall'}},                
                     getbyid: {method:'GET', params:{action:'get'}},                
+                    gettyperoom: {method:'GET', params:{action:'gettyperoom'}},                
                     update: {method:'POST', params:{action:'update'}},                
-                    delete: {method:'POST', params:{action:'delete'}},                
+                    delete: {method:'POST', params:{action:'delete'}},  
+                                  
                });
     }
 }());
