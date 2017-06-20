@@ -288,4 +288,59 @@ router.post('/room/delete',function(req,res)
     })
 })
 
+
+router.get('/room/gettyperoom',function(req,res)
+{
+    roomdb.get('room',function(err,rooms)
+    {
+        if(err)
+        {
+            if(err.message == "Key not found in database" )
+            {
+                res.json({"success": true , "obj": []});
+            }
+            else
+            {
+                res.json(500,err);
+            }
+        }
+        else
+        {
+            var listobj = [];
+            for(var i = 0 ; i < rooms.length; i++)
+            {
+                if(rooms[i].disable == false)
+                {
+                    if(rooms[i].areatype == "room")
+                    {
+                    rooms[i].parentname = "";
+                    listobj.push(rooms[i]);
+                    }
+                }
+            }
+            
+            for(var a = 0 ; a < listobj.length;a++)
+            {
+            for(var i = 0 ; i < listobj.length;i++)
+            {
+              
+                if(listobj[i].parent != 0)
+                {
+                    if(listobj[i].parent == listobj[a].uuid)
+                    {
+                        listobj[i].parentname = listobj[a].name;
+                    }
+                }
+                else
+                {
+                     listobj[i].parentname = "-";
+                }
+
+                
+            }
+            }
+            res.json({"success": true , "obj": listobj});
+        }
+    })
+})
 module.exports = router;
