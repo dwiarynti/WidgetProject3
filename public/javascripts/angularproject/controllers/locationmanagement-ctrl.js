@@ -166,8 +166,5 @@ angular.module('app').controller('locationmanagementcontroller',
                 }
                 // obj.fulladdress = obj.shortaddress +" - "+ obj.fulladdress;
             }
-
-
-
         }
     ]);
