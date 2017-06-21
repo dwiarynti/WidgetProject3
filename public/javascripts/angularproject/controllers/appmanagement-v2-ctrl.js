@@ -45,8 +45,8 @@ angular.module('app').controller('appmanagemet-v2controller',
             }
 
             $scope.ComposePage = function(obj){
-                passingdataservice.appmanagementobj = obj;
-                $location.path('appcomposer');
+                passingdataservice.appmanagementv2obj = obj;
+                $location.path('appcomposert-v2');
             }
         }
     ]);
