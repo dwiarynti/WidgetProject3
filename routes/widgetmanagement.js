@@ -146,6 +146,34 @@ router.get('/widgetmanagement/getall',function(req,res)
 
 });
 
+router.post('/widgetmanagement/update', function (req, res) {
+    var listobj = [];
+
+    widgetdb.get('widgetmanagement', function (err, obj) {
+        if (err) res.json(500, err);
+        else
+            for (var i = 0; i < obj.length; i++) {
+
+                if (obj[i].euid == req.body.euid) {
+                    obj[i].appname = req.body.appname;
+                    obj[i].appstatus = req.body.appstatus;
+                    obj[i].widget = req.body.widget;
+                }
+                listobj.push(obj[i]);
+            }
+
+        if (listobj.length == obj.length) {
+            widgetdb.put('widgetmanagement', listobj, function (err, data) {
+                if (err)
+                    res.json(500, err);
+                else
+                    res.json({ "success": true });
+            });
+        }
+    });
+
+})
+
 
 
 
