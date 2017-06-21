@@ -132,7 +132,14 @@ router.post('/widgetmanagement/create',function(req,res)
                 if(err)
                 res.json(500,err); 
                 else
-                res.json({"success":true})
+                sequencedb.put('sequencenumberwidget',generateid,function(err,id)
+                {
+                    if(err)
+                    res.json(500,err); 
+                    else
+                    res.json({"success":true})
+                });
+               
             });
 
 
