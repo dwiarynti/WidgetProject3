@@ -1,13 +1,15 @@
-<div ng-controller="appcomposertestcontroller">
+<div ng-controller="appcomposer-v2controller">
     <div class="common-widget">
     <div class="common-heading">
         <img class="common-icon" ng-src="/javascripts/images/employee.png" alt="employee" />
-        <span class="www-employee-title">Application Composer</span>
+        <span class="www-employee-title">Application Composer V2</span>
         <button class="btn btn-default" ng-click="ViewPage()" style="float:right">View Page</button>
     </div>
     <div class="common-body">
+        <div class="row" style="margin:2%;">
+            <input type="text" class="form-control" placeholder="Application Name"/>  
+        </div> 
         <div class="row" style="margin:1%">
-
             <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">WIDGET</div>
@@ -22,8 +24,8 @@
                 <div gridster="gridsterOpts">
                     <ul>
                         <li gridster-item="item" ng-repeat="item in widgets" style="height:0px">
-                            <ps-widget-bodytest>
-                            </ps-widget-bodytest>
+                            <ps-widget-body-v2>
+                            </ps-widget-body-v2>
                         </li>
                     </ul>
                 </div>

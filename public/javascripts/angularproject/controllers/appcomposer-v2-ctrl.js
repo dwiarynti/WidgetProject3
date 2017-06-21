@@ -1,4 +1,4 @@
-angular.module('app').controller('appcomposertestcontroller',
+angular.module('app').controller('appcomposer-v2controller',
     ['$scope', '$window', '$location', 'dataService',
         function ($scope, $window, $location, dataService) {
             $scope.appmanagementobj={};

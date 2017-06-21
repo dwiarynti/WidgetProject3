@@ -34,9 +34,9 @@ angular.module('app').config(['$routeProvider', function ($routeProvider) {
             }
         },
         {
-            url: '/appcomposertest',
+            url: '/appcomposert-v2',
             config: {
-                templateUrl: '/javascripts/angularproject/partialviews/appcomposertest.html'
+                templateUrl: '/javascripts/angularproject/partialviews/appcomposer-v2.html'
             }
         },
         {

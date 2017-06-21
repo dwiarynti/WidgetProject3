@@ -1,11 +1,11 @@
 ﻿"use strict";
 
-angular.module('psDashboard').directive('psWidgetBodytest',
+angular.module('psDashboard').directive('psWidgetBodyV2',
     ['$compile', '$modal',
     function ($compile, $modal) {
         return {
             // templateUrl: '/javascripts/angularproject/widgets/psWidgetBodyTestTemplate.html',
-            templateUrl: '/javascripts/ext-modules/psDashboard/psWidgetBodyTestTemplate.html',
+            templateUrl: '/javascripts/ext-modules/psDashboard/psWidgetBody-V2-Template.html',
             link: function (scope, element, attrs) {
                 var newElement = angular.element(scope.item.template);
                 element.append(newElement);
