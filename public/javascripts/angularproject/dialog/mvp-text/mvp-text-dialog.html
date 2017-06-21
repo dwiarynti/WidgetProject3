@@ -30,14 +30,15 @@
         <span class="glyphicon glyphicon-plus-sign newlead-IconPlus" ng-click="addcondition()"></span>
         <div class="row" ng-repeat="condition in configuration.conditions">
             <div class="col-md-6">
-                <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="condition.fieldname">
+                <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="condition.fieldname" ng-change="getValue(condition.fieldname, condition )">
                     <option value="">Please Select Field</option>
-                    <option ng-repeat="obj in fieldnamelist">{{obj}}</option>
+                    <option ng-repeat="obj in fieldnamelist" ng-selected="isSelectedItem(obj,condition.fieldname)">{{obj}}</option>
                 </select>
             </div>
             <div class="col-md-6">
-                <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="condition.fieldname">
+                <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="condition.value">
                     <option value="">Please Select Value</option>
+                    <option ng-repeat="obj in condition.fieldvalue" ng-selected="isSelectedItem(obj,condition.value)">{{obj}}</option>                    
                 </select>
                 <!--<input class="form-control col-md-6" ng-model="condition.value" placeholder="value"/>-->
             </div>  

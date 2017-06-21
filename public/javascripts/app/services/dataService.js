@@ -248,7 +248,7 @@ angular.module('app').factory('dataService',
                         sizeY: 0,
                         minSizeX: 3,
                         minSizeY: 0,
-                        template: '<mvptext></mvptext>',
+                        template: '<mvptext class="col-md-10" style="padding: 0px;"></mvptext>',
                         widgetSettings: {
                             id: 5003,
                             configuration:{},
