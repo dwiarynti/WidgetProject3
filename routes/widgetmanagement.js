@@ -5,6 +5,25 @@ var person = require('./person');
 var persondb = db.sublevel('person');
 var widgetdb = db.sublevel('widgetmanagement');
 var sequencedb = db.sublevel('sequencenumberwidget');
+
+
+router.post('/widgetmanagement/cleanup',function(req,res)
+{
+    var listobj = [];
+    widgetdb.put('widgetmanagement',listobj,function(err)
+        {
+            if(err)
+            {
+                res.json(500,err);
+            }
+            else
+            {
+                 res.json({"success": true});
+            }
+        });
+});
+
+
 router.get('/widgetmanagement/datasource',function(req,res)
 {
 
