@@ -54,7 +54,7 @@ angular.module('app').controller('appcomposer-v2controller',
                 widgetmanagementresource.$create(function(data){
                     $window.alert("Data saved successfully");
                     
-                    $scope.appmanagementv2obj = data.obj;
+                    // $scope.appmanagementv2obj = data.obj;
                     //Reinit menu
                     // $rootScope.addedNewApp = true;
                 });
