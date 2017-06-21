@@ -1,13 +1,12 @@
 angular.module('app').controller('appcomposertestcontroller',
-    ['$scope', '$window', '$location','widgetResource', 'passingdataservice', 'appmanagementResource', 'dataService', '$rootScope',
-        function ($scope, $window, $location, widgetResource, passingdataservice, appmanagementResource, dataService, $rootScope) {
+    ['$scope', '$window', '$location', 'dataService',
+        function ($scope, $window, $location, dataService) {
             $scope.appmanagementobj={};
             $scope.widgets = [];
-            var widgetresource = new widgetResource();
-            var appmanagementresource = new appmanagementResource();
+            
             $scope.gridsterOpts = {
                 columns: 12,
-                margins: [20, 20],
+                margins: [30, 20],
                 outerMargin: false,
                 pushing: true,
                 floating: false,
@@ -23,7 +22,6 @@ angular.module('app').controller('appcomposertestcontroller',
             $scope.addNewWidget = function (widget) {
                 var newWidget = angular.copy(widget.settings);
                 $scope.widgets.push(newWidget);
-                // $scope.appmanagementobj.widget.push(newWidget);
             }
 
 

@@ -93,6 +93,14 @@
     font-size: 15px;
     line-height: 32px;
 }
+.mvp-widgets-heading {
+    /*background-color: darkcyan;*/
+    /*color: white;*/
+    /*height: 32px;*/
+    /*padding-top: 2px;*/
+    /*font-size: 15px;*/
+    /*line-height: 32px;*/
+}
 
 .tab-users,
 .tab-chats,
@@ -136,3 +144,7 @@ li.alert_li {
   border-bottom: thin solid #c0c0c0;
 }
 li.alert_li:hover{background-color:#eee}
+
+.widgetinput {
+    width: 80%;
+}

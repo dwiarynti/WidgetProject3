@@ -16,6 +16,10 @@ angular.module('app').controller('mpv-textcontroller',
                 });
             });
 
+            $scope.setting = function(){
+                
+            }
+
 
 
         }
