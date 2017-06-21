@@ -8,7 +8,8 @@
                { _id: '@_id' },
                {
                  get: { method: 'GET',params:{action:'datasource'}},
-                //  getDataSource: { method: 'GET',params:{action:'datasource'}},
-               })
+                 create: { method: 'POST',params:{action:'create'}},
+                 getall: { method: 'GET',params:{action:'getall'}},
+               });
     }
 }());

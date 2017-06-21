@@ -131,13 +131,13 @@ angular.module('app').controller('appController',
                     //     ]
                     // },
                     { label: 'App Management', href: '/appmanagement', icon: 'fa-user', isGroup: false, submenuItems: [] },
+                    { label: 'App Management V2', href: '/appmanagement-v2', icon: 'fa-user', isGroup: false, submenuItems: [] },
                     { label: 'User Management', href: '/usermanagement', icon: 'fa-user', isGroup: false, submenuItems: [] },
                     { label: 'Auth Setting', href: '/authsetting', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
                     { label: 'Notification Management', href: '/notificationmanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
                     { label: 'Loc Management', href: '/locationmanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
                     { label: 'People Management', href: '/peoplemanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
                     { label: 'Device Management', href: '/devicemanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
-                    { label: 'test', href: '/appcomposert-v2', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
 
                 ];
                 if(role == "Super Admin"){
