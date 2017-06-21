@@ -79,6 +79,7 @@ router.post('/widgetmanagement/create',function(req,res)
         var widget = {
             "euid": generateid,
             "appname": req.body.appname,
+            "appstatus": req.body.appstatus,
             "widget" : req.body.widget
         }
         widgetdb.get('widgetmanagement',function(err,widgetsetting)
@@ -110,7 +111,7 @@ router.post('/widgetmanagement/create',function(req,res)
             widgetdb.put('widgetmanagement',listobj,function(err)
             {
                 if(err)
-                res.json(500,err);
+                res.json(500,err); 
                 else
                 res.json({"success":true})
             });
