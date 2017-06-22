@@ -18,15 +18,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="pageobj in PageList">
-                        <td>{{pageobj.appname}}</td>
+                    <tr ng-repeat="appobj in PageList">
+                        <td>{{appobj.appname}}</td>
 
-                        <td ng-if="pageobj.appstatus == true">Enable</td>
-                        <td ng-if="pageobj.appstatus == false">Disable</td>
+                        <td ng-if="appobj.appstatus == true">Enable</td>
+                        <td ng-if="appobj.appstatus == false">Disable</td>
 
                         <td>
-                            <a ng-click="ComposePage(pageobj)" class="link" style="cursor: pointer">Compose</a> |
-                            <a ng-click="turnoffaddmode($index)" class="link" style="cursor: pointer">Disable</a>
+                            <a ng-click="ComposePage(appobj)" class="link" style="cursor: pointer" ng-if="appobj.appstatus == true">Compose</a> 
+                            <label ng-if="appobj.appstatus == true">|</label>
+                            <a ng-click="Disable(appobj)" class="link" style="cursor: pointer" ng-if="appobj.appstatus == true">Disable</a>
+                            <a ng-click="Disable(appobj)" class="link" style="cursor: pointer" ng-if="appobj.appstatus == false">Enable</a>
                         </td>
                     </tr>
                 </tbody>

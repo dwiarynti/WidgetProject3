@@ -1,13 +1,17 @@
 angular.module('app').controller('appmanagemet-v2controller',
-    ['$scope','$location', 'widgetmanagementResource', 'passingdataservice', '$rootScope',
-        function ($scope, $location, widgetmanagementResource, passingdataservice, $rootScope) {
+    ['$scope','$location', '$window', 'widgetmanagementResource', 'passingdataservice', '$rootScope',
+        function ($scope, $location, $window, widgetmanagementResource, passingdataservice, $rootScope) {
             var widgetmanagementresource = new widgetmanagementResource();
 
             $scope.PageList=[];
-            widgetmanagementresource.$getall(function(data){
-                console.log(data);
-                $scope.PageList = data.obj;
-            });
+            $scope.init = function(){
+                widgetmanagementresource.$getall(function(data){
+                    console.log(data);
+                    $scope.PageList = data.obj;
+                });
+            }
+
+            $scope.init();
 
             $scope.Edit = function(obj){
                 obj.editmode = true;
@@ -47,6 +51,19 @@ angular.module('app').controller('appmanagemet-v2controller',
             $scope.ComposePage = function(obj){
                 passingdataservice.appmanagementv2obj = obj;
                 $location.path('appcomposert-v2');
+            }
+
+            $scope.Disable = function(obj){
+                widgetmanagementresource.euid = obj.euid;
+                widgetmanagementresource.appname = obj.appname;
+                widgetmanagementresource.appstatus = obj.appstatus == true ?false:true;
+                widgetmanagementresource.widget = obj.widget;
+                widgetmanagementresource.$update(function(data){
+                    if(data.success){
+                        $window.alert("Data updated successfully");
+                        $scope.init();
+                    }
+                });
             }
         }
     ]);
