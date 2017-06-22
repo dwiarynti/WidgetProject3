@@ -4,7 +4,8 @@ angular.module('app').controller('mpv-textcontroller',
             $scope.deviceList = [];
             var deviceresource = new deviceResource();
             var siteid = "001";
-
+            
+            console.log($scope.$parent.item);
 
             $scope.$watch(function () {
                 return $scope.$parent.item.widgetSettings.selectedfilter;

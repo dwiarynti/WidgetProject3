@@ -9,6 +9,7 @@
                {
                  get: { method: 'GET',params:{action:'datasource'}},
                  create: { method: 'POST',params:{action:'create'}},
+                 update: { method: 'POST',params:{action:'update'}},
                  getall: { method: 'GET',params:{action:'getall'}},
                });
     }

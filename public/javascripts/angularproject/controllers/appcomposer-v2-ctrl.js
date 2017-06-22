@@ -52,11 +52,25 @@ angular.module('app').controller('appcomposer-v2controller',
                 widgetmanagementresource.widget = $scope.appmanagementv2obj.widget;
 
                 widgetmanagementresource.$create(function(data){
-                    $window.alert("Data saved successfully");
+                    if(data.success){
+                        $window.alert("Data saved successfully");
+                    }
                     
                     // $scope.appmanagementv2obj = data.obj;
                     //Reinit menu
                     // $rootScope.addedNewApp = true;
+                });
+            }
+
+            $scope.Update = function(){
+                widgetmanagementresource.uuid = $scope.appmanagementv2obj.uuid;
+                widgetmanagementresource.appname = $scope.appmanagementv2obj.appname;
+                widgetmanagementresource.appstatus = $scope.appmanagementv2obj.appstatus;
+                widgetmanagementresource.widget = $scope.appmanagementv2obj.widget;
+                widgetmanagementresource.$update(function(data){
+                    if(data.success){
+                        $window.alert("Data updated successfully");
+                    }
                 });
             }
 

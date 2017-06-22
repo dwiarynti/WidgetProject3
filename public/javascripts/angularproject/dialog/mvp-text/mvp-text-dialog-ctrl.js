@@ -6,6 +6,8 @@ angular.module('app').controller('mvp-textdialogcontroller',
         // var textsiteresource = new textsiteResource();
         var widgetmanagementresource = new widgetmanagementResource();
 
+        // console.log($scope.$parent.item.widgetSettings.configuration.conditions);
+
         $scope.configuration = {
             "placeholder":"", 
             "datasource":{}, 
@@ -20,11 +22,28 @@ angular.module('app').controller('mvp-textdialogcontroller',
         $scope.returneddatatypes = ["list", "singledata"];
         // var siteid = "001";
 
+        $scope.getDataSourceFeilds = function(status){
+            if($scope.configuration.datasource != "")
+            {
+                var datasource = status == "init" ? $scope.configuration.datasource : JSON.parse($scope.configuration.datasource);
+                $scope.fieldnamelist = datasource.field;
+            }
+
+        }
+
+        $scope.init = function(){
+            // $scope.$parent.item.widgetSettings.configuration.conditions.datasource = JSON.parse($scope.$parent.item.widgetSettings.configuration.conditions.datasource);       
+            if($scope.$parent.item.widgetSettings.configuration.conditions != undefined)
+                $scope.configuration = $scope.$parent.item.widgetSettings.configuration.conditions;
+                console.log($scope.configuration);
+                $scope.getDataSourceFeilds("init")
+        }
+
+        $scope.init();
 
         $scope.saveSettings = function () {
-            console.log($scope.configuration);
-            $scope.item.widgetSettings.configuration = $scope.configuration;
-            // $scope.item.widgetSettings.configuration.datasource = 
+            // $scope.configuration.datasource = JSON.parse($scope.configuration.datasource);
+            $scope.item.widgetSettings.configuration.conditions = $scope.configuration; 
             $scope.$close();
         };
 
@@ -45,14 +64,7 @@ angular.module('app').controller('mvp-textdialogcontroller',
             });
         }
 
-        $scope.getDataSourceFeilds = function(){
-            if($scope.configuration.datasource != "")
-            {
-                var datasource = JSON.parse($scope.configuration.datasource);
-                $scope.fieldnamelist = datasource.field;
-            }
 
-        }
 
         $scope.getDataSource();
 
