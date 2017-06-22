@@ -237,15 +237,25 @@ var getPerson = function(data,cb)
     {
         var result = "";
        
-        
+    if(data.field != "")
+    {
         for(var i = 0 ; i < person.length;i++)
         {
             if(person[i][data.field] == data.value)
             {
-                result = person[i];
+                result = person[i][data.field];
             }
         }
-        responsedata = result[data.fieldname];
+    }
+    else
+    {
+        for(var i = 0 ; i < person.length;i++)
+        {
+            result = person[i][data.fieldname];
+        }
+    }
+    
+        responsedata = result;
         return cb(responsedata);
     }); 
 }
