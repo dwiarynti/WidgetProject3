@@ -1,11 +1,19 @@
 angular.module('app').controller('mpv-textcontroller',
-    ['$scope','deviceResource',
-        function ($scope, deviceResource) {
+    ['$scope','deviceResource', 'widgetmanagementResource',
+        function ($scope, deviceResource, widgetmanagementResource) {
             $scope.deviceList = [];
+            var widgetmanagementresource = new widgetmanagementResource();
             var deviceresource = new deviceResource();
             var siteid = "001";
+            $scope.obj = "";
             
             console.log($scope.$parent.item);
+            widgetmanagementresource.conditions = $scope.$parent.item.widgetSettings.configuration.conditions;
+            widgetmanagementresource.$getdata(function(data){
+                if(data.success){
+                    $scope.obj = data.obj;
+                }
+            })
 
             $scope.$watch(function () {
                 return $scope.$parent.item.widgetSettings.selectedfilter;

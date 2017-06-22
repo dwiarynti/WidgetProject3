@@ -12,6 +12,7 @@
                  update: { method: 'POST',params:{action:'update'}},
                  getall: { method: 'GET',params:{action:'getall'}},
                  getappbyid: { method: 'GET',params:{action:'getbyid'}},
+                 getdata: { method: 'POST',params:{action:'getdata'}},
                });
     }
 }());
