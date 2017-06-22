@@ -42,8 +42,8 @@ angular.module('app').controller('appcomposer-v2controller',
 
 
             $scope.ViewPage = function(){
-                // window.open($location.path('/prevpage/', {id:$scope.appmanagementv2obj.id}));
-                $location.path('prevpage/'+$scope.appmanagementv2obj.id);
+                // window.open($location.path('/prevpage/', {id:$scope.appmanagementv2obj.euid}));
+                $location.path('prevpage/'+$scope.appmanagementv2obj.euid);
             }
 
             $scope.Save = function(){
@@ -63,7 +63,7 @@ angular.module('app').controller('appcomposer-v2controller',
             }
 
             $scope.Update = function(){
-                widgetmanagementresource.uuid = $scope.appmanagementv2obj.uuid;
+                widgetmanagementresource.euid = $scope.appmanagementv2obj.euid;
                 widgetmanagementresource.appname = $scope.appmanagementv2obj.appname;
                 widgetmanagementresource.appstatus = $scope.appmanagementv2obj.appstatus;
                 widgetmanagementresource.widget = $scope.appmanagementv2obj.widget;
