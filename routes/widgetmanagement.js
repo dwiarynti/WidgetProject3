@@ -23,7 +23,6 @@ router.post('/widgetmanagement/cleanup',function(req,res)
         });
 });
 
-
 router.get('/widgetmanagement/datasource',function(req,res)
 {
 
@@ -172,6 +171,36 @@ router.get('/widgetmanagement/getall',function(req,res)
 
 });
 
+
+router.get('/widgetmanagement/getbyid/:_id',function(req,res)
+{
+    var id = req.params._id;
+    widgetdb.get('widgetmanagement',function(err,data)
+    {
+    if(err)
+    {
+        if (err.message == "Key not found in database") {
+                res.json({ "success": true, "message": "no data", "obj": [] });
+            }
+            else {
+                res.json(500, err);
+            }
+    }
+    else
+    {
+        var item = "";
+        for(var i = 0 ; i < data.length;i++)
+        {
+            if(data[i].euid == id)
+            {
+                item = data[i];
+            }
+        }
+        res.json({"success ": true , "obj": item});
+    }
+    });
+});
+
 router.post('/widgetmanagement/update', function (req, res) {
     var listobj = [];
 
@@ -198,8 +227,7 @@ router.post('/widgetmanagement/update', function (req, res) {
         }
     });
 
-})
-
+});
 
 
 
