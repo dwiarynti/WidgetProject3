@@ -1,0 +1,14 @@
+<div ng-controller="applicationcontroller">
+    <div class="ps-dashboard-header">
+        {{ applicationObj.pagename }}
+    </div>
+    <div gridster="gridsterOpts">
+        <ul>
+            <li gridster-item="item" ng-repeat="item in applicationObj.widget">
+                <ps-widget-body-v2>
+                    
+                </ps-widget-body-v2>
+            </li>
+        </ul>
+    </div>
+</div>

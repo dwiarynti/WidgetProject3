@@ -52,6 +52,12 @@ angular.module('app').config(['$routeProvider', function ($routeProvider) {
             }
         },
         {
+            url: '/application/:euid',
+            config: {
+                templateUrl: '/javascripts/angularproject/partialviews/application.html'
+            }
+        },
+        {
             url: '/usermanagement',
             config: {
                 templateUrl: '/javascripts/angularproject/partialviews/usermanagement.html'

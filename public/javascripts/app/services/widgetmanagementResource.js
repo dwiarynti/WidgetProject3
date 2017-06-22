@@ -11,6 +11,7 @@
                  create: { method: 'POST',params:{action:'create'}},
                  update: { method: 'POST',params:{action:'update'}},
                  getall: { method: 'GET',params:{action:'getall'}},
+                 getappbyid: { method: 'GET',params:{action:'getbyid'}},
                });
     }
 }());

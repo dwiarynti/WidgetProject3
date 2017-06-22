@@ -43,7 +43,7 @@ angular.module('app').controller('appcomposer-v2controller',
 
             $scope.ViewPage = function(){
                 // window.open($location.path('/prevpage/', {id:$scope.appmanagementv2obj.euid}));
-                $location.path('prevpage/'+$scope.appmanagementv2obj.euid);
+                $location.path('application/'+$scope.appmanagementv2obj.euid);
             }
 
             $scope.Save = function(){
