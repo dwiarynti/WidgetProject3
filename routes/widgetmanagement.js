@@ -172,7 +172,7 @@ router.get('/widgetmanagement/getall',function(req,res)
 });
 
 
-router.get('/widgetmanagement/:_id',function(req,res)
+router.get('/widgetmanagement/getbyid/:_id',function(req,res)
 {
     var id = req.params._id;
     widgetdb.get('widgetmanagement',function(err,data)
