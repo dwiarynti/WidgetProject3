@@ -279,13 +279,14 @@ router.post('/widgetmanagement/getdata',function(req,res)
     }
 
     param.datasource = req.body.conditions.datasource.sourcename;
-    if(req.body.field != null)
+  
+    if(req.body.conditions.conditions[0].fieldname != null)
     {
-        param.field = req.body.field;
+        param.field = req.body.conditions.conditions[0].fieldname;
     }
-    if(req.body.value != null)
+    if(req.body.conditions.conditions[0].value)
     {
-        param.value = req.body.value;
+        param.value =req.body.conditions.conditions[0].value;
     }
     if(param.datasource == "Person")
     {
