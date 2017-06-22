@@ -245,7 +245,7 @@ var getPerson = function(data,cb)
                 result = person[i];
             }
         }
-        responsedata = result[data.field];
+        responsedata = result[data.fieldname];
         return cb(responsedata);
     }); 
 }
@@ -274,12 +274,17 @@ router.post('/widgetmanagement/getdata',function(req,res)
 {
     var param = {
         "datasource":"",
+        "fieldname":"",
         "field": "",
         "value": ""
     }
 
     param.datasource = req.body.conditions.datasource.sourcename;
   
+    if(req.body.conditions.fieldname)
+    {
+        param.fieldname =req.body.conditions.fieldname;
+    }
     if(req.body.conditions.conditions[0].fieldname != null)
     {
         param.field = req.body.conditions.conditions[0].fieldname;
@@ -288,6 +293,7 @@ router.post('/widgetmanagement/getdata',function(req,res)
     {
         param.value =req.body.conditions.conditions[0].value;
     }
+    
     if(param.datasource == "Person")
     {
     var data = getPerson(param,function(responsedata)
