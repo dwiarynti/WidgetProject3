@@ -22,10 +22,11 @@ angular.module('app').controller('mvp-textdialogcontroller',
         $scope.returneddatatypes = ["list", "singledata"];
         // var siteid = "001";
 
-        $scope.getDataSourceFeilds = function(status){
+        $scope.getDataSourceFeilds = function(){
             if($scope.configuration.datasource != "")
             {
-                var datasource = status == "init" ? $scope.configuration.datasource : JSON.parse($scope.configuration.datasource);
+                var datasourcetype = typeof($scope.configuration.datasource);
+                var datasource = datasourcetype != "string" ? $scope.configuration.datasource : JSON.parse($scope.configuration.datasource);
                 $scope.fieldnamelist = datasource.field;
             }
 
@@ -36,13 +37,15 @@ angular.module('app').controller('mvp-textdialogcontroller',
             if($scope.$parent.item.widgetSettings.configuration.conditions != undefined)
                 $scope.configuration = $scope.$parent.item.widgetSettings.configuration.conditions;
                 console.log($scope.configuration);
-                $scope.getDataSourceFeilds("init")
+                $scope.getDataSourceFeilds();
         }
 
         $scope.init();
 
         $scope.saveSettings = function () {
             // $scope.configuration.datasource = JSON.parse($scope.configuration.datasource);
+            var datasourcetype = typeof($scope.configuration.datasource);
+            $scope.configuration.datasource = datasourcetype != "string" ? $scope.configuration.datasource : JSON.parse($scope.configuration.datasource);
             $scope.item.widgetSettings.configuration.conditions = $scope.configuration; 
             $scope.$close();
         };

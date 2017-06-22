@@ -13,7 +13,7 @@
                 ng-options="data as obj.sourcename for obj in datasourcelist"
                 ng-change="getDataSourceFeilds(data)">
         </select>-->
-        <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="configuration.datasource" ng-change="getDataSourceFeilds('')">
+        <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="configuration.datasource" ng-change="getDataSourceFeilds()">
             <option value="">Please Select</option>
             <option ng-repeat="obj in datasourcelist" value="{{obj}}" ng-selected="isSelectedItem(obj.sourcename,configuration.datasource.sourcename)">{{obj.sourcename}}</option>
         </select>
