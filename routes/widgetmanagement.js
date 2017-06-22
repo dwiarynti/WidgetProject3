@@ -243,7 +243,7 @@ var getPerson = function(data,cb)
         {
             if(person[i][data.field] == data.value)
             {
-                result = person[i][data.field];
+                result = person[i][data.fieldname];
             }
         }
     }
