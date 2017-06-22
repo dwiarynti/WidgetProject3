@@ -44,6 +44,7 @@ angular.module('app').controller('mvp-textdialogcontroller',
 
         $scope.saveSettings = function () {
             // $scope.configuration.datasource = JSON.parse($scope.configuration.datasource);
+            $scope.configuration.returneddatatype = "singledata";
             var datasourcetype = typeof($scope.configuration.datasource);
             $scope.configuration.datasource = datasourcetype != "string" ? $scope.configuration.datasource : JSON.parse($scope.configuration.datasource);
             $scope.item.widgetSettings.configuration.conditions = $scope.configuration; 
