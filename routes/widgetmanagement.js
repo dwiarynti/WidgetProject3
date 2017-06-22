@@ -23,7 +23,6 @@ router.post('/widgetmanagement/cleanup',function(req,res)
         });
 });
 
-
 router.get('/widgetmanagement/datasource',function(req,res)
 {
 
@@ -192,7 +191,7 @@ router.get('/widgetmanagement/:_id',function(req,res)
         var item = "";
         for(var i = 0 ; i < data.length;i++)
         {
-            if(data[i] == id)
+            if(data[i].euid == id)
             {
                 item = data[i];
             }
@@ -229,7 +228,6 @@ router.post('/widgetmanagement/update', function (req, res) {
     });
 
 });
-
 
 
 
