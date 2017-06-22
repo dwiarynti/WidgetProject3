@@ -6,7 +6,6 @@ angular.module('app').controller('appmanagemet-v2controller',
             $scope.PageList=[];
             $scope.init = function(){
                 widgetmanagementresource.$getall(function(data){
-                    console.log(data);
                     $scope.PageList = data.obj;
                 });
             }

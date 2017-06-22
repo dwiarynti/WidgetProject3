@@ -24,12 +24,9 @@ angular.module('app').controller('appcomposer-v2controller',
             $scope.init = function(){
                 if(passingdataservice.appmanagementv2obj != undefined){
                     $scope.appmanagementv2obj = passingdataservice.appmanagementv2obj;
-                    // $scope.$parent.widgets = $scope.appmanagementv2obj.widget;
-                    console.log($scope.appmanagementv2obj);
                 }else{
                     $location.path('appmanagement-v2');
                 }
-
             }
 
             $scope.init();

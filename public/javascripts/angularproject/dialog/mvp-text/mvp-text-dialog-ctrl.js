@@ -6,8 +6,6 @@ angular.module('app').controller('mvp-textdialogcontroller',
         // var textsiteresource = new textsiteResource();
         var widgetmanagementresource = new widgetmanagementResource();
 
-        // console.log($scope.$parent.item.widgetSettings.configuration.conditions);
-
         $scope.configuration = {
             "placeholder":"", 
             "datasource":{}, 
@@ -36,7 +34,6 @@ angular.module('app').controller('mvp-textdialogcontroller',
             // $scope.$parent.item.widgetSettings.configuration.conditions.datasource = JSON.parse($scope.$parent.item.widgetSettings.configuration.conditions.datasource);       
             if($scope.$parent.item.widgetSettings.configuration.conditions != undefined)
                 $scope.configuration = $scope.$parent.item.widgetSettings.configuration.conditions;
-                console.log($scope.configuration);
                 $scope.getDataSourceFeilds();
         }
 
@@ -61,7 +58,6 @@ angular.module('app').controller('mvp-textdialogcontroller',
         
         $scope.getDataSource = function(){
             widgetmanagementresource.$get(function(data){
-                console.log(data);
                 if(data.success)
                     $scope.datasourcelist = data.obj
 
@@ -82,8 +78,6 @@ angular.module('app').controller('mvp-textdialogcontroller',
                         });
 
                 });
-            console.log(conditionobj.fieldvalue);
-            
         }
         
         $scope.isSelectedItem = function(itemA, itemB){

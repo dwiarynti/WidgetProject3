@@ -6,14 +6,15 @@ angular.module('app').controller('mpv-textcontroller',
             var deviceresource = new deviceResource();
             var siteid = "001";
             $scope.obj = "";
-            
-            console.log($scope.$parent.item);
-            widgetmanagementresource.conditions = $scope.$parent.item.widgetSettings.configuration.conditions;
-            widgetmanagementresource.$getdata(function(data){
-                if(data.success){
-                    $scope.obj = data.obj;
-                }
-            })
+
+            if($scope.$parent.item.widgetSettings.configuration.conditions != undefined){
+                widgetmanagementresource.conditions = $scope.$parent.item.widgetSettings.configuration.conditions;
+                widgetmanagementresource.$getdata(function(data){
+                    if(data.success){
+                        $scope.obj = data.obj;
+                    }
+                });
+            }
 
             $scope.$watch(function () {
                 return $scope.$parent.item.widgetSettings.selectedfilter;
