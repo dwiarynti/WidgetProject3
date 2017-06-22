@@ -22,7 +22,7 @@
         <label>Field Name</label>
         <select class="form-control" style="padding-left:0px; padding-right:0px;" ng-model="configuration.fieldname">
             <option value="">Please Select</option>
-            <option value="obj" ng-repeat="obj in fieldnamelist">{{obj}}</option>
+            <option value="{{obj}}" ng-repeat="obj in fieldnamelist" ng-selected="isSelectedItem(obj,configuration.fieldname)">{{obj}}</option>
         </select>
     </div>
     <div class="form-group">
@@ -49,7 +49,7 @@
         <label>Returned Data Type</label>
         <div class="row">
                 <div class="col-md-6" ng-repeat="obj in returneddatatypes">
-                    <input type="radio" name="returneddatatype" value="obj" ng-model="configuration.returneddatatype"/>{{obj}}
+                    <input type="radio" name="returneddatatype" value="{{obj}}" ng-model="configuration.returneddatatype"/>{{obj}}
                 </div>       
         </div>
     </div>
