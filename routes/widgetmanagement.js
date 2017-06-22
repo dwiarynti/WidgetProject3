@@ -240,32 +240,68 @@ var getPerson = function(data,cb)
         
         for(var i = 0 ; i < person.length;i++)
         {
-            
-            var obj = data.field;
-            eval(obj);
-            if(person[i][obj] == data.value)
+            if(person[i][data.field] == data.value)
             {
                 result = person[i];
             }
         }
         responsedata = result;
         return cb(responsedata);
-    });
-   
-    
+    }); 
 }
 
-router.get('/widgetmanagement/getdata',function(req,res)
+var getRoom = function(data,cb)
+{
+   
+    persondb.get('person', function (err, person)
+    {
+        var result = "";
+       
+        
+        for(var i = 0 ; i < person.length;i++)
+        {
+            if(person[i][data.field] == data.value)
+            {
+                result = person[i];
+            }
+        }
+        responsedata = result;
+        return cb(responsedata);
+    }); 
+}
+
+router.post('/widgetmanagement/getdata',function(req,res)
 {
     var param = {
-        "datasource": "Person",
-        "field": "uuid",
-        "value": "6"
+        "datasource":"",
+        "field": "",
+        "value": ""
     }
+
+    param.datasource = req.body.conditions.datasource.sourcename;
+    if(req.body.field != null)
+    {
+        param.field = req.body.field;
+    }
+    if(req.body.value != null)
+    {
+        param.value = req.body.value;
+    }
+    if(param.datasource == "Person")
+    {
     var data = getPerson(param,function(responsedata)
     {
         res.json({"data":responsedata});
     });
+    }
+    else
+    {
+     var data = getPerson(param,function(responsedata)
+    {
+        res.json({"data":responsedata});
+    });
+    }
+
     
 })
 
