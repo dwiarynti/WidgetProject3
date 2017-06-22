@@ -245,7 +245,7 @@ var getPerson = function(data,cb)
                 result = person[i];
             }
         }
-        responsedata = result;
+        responsedata = result[data.field];
         return cb(responsedata);
     }); 
 }
@@ -265,7 +265,7 @@ var getRoom = function(data,cb)
                 result = person[i];
             }
         }
-        responsedata = result;
+        responsedata = result[data.field];
         return cb(responsedata);
     }); 
 }
@@ -292,14 +292,14 @@ router.post('/widgetmanagement/getdata',function(req,res)
     {
     var data = getPerson(param,function(responsedata)
     {
-        res.json({"data":responsedata});
+        res.json({"success": true , "obj":responsedata});
     });
     }
     else
     {
-     var data = getPerson(param,function(responsedata)
+    var data = getPerson(param,function(responsedata)
     {
-        res.json({"data":responsedata});
+        res.json({"success": true , "obj":responsedata});
     });
     }
 
