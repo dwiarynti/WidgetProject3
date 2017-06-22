@@ -218,7 +218,7 @@ router.post('/widgetmanagement/update', function (req, res) {
             }
 
         if (listobj.length == obj.length) {
-            widgetdb.put('widgetmanagement', listobj, function (err, data) {
+            widgetdb.put('widgetmanagement', listobj, function (err) {
                 if (err)
                     res.json(500, err);
                 else
@@ -229,6 +229,45 @@ router.post('/widgetmanagement/update', function (req, res) {
 
 });
 
+var responsedata = '';
+var getPerson = function(data,cb)
+{
+   
+    persondb.get('person', function (err, person)
+    {
+        var result = "";
+       
+        
+        for(var i = 0 ; i < person.length;i++)
+        {
+            
+            var obj = data.field;
+            eval(obj);
+            if(person[i][obj] == data.value)
+            {
+                result = person[i];
+            }
+        }
+        responsedata = result;
+        return cb(responsedata);
+    });
+   
+    
+}
+
+router.get('/widgetmanagement/getdata',function(req,res)
+{
+    var param = {
+        "datasource": "Person",
+        "field": "uuid",
+        "value": "6"
+    }
+    var data = getPerson(param,function(responsedata)
+    {
+        res.json({"data":responsedata});
+    });
+    
+})
 
 
 
