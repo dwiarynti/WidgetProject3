@@ -244,16 +244,35 @@ angular.module('app').factory('dataService',
                 {
                     title: 'Text',
                     settings: {
-                        sizeX: 4,
+                        sizeX: 5,
                         sizeY: 0,
-                        minSizeX: 3,
+                        minSizeX: 5,
                         minSizeY: 0,
                         template: '<mvptext class="col-md-10" style="padding: 0px;"></mvptext>',
                         widgetSettings: {
                             id: 5003,
                             configuration:{},
                             templateUrl: '/javascripts/angularproject/dialog/mvp-text/mvp-text-dialog.html',
-                            controller: 'mvp-textdialogcontroller'
+                            controller: 'mvp-textdialogcontroller',
+                            settingiconstatus :true
+                        }
+                    }
+                },
+                {
+                    title: 'Label',
+                    settings: {
+                        sizeX: 2,
+                        sizeY: 0,
+                        minSizeX: 2,
+                        minSizeY: 0,
+                        template: '<mvplabel></mvplabel>',
+                        widgetSettings: {
+                            id: 5003,
+                            configuration:{},
+                            templateUrl: '/javascripts/angularproject/dialog/mvp-label/mvp-label-dialog.html',
+                            controller: 'mvp-labeldialogcontroller',
+                            tempname : "label",
+                            settingiconstatus :false                            
                         }
                     }
                 },

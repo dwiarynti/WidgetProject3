@@ -6,7 +6,7 @@ angular.module('app').controller('appcomposer-v2controller',
             $rootScope.widgetviewmode = false;
 
             $scope.gridsterOpts = {
-                columns: 12,
+                columns: 13,
                 margins: [30, 20],
                 outerMargin: false,
                 pushing: true,

@@ -1,7 +1,7 @@
 ﻿<div class="ps-widget-body-text">
     <div class="ps-widget-menu-area btn-group" style="padding-right:0px;">
         <a ng-if="widgetviewmode != true" class="dropdown-toggle" aria-expanded="false">
-            <i class="fa fa-cog" ng-click="settings()" />
+            <i ng-if="item.widgetSettings.settingiconstatus == true" class="fa fa-cog" ng-click="settings()" />
             <i class="fa fa-minus" ng-click="close()" />
         </a>
 
