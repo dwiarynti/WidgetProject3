@@ -1,12 +1,16 @@
 ﻿"use strict";
 
 angular.module('app').controller('appController',
-    ['$scope', '$rootScope', '$location', 'appmanagementResource', 'userResource','authsettingResource','notificationmanagementResource',
-        function ($scope, $rootScope, $location, appmanagementResource, userResource, authsettingResource, notificationmanagementResource) {
+    ['$scope', '$rootScope', '$location', 'appmanagementResource', 'userResource','authsettingResource','notificationmanagementResource', 'widgetmanagementResource',
+        function ($scope, $rootScope, $location, appmanagementResource, userResource, authsettingResource, notificationmanagementResource, widgetmanagementResource) {
             var userresource = new userResource();            
             var appmanagementresource = new appmanagementResource();  
             var authsettingresource = new authsettingResource();                    
             var notificationmanagementresource = new notificationmanagementResource();
+            var widgetmanagementresource = new widgetmanagementResource();
+
+
+
             $scope.state = 'unauthorized';
             $scope.loginobj = {username:"", password:""};
             $scope.registerobj = {username:"", password:""};
@@ -134,7 +138,7 @@ angular.module('app').controller('appController',
                     { label: 'App Management V2', href: '/appmanagement-v2', icon: 'fa-user', isGroup: false, submenuItems: [] },
                     { label: 'User Management', href: '/usermanagement', icon: 'fa-user', isGroup: false, submenuItems: [] },
                     { label: 'Auth Setting', href: '/authsetting', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
-                    { label: 'Notification Management', href: '/notificationmanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
+                    { label: 'Notif Management', href: '/notificationmanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
                     { label: 'Loc Management', href: '/locationmanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
                     { label: 'People Management', href: '/peoplemanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
                     { label: 'Device Management', href: '/devicemanagement', icon: 'fa-wrench', isGroup: false, submenuItems: [] },
@@ -156,6 +160,28 @@ angular.module('app').controller('appController',
                         angular.forEach(list, function (item) {
                             if (item.pagestatus) {
                                 applist.submenuItems.push({ label: item.pagename, href: '/prevpage/' + item.id, icon: 'fa-dashboard' });
+                            }
+                        });
+
+                    }
+
+                    $scope.menuItems.push(applist);
+
+                    $rootScope.addedNewApp = false;
+                });
+
+                //application list widget v2
+                widgetmanagementresource.$getall(function (data) {
+
+                    var applist = { label: 'App List V2', href: '', icon: 'fa-gears', isGroup: true, submenuItems: [] };
+
+                    if (data.success) {
+
+                        var list = data.obj;
+
+                        angular.forEach(list, function (item) {
+                            if (item.appstatus) {
+                                applist.submenuItems.push({ label: item.appname, href: '/application/' + item.euid, icon: 'fa-dashboard' });
                             }
                         });
 
