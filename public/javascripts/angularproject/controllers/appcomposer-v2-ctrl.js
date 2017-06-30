@@ -1,10 +1,10 @@
 angular.module('app').controller('appcomposer-v2controller',
-    ['$scope', '$window', '$location', 'dataService','passingdataservice', 'widgetmanagementResource',
-        function ($scope, $window, $location, dataService, passingdataservice, widgetmanagementResource) {
+    ['$scope', '$rootScope', '$window', '$location', 'dataService','passingdataservice', 'widgetmanagementResource',
+        function ($scope, $rootScope, $window, $location, dataService, passingdataservice, widgetmanagementResource) {
             $scope.appmanagementv2obj={};
             var widgetmanagementresource = new widgetmanagementResource();
+            $rootScope.widgetviewmode = false;
 
-            
             $scope.gridsterOpts = {
                 columns: 12,
                 margins: [30, 20],

@@ -1,7 +1,7 @@
 angular.module('app').controller('applicationcontroller',
-    ['$scope', '$routeParams', 'widgetmanagementResource',
-        function ($scope, $routeParams, widgetmanagementResource) {
-
+    ['$scope', '$rootScope', '$routeParams', 'widgetmanagementResource',
+        function ($scope, $rootScope, $routeParams, widgetmanagementResource) {
+            $rootScope.widgetviewmode = true;
             var widgetmanagementresource = new widgetmanagementResource();
             $scope.applicationObj = {};
 

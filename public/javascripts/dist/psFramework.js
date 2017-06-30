@@ -346,9 +346,10 @@ angular.module('psDashboard').directive('psWidgetBodyV2',
             templateUrl: '/javascripts/ext-modules/psDashboard/psWidgetBody-V2-Template.html',
             link: function (scope, element, attrs) {
                 var newElement = angular.element(scope.item.template);
+                scope.widgetviewmode = scope.$parent.$parent.$root.widgetviewmode;
                 element.append(newElement);
                 $compile(newElement)(scope);
-
+                // console.log(scope.$parent.$parent.$root.widgetviewmode);
                 scope.close = function () {
                     scope.appmanagementv2obj.widget.splice(scope.appmanagementv2obj.widget.indexOf(scope.item), 1);
                 };
