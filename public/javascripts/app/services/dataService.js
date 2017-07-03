@@ -276,6 +276,24 @@ angular.module('app').factory('dataService',
                         }
                     }
                 },
+                {
+                    title: 'Table',
+                    settings: {
+                        sizeX: 6,
+                        sizeY: 2,
+                        minSizeX: 5,
+                        minSizeY: 2,
+                        template: '<mvptable></mvptable>',
+                        widgetSettings: {
+                            id: 5003,
+                            configuration:{},
+                            templateUrl: '/javascripts/angularproject/dialog/mvp-table/mvp-table-dialog.html',
+                            controller: 'mvp-tabledialogcontroller',
+                            // tempname : "table",
+                            settingiconstatus :true                            
+                        }
+                    }
+                },
                 // {
                 //     title: 'Person',
                 //     settings: {
