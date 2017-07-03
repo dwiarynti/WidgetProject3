@@ -37,6 +37,7 @@ var auth = require('./routes/authenticationmanagement');
 var message = require('./routes/message');
 var room = require('./routes/room');
 var roomdev = require('./routes/roomdev');
+var personloc = require('./routes/personloc');
 var widgetmanagement = require('./routes/widgetmanagement');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -64,6 +65,7 @@ app.use('/api',auth);
 app.use('/api',message);
 app.use('/api',room);
 app.use('/api',roomdev);
+app.use('/api',personloc);
 app.use('/api',widgetmanagement);
 //
 
