@@ -7,5 +7,9 @@ angular.module('app').controller('mpv-personcontroller',
             personresource.$init({_id:siteid}, function(data){
                 $scope.personList = data.obj;        
             });
+            // personresource.$getAll(function(data){
+            //     console.log(data.obj);
+            //     $scope.peopleList = data.obj;
+            // });
         }
     ]);

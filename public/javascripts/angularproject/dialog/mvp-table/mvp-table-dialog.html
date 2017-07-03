@@ -18,7 +18,7 @@
         <label>Field Name</label>
         <div class="row">
             <div class="col-md-6" ng-repeat="obj in fieldnamelist">
-                <input type="checkbox" ng-model="configuration.fieldname" value="{{obj}}" ng-change="pushSelectedTransactionType(true)" /> {{obj}}
+                <input type="checkbox" ng-model="obj.isSelected" value="{{obj.key}}" ng-change="pushSelectedTransactionType(obj)" /> {{obj.key}}
             </div>
         </div>
     </div>

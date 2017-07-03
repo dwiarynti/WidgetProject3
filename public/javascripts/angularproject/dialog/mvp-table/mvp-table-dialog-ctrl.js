@@ -3,58 +3,51 @@
 angular.module('app').controller('mvp-tabledialogcontroller',
     ['$scope', '$filter', 'dataService','widgetmanagementResource',
     function ($scope, $filter, dataService, widgetmanagementResource) {
-        // var tablesiteresource = new tablesiteResource();
         var widgetmanagementresource = new widgetmanagementResource();
 
         $scope.configuration = {
-            "placeholder":"", 
             "datasource":{}, 
-            "fieldname":"", 
-            "conditions":[],
-            "returneddatatype":""
+            "fieldname":[], 
+            "returneddatatype":"list"
         };
-
-        $scope.datasourcelist = [];
         $scope.fieldnamelist = [];
-        $scope.fieldvalue = [];
-        $scope.returneddatatypes = ["list", "singledata"];
-        // var siteid = "001";
 
         $scope.getDataSourceFeilds = function(){
             if($scope.configuration.datasource != "")
             {
                 var datasourcetype = typeof($scope.configuration.datasource);
                 var datasource = datasourcetype != "string" ? $scope.configuration.datasource : JSON.parse($scope.configuration.datasource);
-                $scope.fieldnamelist = datasource.field;
+
+                angular.forEach(datasource.field, function (fieldname) {
+                    var isSelected = $filter('filter')($scope.configuration.fieldname,function(selectedfieldname){
+                        return selectedfieldname === fieldname
+                    })[0] != undefined ? true:false;
+                    console.log($filter('filter')($scope.configuration.fieldname,function(selectedfieldname){
+                        return selectedfieldname === fieldname
+                    })[0]);
+                    $scope.fieldnamelist.push({"key":fieldname, "isSelected":isSelected});
+                });
             }
 
         }
 
-        $scope.init = function(){
-            // $scope.$parent.item.widgetSettings.configuration.conditions.datasource = JSON.parse($scope.$parent.item.widgetSettings.configuration.conditions.datasource);       
-            if($scope.$parent.item.widgetSettings.configuration.conditions != undefined)
-                $scope.configuration = $scope.$parent.item.widgetSettings.configuration.conditions;
+        $scope.init = function(){  
+            if(Object.keys($scope.$parent.item.widgetSettings.configuration).length > 0)
+                $scope.configuration = $scope.$parent.item.widgetSettings.configuration;
                 $scope.getDataSourceFeilds();
         }
 
         $scope.init();
 
         $scope.saveSettings = function () {
-            // $scope.configuration.datasource = JSON.parse($scope.configuration.datasource);
-            $scope.configuration.returneddatatype = "singledata";
+
+            //getdatatype
             var datasourcetype = typeof($scope.configuration.datasource);
             $scope.configuration.datasource = datasourcetype != "string" ? $scope.configuration.datasource : JSON.parse($scope.configuration.datasource);
-            $scope.item.widgetSettings.configuration.conditions = $scope.configuration; 
+            $scope.item.widgetSettings.configuration = $scope.configuration; 
+            console.log($scope.item.widgetSettings.configuration);
             $scope.$close();
         };
-
-        $scope.addcondition = function(){
-            $scope.configuration.conditions.push({
-                "fieldname":"",
-                "value":"",
-                "fieldvalue":[],
-            })
-        }
         
         $scope.getDataSource = function(){
             widgetmanagementresource.$get(function(data){
@@ -64,23 +57,19 @@ angular.module('app').controller('mvp-tabledialogcontroller',
             });
         }
 
-
-
         $scope.getDataSource();
 
-        $scope.getValue=function(obj, conditionobj){
-            conditionobj.fieldvalue = [];
-                angular.forEach($scope.datasourcelist, function (datasource) {
-                    if(datasource.data != undefined)
-                        angular.forEach(datasource.data, function (data) {
-                            if(data.hasOwnProperty(obj))
-                                conditionobj.fieldvalue.push(data[obj])
-                        });
-
-                });
-        }
         
         $scope.isSelectedItem = function(itemA, itemB){
             return itemA == itemB ? true:false;
+        }
+
+        $scope.pushSelectedTransactionType = function (obj) {
+            if(obj.isSelected)
+                $scope.configuration.fieldname.push(obj.key);
+            else
+                $scope.configuration.fieldname.splice(obj.key,1);
+            
+            console.log($scope.configuration.fieldname);
         }
     }]);
