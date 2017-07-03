@@ -18,14 +18,16 @@ angular.module('app').controller('mpv-tablecontroller',
                     "Field4": "-"
                 }];
 
-            // if($scope.$parent.item.widgetSettings.configuration.conditions != undefined){
-            //     widgetmanagementresource.conditions = $scope.$parent.item.widgetSettings.configuration.conditions;
-            //     widgetmanagementresource.$getdata(function(data){
-            //         if(data.success){
-            //             $scope.obj = data.obj;
-            //         }
-            //     });
-            // }
+            if(Object.keys($scope.$parent.item.widgetSettings.configuration).length > 0){
+                console.log($scope.$parent.item.widgetSettings.configuration);
+                // widgetmanagementresource.conditions = $scope.$parent.item.widgetSettings.configuration.conditions;
+                // widgetmanagementresource.$getdata(function(data){
+                //     console.log(data);
+                //     if(data.success){
+                //         $scope.obj = data.obj;
+                //     }
+                // });
+            }
 
             $scope.$watch(function () {
                 return $scope.$parent.item.widgetSettings.selectedfilter;
